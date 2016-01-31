@@ -8,24 +8,24 @@ A diferencia de Trenes en Vivo, esta plataforma híbrida (lo considero de esa fo
 # Líneas y ramales disponibles 
 Al contrario de la app oficial, acá se despliegan todos los datos de todos los ramales en donde se haya implementado la generación de datos en tiempo real. 
 * Sarmiento. 
-** Once-Moreno. 
-** Merlo-Lobos. 
-** Moreno-Mercedes. 
+-- Once-Moreno. 
+-- Merlo-Lobos. 
+-- Moreno-Mercedes. 
 * Mitre. 
-** Retiro-Tigre. 
-** Retiro-J.L.Suárez/Bme.Mitre. 
-** Victoria-Capilla del Señor (sólo cabeceras). 
-** Zárate-Villa Ballester (sólo cabeceras). 
+-- Retiro-Tigre. 
+-- Retiro-J.L.Suárez/Bme.Mitre. 
+-- Victoria-Capilla del Señor (sólo cabeceras). 
+-- Zárate-Villa Ballester (sólo cabeceras). 
 * Roca. 
-** Constitución-La Plata. 
-** Constitución Bosques/Gutiérrez (en pruebas). 
-** Constitución Alejandro Korn (en pruebas). 
-** Constitución Cañuelas (en pruebas). 
-** Constitución Haedo-Temperley (en pruebas). 
+-- Constitución-La Plata. 
+-- Constitución Bosques/Gutiérrez (en pruebas). 
+-- Constitución Alejandro Korn (en pruebas). 
+-- Constitución Cañuelas (en pruebas). 
+-- Constitución Haedo-Temperley (en pruebas). 
 * Belgrano Sur. 
-** Buenos Aires-M.C.G.Belgrano. 
-** Buenos Aires-González Catán. 
-** Puente Alsina-Aldo Bonzi (sólo cabeceras). 
+-- Buenos Aires-M.C.G.Belgrano. 
+-- Buenos Aires-González Catán. 
+-- Puente Alsina-Aldo Bonzi (sólo cabeceras). 
 * San Martín. 
 * Tren de la Costa. 
 * Belgrano Norte (en pruebas). 
