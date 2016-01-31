@@ -1,0 +1,57 @@
+[{
+	"linea": 					"Sarmiento (Once-Moreno)", 
+	"idLinea": 					1, 
+	"destinos": 				[
+									{
+										"sentido": 			"Moreno", 
+										"idLineaRamal": 	1
+									}, 
+									{
+										"sentido": 			"Once", 
+										"idLineaRamal": 	2
+									}
+								]
+}, {
+	"titulo": 					"Mitre (Retiro-Tigre)", 
+	"idLinea": 					2, 
+	"destinos": 				[
+									{
+										"sentido": 			"Tigre", 
+										"idLineaRamal": 	5
+									}, 
+									{
+										"sentido": 			"Retiro", 
+										"idLineaRamal": 	6
+									} 
+								]
+}, {
+	"titulo": 					"Mitre (Retiro-Bartolomé Mitre/José Leon Suárez)", 
+	"idLinea": 					3, 
+	"destinos": 				[
+									{
+										"ramal": 			"Bartolomé Mitre", 
+										"destinos": 		[
+																{
+																	"sentido": 			"Bartolomé Mitre", 
+																	"idLineaRamal": 	7
+																}, 
+																{
+																	"sentido": 			"Retiro", 
+																	"idLineaRamal": 	8
+																} 
+															]
+									}, {
+										"ramal": 			"José Leon Suárez", 
+										"destinos": 		[
+																{
+																	"sentido": 			"José Leon Suárez", 
+																	"idLineaRamal": 	9
+																}, 
+																{
+																	"sentido": 			"Retiro", 
+																	"idLineaRamal": 	10
+																} 
+															]
+									}, 
+								]
+}]

@@ -1,0 +1,263 @@
+/* Fuentes */
+	@font-face {
+		font-family: "fuente";
+		font-weight: normal;
+		font-style: normal;
+		src: url("../fonts/DINPro-Regular.otf") format("opentype");
+	}
+	@font-face {
+		font-family: "tiempo";
+		font-weight: normal;
+		font-style: normal;
+		src: url("../fonts/DINProCond-Medium.ttf") format("truetype");
+	}
+
+/* Estilos generales */
+	*{
+		padding: 0; margin: 0;
+		font-family: "fuente", Arial, Serif;
+		-webkit-user-select: none; 
+		-moz-user-select: none;
+		user-select: none; 
+	} 
+	section{margin: 10px; border-top: 1px solid rgba(200, 200, 200, 0.5);}
+	button{
+		margin: 10px; 
+		padding: 10px; 
+		background-color: rgba(0, 0, 0, 0.75); 
+		border: 1px solid rgba(200, 200, 200, 0.5); 
+		color: #FFF; 
+	}
+
+/* Contenedor */
+	.grid-container{
+		text-align: center; 
+		padding: 10px; 
+	}
+
+/* Fondo */
+	#fondo{
+		color: #000; 
+		background-size: cover; 
+		background-position: center;
+		background-repeat: no-repeat;
+		height: 100%;
+		width: 100%; 
+		position: fixed; 
+		z-index: -1; 
+		padding: 0; margin: 0; 
+	}
+	html{
+		background-color: #000;
+		height: 100%; 
+	}
+
+/* Barra superior */
+	header{background-image: linear-gradient(to bottom, rgb(20, 20, 20) 0%, transparent 100%);}
+	.brand{
+		margin: 10px;
+		background-size: cover; 
+		background-position: center;
+		display: inline-block; 
+	}
+	.brand#NFA{
+		background-image: url(../img/brand-NFA.png); 
+		width: 225px; 
+		height: 75px; 
+		text-align: left; 
+		vertical-align: middle;
+	}
+	.brand#min-transporte{
+		background-image: url(../img/brand-FM5HD.png); 
+		width: 340px; 
+		height: 60px; 
+		right: 0;
+		float: right;
+	}
+	#volver {display: inline-block; width: 80px; vertical-align: middle; transition: 0.5s; cursor: pointer;}
+	#volver i.material-icons{font-size: 70px; color: #FFF;}
+	#volver.ocultarVolver {width: 0px;}
+	#volver.ocultarVolver.oculto {display: none;}
+	@media (max-width: 767px) {
+		.brand#NFA{
+			width: 135px; 
+			height: 45px; 
+		}
+		#volver {width: 50px;}
+		#volver i.material-icons{font-size: 40px;}
+	}
+
+/* Barra de alerta inferior */
+	#barra-mensaje-alerta{position: fixed; bottom: 0; background-color: rgb(200, 0, 0); color: #FFF; display: none; }
+	@media (max-width: 767px) {
+		#barra-mensaje-alerta{position: static;}
+		#barra-mensaje-alerta h1{font-size: 14px;}
+		#barra-mensaje-alerta .estacion, #barra-mensaje-alerta .reloj{display: none;}
+	}
+/* Barra de alerta en terminal */
+	#barra-mensaje-alerta-terminal{position: static; background-color: rgb(200, 0, 0); color: #FFF; display: none; overflow: hidden; text-transform: capitalize;}
+	#barra-mensaje-alerta-terminal h1#normal{display: block;}
+	#barra-mensaje-alerta-terminal h1#responsive{display: none; }
+	@media (max-width: 767px) {
+		#barra-mensaje-alerta-terminal h1#normal{font-size: 14px; display: none;}
+		#barra-mensaje-alerta-terminal h1#responsive{font-size: 14px; display: block;}
+	}
+
+/* Selector de línea, estación y más */
+	.selector{background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 15%, rgba(0, 0, 0, 0.3) 85%, transparent 100%); color: #FFF; }
+	.selector h1{font-size: 30px;}
+	.selector input[type:radio]{margin: 10px; }
+	.selector #estacionesLinea{
+		height: 150px; 
+	}
+	.selector .estacion{
+		display: inline-block;
+		transform: translate(0px, 10px) rotate(45deg);
+    	white-space: nowrap;
+		width: 30px;
+		font-size: 14px; 
+	}
+
+/* Servicios finalizados */
+	.servicios-finalizados{
+		background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 15%, rgba(0, 0, 0, 0.3) 85%, transparent 100%);
+		color: #FFF; 
+		margin: auto 0;
+		text-shadow: 0px 0px 10px #000;
+	}
+	.servicios-finalizados i.material-icons{font-size: 175px; padding-bottom: 0;}
+	.servicios-finalizados h1{font-size: 90px;}
+	.servicios-finalizados h2{font-size: 42px; margin-top: 15px;}
+	@media (max-width: 767px) {
+		.servicios-finalizados i.material-icons{font-size: 90px;}
+		.servicios-finalizados h1{font-size: 27px;}
+		.servicios-finalizados h2{font-size: 17px;}
+	}
+
+/* Cuadros de próximo tren */
+	.proximo-tren .cuadro-tren, .siguiente-tren .cuadro-tren, .subsiguiente-tren .cuadro-tren{
+		background-color: rgba(0, 0, 0, 0.75); 
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		color: #FFF; 
+		margin: 5px; 
+	}
+	@media (max-width: 767px) {.grid-container#proximo{padding-bottom: 0;}}
+	@media (max-width: 767px) {.grid-container#siguientes{padding-top: 0;}}
+
+	.proximo-tren p, .siguiente-tren p, .subsiguiente-tren p{
+		margin: 0; padding: 0;
+	}
+
+	/*.proximo-tren .cuadro-tren 					{height: 500px;}
+	.siguiente-tren .cuadro-tren				{height: 200px;}
+	.subsiguiente-tren .cuadro-tren				{height: 200px;}*/
+
+	.proximo-tren p 							{font-size: 55px;}
+	.siguiente-tren p							{font-size: 40px;}
+	.subsiguiente-tren p						{font-size: 40px;}
+
+	.proximo-tren p.num-tiempo					{font-size: 180px; line-height: 190px;}
+	.siguiente-tren p.num-tiempo				{font-size: 70px;}
+	.subsiguiente-tren p.num-tiempo				{font-size: 70px;}
+	@media (max-width: 767px) {
+		.proximo-tren p 							{font-size: 30px;}
+		.siguiente-tren p							{font-size: 30px;}
+		.subsiguiente-tren p						{font-size: 30px;}
+
+		.proximo-tren p.num-tiempo					{font-size: 60px; line-height: inherit;}
+		.siguiente-tren p.num-tiempo				{font-size: 60px;}
+		.subsiguiente-tren p.num-tiempo				{font-size: 60px;}
+	}
+
+/* Andén de terminal */
+	.anden .cuadro{
+		background-color: rgba(0, 0, 0, 0.75); 
+		border: 1px solid rgba(255, 255, 255, 0.5);
+		color: #FFF; 
+		margin: 5px; 
+	}
+	.anden p{font-size: 64px;}
+	.anden p.salida#hora{font-size: 180px;}
+	.anden p.anden#texto{display: block;}
+	.anden p.anden#numero{font-size: 180px;}
+	.anden p.anden#mobile{font-size: 40px; display: none;}
+	.anden .servicio-atrasado{font-size: 56px;}
+	.anden .servicio-especial .cuadro-serv-especiales#tipo-serv-est{background-color: rgba(0, 0, 0, 0.5); text-transform: capitalize;}
+	.anden .servicio-especial .cuadro-serv-especiales{overflow: hidden;}
+	@media (max-width: 767px) {
+		.anden p {font-size: 30px;}
+		.anden p.salida#hora{font-size: 60px;}
+		.anden p.anden#texto{display: none;}
+		.anden p.anden#numero{font-size: 60px; display: none;}
+		.anden p.anden#mobile{display: block;}
+		.anden .servicio-atrasado{font-size: 28px;}
+	}
+
+/* Terminal */
+	h1#tituloMismoDestino{background-color: rgba(255, 255, 255, 0.75); color: rgb(20, 20, 20); display: none;}
+	.terminal .proximo-servicio.sin-servicio{display: none;}
+	.terminal .proximo-servicio{background-color: rgba(0, 0, 0, 0.75); margin: 5px; color: #FFF; opacity: 0.5;}
+	.terminal .proximo-servicio.confirmado, .terminal .proximo-servicio.enanden{opacity: 1;}
+	.terminal .destino-hora{font-size: 50px; display: inline-block;}
+	.terminal .estado-anden{font-size: 50px; display: inline-block;}
+	.terminal .destino-mobile{display: none; font-size: 20px;}
+	.terminal .hora-mobile{display: none; font-size: 30px;}
+	.terminal .estado-mobile{display: none; font-size: 20px;}
+	.terminal .anden-mobile{display: none; font-size: 30px;}
+	.terminal .servicios-especiales, .terminal .tipo-servicio{border-top: 1px solid rgba(200, 200, 200, 0.5); font-size: 35px; padding: 0px; overflow: hidden; }
+	.terminal .servicios-especiales .estaciones{overflow: hidden;}
+	.terminal .servicios-especiales.oculto, .terminal .tipo-servicio.oculto{display: none;}
+	@media (max-width: 767px) {
+		.terminal .destino-hora{display: none;}
+		.terminal .estado-anden{display: none;}
+		.terminal .destino-mobile{display: block;}
+		.terminal .hora-mobile{display: block;}
+		.terminal .estado-mobile{display: block;}
+		.terminal .anden-mobile{display: block;}
+		.terminal .servicios-especiales, .terminal .tipo-servicio{font-size: 25px;}
+	}
+
+/* Muestra los servicios rápidos */
+	.cuadro-serv-especiales p{font-size: 34px;}
+	@media (max-width: 767px) {.cuadro-serv-especiales p{font-size: 25px;}}
+	#cuadro-tipo-servicio{overflow: hidden;}
+	#cuadro-estaciones-serv{background-color: rgba(0, 0, 0, 0.5); overflow: hidden;}
+	p#estaciones-serv-especial, .js-marquee-wrapper, .js-marquee{text-transform: capitalize;}
+	p#estaciones-serv-especial:first-letter, .js-marquee-wrapper:first-letter, .js-marquee:first-letter{text-transform: uppercase !important;}
+
+/* Flags de servicios */
+	.especial{background-color: rgba(200, 150, 0, 0.75);}
+	.rapido{background-color: rgba(0, 150, 255, 0.75);}
+	.semi-rapido{background-color: rgba(225, 225, 0, 0.75); color: #000;}
+
+
+/* Footer/Header mobile */
+.datos-estacion{
+	position: fixed; 
+	bottom: 0; 
+	background-color: rgba(0, 0, 0, 0.75); 
+	color:#FFF;
+}
+.datos-estacion.terminal{position: static;}
+.datos-estacion img#linea{padding: 3px 0;}
+.datos-estacion i.material-icons{font-size: 40px; vertical-align: top;}
+@media (max-width: 1060px) {
+	.datos-estacion{position: static;}
+	.datos-estacion img#linea{max-width: 250px;}
+	.datos-estacion h1{font-size: 22px;}
+	.datos-estacion i.material-icons{font-size: 30px;}
+}
+
+@media (max-height: 720px) {
+	.datos-estacion{position: static;}
+	.datos-estacion img#linea{max-width: 250px;}
+	.datos-estacion h1{font-size: 22px;}
+	.datos-estacion i.material-icons{font-size: 30px;}
+}
+
+/* Modificaciones a Bootstrap */
+.btn-default {
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.5);
+}
