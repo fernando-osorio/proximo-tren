@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Próximo tren</title>
+		<title>Próximo tren (Beta)</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 		<meta name="theme-color" content="rgb(20, 20, 20)" />
+<<<<<<< HEAD
 		<!-- Meta og -->
 		<meta property="og:description" content='Consultá cuándo va a llegar el tren a la estación.'>
 		<meta property="og:site_name" content="Próximo tren" />
@@ -44,18 +45,50 @@
 		<script src="js/estacion.js"></script>
 		<script src="js/anden.js"></script>
 		<script src="js/terminal.js"></script>
+=======
+		<!--[if lt IE 9]>
+			<script src="./assets/javascripts/html5.js"></script>
+		<![endif]-->
+		<!--[if (gt IE 8) | (IEMobile)]><!-->
+			<link rel="stylesheet" href="css/unsemantic/unsemantic-grid-responsive-rtl.css" />
+		<!--<![endif]-->
+		<!--[if (lt IE 9) & (!IEMobile)]>
+			<link rel="stylesheet" href="css/unsemantic/ie-rtl.css" />
+		<![endif]-->
+		<script src="js/vendor/jquery-2.1.4.min.js"></script>
+
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/material-icons.css" />
+		<script src="js/vendor/jquery.marquee.js"></script>
+		<script src="js/vendor/moment.min.js"></script>
+		<script src="js/vendor/moment-duration-format.js"></script>
+		<script src="js/script.js"></script>
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 	</head>
 	<body>
 		<div id="fondo"></div>
 		<header>
 			<div class="grid-container">
+<<<<<<< HEAD
 				<div class="grid-100 mobile-grid-100" style="text-align: left;">
 					<div id="volver" class="ocultarVolver oculto" onclick="volverAlSelector()"><i class="material-icons">&#xE5C4;</i></div><div class="brand" id="NFA" title="Nuevos Ferrocarriles Argentinos"></div>
 				</div>
+=======
+				<!--<div class="grid-50 push-50 mobile-grid-50">
+					<div class="brand" id="NFA" title="Nuevos Ferrocarriles Argentinos"></div>
+				</div>
+				<div class="grid-50 pull-50 mobile-grid-50" style="text-align: right;">
+					<div class="brand" id="min-transporte" title="Ministerio de Transporte"></div>
+				</div>-->
+				<div class="grid-100 mobile-grid-100">
+					<div class="brand" id="NFA" title="Nuevos Ferrocarriles Argentinos"></div>
+				</div>
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 			</div>
 		</header>
 		<div class="grid-100 grid-parent datos-estacion">
 			<div class="grid-container">
+<<<<<<< HEAD
 				<div class="grid-80 push-20 mobile-grid-100" style="padding:0; margin:0;">
 					<div class="grid-30 push-70 mobile-grid-100" onclick="volverAlSelector()">
 						<img id="linea" />
@@ -65,10 +98,23 @@
 					</div>
 				</div>
 				<div class="grid-20 pull-80 mobile-grid-100">
+=======
+				<div class="grid-66 push-33 mobile-grid-100" style="padding:0; margin:0;">
+					<div class="grid-50 push-50 mobile-grid-100" onclick="volverAlSelector()">
+						<img id="linea" style="padding: 3px 0;" />
+					</div>
+					<div class="grid-50 pull-50 mobile-grid-100">
+						<h1 id="estacion-actual">Estación</h1>
+					</div>
+				</div>
+				<div class="grid-33 pull-66 mobile-grid-100">
+					<!--<h1 id="trenes-a">Trenes a...</h1>-->
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 					<h1><span id="horaactual"></span></h1>
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<!-- En terminal, sólo si los destinos son los mismos entre sí. -->
 		<center><h1 id="tituloMismoDestino"><div class="grid-container">Próximos servicios a Moreno</div></h1></center>
 		<!-- Alerta en andén y estación -->
@@ -83,10 +129,25 @@
 					</div>
 				</div>
 				<div class="grid-20 pull-80 mobile-grid-0 reloj">
+=======
+		<div class="grid-100 grid-parent" id="barra-mensaje-alerta">
+			<div class="grid-container">
+				<div class="grid-80 push-20 mobile-grid-100" style="padding:0; margin:0;">
+					<div class="grid-20 push-80 mobile-grid-0">
+						<h1 id="estacion-actual-2"></h1>
+					</div>
+					<div class="grid-80 pull-20 mobile-grid-100" style="overflow: hidden;">
+						<h1 id="mensaje-alerta"></h1>
+					</div>
+				</div>
+				<div class="grid-20 pull-80 mobile-grid-0">
+					<!--<h1 id="trenes-a">Trenes a...</h1>-->
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 					<h1><span id="horaactual-msj"></span></h1>
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<!-- Alerta en terminal -->
 		<div class="grid-100 grid-parent" id="barra-mensaje-alerta-terminal">
 			<div class="grid-container">
@@ -96,11 +157,14 @@
 		</div>
 
 		<!-- Pantalla de selección de estaciones -->
+=======
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 		<main id="selector">
 			<div class="selector">
 				<div class="grid-container">
 					<div class="grid-100 mobile-grid-100">
 						<script src="js/selector.js"></script>
+<<<<<<< HEAD
 						<section id="selector-linea" style="border-top: none;">
 							<h1>Seleccioná la línea</h1>
 							<div class="btn-group" data-toggle="buttons" id="listaLineas">
@@ -127,11 +191,35 @@
 						<section id="botonera-acceso" style="display: none;">
 							<button id="acceso">Ver los próximos trenes</button>
 						</section>
+=======
+						<form id="selector-linea">
+							<h1>Seleccioná la línea</h1>
+							<div id="listaLineas">
+								Cargando...
+							</div>
+						</form>
+						<form id="selector-ramal" style="display: none;">
+							<h1>Seleccioná el ramal</h1>
+							<div id="listaRamales">
+								Seleccioná una línea para ver los ramales disponibles. 
+							</div>
+						</form>
+						<form id="selector-estacion" style="display: none;">
+							<h1>Seleccioná la estación</h1>
+							<div id="estacionesLinea"></div>
+						</form>
+						<form id="selector-sentido" style="display: none;">
+							<div id="sentidos"></div>
+						</form>
+						<hr>
+						<div id="botonera-acceso" style="display: none;" onclick="mostrarDatos()"><button>Ver los próximos trenes</button></div>
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 					</div>
 				</div>
 			</div>
 		</main>
 
+<<<<<<< HEAD
 		<!-- Cargando -->
 		<main id="cargando" style="display:none;">
 			<div class="servicios-finalizados">
@@ -139,11 +227,21 @@
 					<div class="grid-100 mobile-grid-100 proximo-tren">
 						<i class="material-icons">&#xE2C0;</i>
 						<h1>Cargando información de los próximos trenes...</h1>
+=======
+		<main id="fuera-de-servicio" style="display:none;">
+			<div class="servicios-finalizados">
+				<div class="grid-container">
+					<div class="grid-100 mobile-grid-100 proximo-tren">
+						<i class="material-icons">&#xE533;</i>
+						<h1>No hay información de los próximos servicios.</h1>
+						<h2>Consultá la cartelera de horarios para más información.</h2>
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 					</div>
 				</div>
 			</div>
 		</main>
 
+<<<<<<< HEAD
 		<!-- Offline -->
 		<main id="offline" style="display:none;">
 			<div class="servicios-finalizados">
@@ -183,10 +281,38 @@
 							</div>
 							<div class="grid-100" style="padding: 0; margin: 0;">
 								<h2>Consultá la cartelera de horarios para más información.</h2>
+=======
+		<main id="en-servicio" style="display:none;">
+			<div class="grid-container" id="proximo">
+				<div class="grid-100 mobile-grid-100 proximo-tren">
+					<div class="cuadro-tren">
+						<p class="destino" id="proximo">El próximo hacia destino llega en</p>
+						<p class="num-tiempo" id="proximo">Sin datos</p>
+						<div class="bloque-servicios-especiales" id="proximo" style="display: none;">
+							<div class="grid-33 push-66 mobile-grid-100 cuadro-serv-especiales tipo-serv" id="proximo">
+								<p class="tipo-servicio" id="proximo">Servicio normal</p>
+							</div>
+							<div class="grid-66 pull-33 mobile-grid-100 cuadro-serv-especiales" id="cuadro-estaciones-serv">
+								<p id="estaciones-serv-especial">La formación se detiene en todas las estaciónes hasta llegar a destino.</p>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="grid-container" id="siguientes">
+				<div class="grid-50 push-50 mobile-grid-100 siguiente-tren">
+					<div class="cuadro-tren">
+						<p class="destino" id="siguiente"></p>
+						<p class="num-tiempo" id="siguiente">Sin datos</p>
+						<div class="bloque-servicios-especiales" id="siguiente" style="display: none;">
+							<div class="grid-100 mobile-grid-100 cuadro-serv-especiales" id="cuadro-tipo-servicio">
+								<p class="tipo-servicio" id="siguiente">Servicio normal</p>
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
+							</div>
+						</div>
+					</div>
+				</div>
+<<<<<<< HEAD
 			</div>
 		</main>
 
@@ -219,6 +345,8 @@
 						</div>
 					</div>
 				</div>
+=======
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 				<div class="grid-50 pull-50 mobile-grid-100 subsiguiente-tren">
 					<div class="cuadro-tren">
 						<p class="destino" id="sub-siguiente"></p>
@@ -226,6 +354,7 @@
 						<div class="bloque-servicios-especiales" id="sub-siguiente" style="display: none;">
 							<div class="grid-100 mobile-grid-100 cuadro-serv-especiales" id="cuadro-tipo-servicio">
 								<p class="tipo-servicio" id="sub-siguiente">Servicio normal</p>
+<<<<<<< HEAD
 							</div>
 						</div>
 					</div>
@@ -366,6 +495,9 @@
 						<div class="grid-100 servicios-especiales oculto">
 							<div class="grid-30 push-70 mobile-grid-100 tipo"></div>
 							<div class="grid-70 pull-30 mobile-grid-100 estaciones"><div id="estaciones5"></div></div>
+=======
+							</div>
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 						</div>
 					</div>
 				</div>
@@ -375,6 +507,7 @@
 			$.get("http://trenes.mininterior.gob.ar/v2_pg/lcd_public/ajax_get_datos_formaciones.php?ramal=1&estacion=5&cartel=&rnd=&key=v%23v%23QTUtWp%23MpWRy80Q0knTE10I30kj%23FNyZ",function(data2,status){
 					data=data2;
 				console.log(data);
+<<<<<<< HEAD
 			}); 
 		</script>-->
 		<script type="text/javascript">
@@ -388,8 +521,14 @@
 			$(document).ready(function(){
 				mostrarHora(); 
 				setInterval(function(){mostrarHora();}, 60); 
+=======
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 			}); 
+		</script>-->
+		<script type="text/javascript">
+			var type = window.location.hash.substr(1);
 
+<<<<<<< HEAD
 			var hs = moment().get('hour'); 
 			var hsActuales = ""; 
 			var fondo = "";  
@@ -541,6 +680,43 @@
 			} else {
 				selector = false; 
 				paginaInicialVisible = true; 
+=======
+			var selector = false; 
+
+			if (type !== "") {
+				var parts = type.split("&");
+				var split1 = parts[0].split(':'); 
+				var split2 = parts[1].split(':'); 
+
+				if ((split1[0] === "ramal") || (split2[0] === "estacion")) {
+					var ramal = parseInt(split1[1]); 
+					var estacion = parseInt(split2[1]); 
+				}
+				else if (split1[0] === "estacion") {
+					var estacion = parseInt(split1[1]); 
+					var ramal = parseInt(split2[1]); 
+				} 
+				else if (split1[0] === "terminal") {
+					var terminal = parseInt(split1[1]); 
+					var ramal = parseInt(split2[1]); 
+				} 
+				else if ((split1[0] === "ramal") && (split2[0] === "terminal") ) {
+					var terminal = parseInt(split1[1]); 
+					var ramal = parseInt(split2[1]); 
+				} 
+				else{
+					var ramal = 0; 
+					var estacion = 0; 
+					var cartel = 0; 
+				};
+				$('.datos-estacion').css('display', 'block'); 
+				$('main#selector').css('display', 'none'); 
+				selector = true; 
+				actualizarDatos(); 
+				setInterval(function() {actualizarDatos();}, 4000);
+			} else {
+				selector = false; 
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 				console.info('Cargando selector inicial'); 
 				$('.datos-estacion').css('display', 'none'); 
 				$('main#selector').css('display', 'block'); 

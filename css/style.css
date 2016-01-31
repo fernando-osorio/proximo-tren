@@ -16,6 +16,7 @@
 	*{
 		padding: 0; margin: 0;
 		font-family: "fuente", Arial, Serif;
+<<<<<<< HEAD
 		-webkit-user-select: none; 
 		-moz-user-select: none;
 		user-select: none; 
@@ -28,6 +29,9 @@
 		border: 1px solid rgba(200, 200, 200, 0.5); 
 		color: #FFF; 
 	}
+=======
+	} 
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 
 /* Contenedor */
 	.grid-container{
@@ -37,7 +41,11 @@
 
 /* Fondo */
 	#fondo{
+<<<<<<< HEAD
 		color: #000; 
+=======
+		background-image: url(../img/background/4.jpg); 
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 		background-size: cover; 
 		background-position: center;
 		background-repeat: no-repeat;
@@ -54,6 +62,7 @@
 
 /* Barra superior */
 	header{background-image: linear-gradient(to bottom, rgb(20, 20, 20) 0%, transparent 100%);}
+<<<<<<< HEAD
 	.brand{
 		margin: 10px;
 		background-size: cover; 
@@ -88,37 +97,33 @@
 	}
 
 /* Barra de alerta inferior */
+=======
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 	#barra-mensaje-alerta{position: fixed; bottom: 0; background-color: rgb(200, 0, 0); color: #FFF; display: none; }
-	@media (max-width: 767px) {
-		#barra-mensaje-alerta{position: static;}
-		#barra-mensaje-alerta h1{font-size: 14px;}
-		#barra-mensaje-alerta .estacion, #barra-mensaje-alerta .reloj{display: none;}
+	.brand{
+		margin: 10px;
+		background-size: cover; 
+		background-position: center;
 	}
-/* Barra de alerta en terminal */
-	#barra-mensaje-alerta-terminal{position: static; background-color: rgb(200, 0, 0); color: #FFF; display: none; overflow: hidden; text-transform: capitalize;}
-	#barra-mensaje-alerta-terminal h1#normal{display: block;}
-	#barra-mensaje-alerta-terminal h1#responsive{display: none; }
-	@media (max-width: 767px) {
-		#barra-mensaje-alerta-terminal h1#normal{font-size: 14px; display: none;}
-		#barra-mensaje-alerta-terminal h1#responsive{font-size: 14px; display: block;}
+	.brand#NFA{
+		background-image: url(../img/brand-NFA.png); 
+		width: 225px; 
+		height: 75px; 
+	}
+	.brand#min-transporte{
+		background-image: url(../img/brand-FM5HD.png); 
+		width: 340px; 
+		height: 60px; 
+		right: 0;
+		float: right;
 	}
 
 /* Selector de línea, estación y más */
 	.selector{background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 15%, rgba(0, 0, 0, 0.3) 85%, transparent 100%); color: #FFF; }
 	.selector h1{font-size: 30px;}
 	.selector input[type:radio]{margin: 10px; }
-	.selector #estacionesLinea{
-		height: 150px; 
-	}
-	.selector .estacion{
-		display: inline-block;
-		transform: translate(0px, 10px) rotate(45deg);
-    	white-space: nowrap;
-		width: 30px;
-		font-size: 14px; 
-	}
 
-/* Servicios finalizados */
+/* Cuadros de próximo tren */
 	.servicios-finalizados{
 		background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 15%, rgba(0, 0, 0, 0.3) 85%, transparent 100%);
 		color: #FFF; 
@@ -128,6 +133,7 @@
 	.servicios-finalizados i.material-icons{font-size: 175px; padding-bottom: 0;}
 	.servicios-finalizados h1{font-size: 90px;}
 	.servicios-finalizados h2{font-size: 42px; margin-top: 15px;}
+<<<<<<< HEAD
 	@media (max-width: 767px) {
 		.servicios-finalizados i.material-icons{font-size: 90px;}
 		.servicios-finalizados h1{font-size: 27px;}
@@ -135,6 +141,8 @@
 	}
 
 /* Cuadros de próximo tren */
+=======
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 	.proximo-tren .cuadro-tren, .siguiente-tren .cuadro-tren, .subsiguiente-tren .cuadro-tren{
 		background-color: rgba(0, 0, 0, 0.75); 
 		border: 1px solid rgba(255, 255, 255, 0.5);
@@ -155,6 +163,7 @@
 	.proximo-tren p 							{font-size: 55px;}
 	.siguiente-tren p							{font-size: 40px;}
 	.subsiguiente-tren p						{font-size: 40px;}
+<<<<<<< HEAD
 
 	.proximo-tren p.num-tiempo					{font-size: 180px; line-height: 190px;}
 	.siguiente-tren p.num-tiempo				{font-size: 70px;}
@@ -217,6 +226,22 @@
 		.terminal .servicios-especiales, .terminal .tipo-servicio{font-size: 25px;}
 	}
 
+=======
+
+	.proximo-tren p.num-tiempo					{font-size: 180px;}
+	.siguiente-tren p.num-tiempo				{font-size: 70px;}
+	.subsiguiente-tren p.num-tiempo				{font-size: 70px;}
+	@media (max-width: 767px) {
+		.proximo-tren p 							{font-size: 30px;}
+		.siguiente-tren p							{font-size: 30px;}
+		.subsiguiente-tren p						{font-size: 30px;}
+
+		.proximo-tren p.num-tiempo					{font-size: 60px;}
+		.siguiente-tren p.num-tiempo				{font-size: 60px;}
+		.subsiguiente-tren p.num-tiempo				{font-size: 60px;}
+	}
+
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 /* Muestra los servicios rápidos */
 	.cuadro-serv-especiales p{font-size: 34px;}
 	@media (max-width: 767px) {.cuadro-serv-especiales p{font-size: 25px;}}
@@ -225,10 +250,16 @@
 	p#estaciones-serv-especial, .js-marquee-wrapper, .js-marquee{text-transform: capitalize;}
 	p#estaciones-serv-especial:first-letter, .js-marquee-wrapper:first-letter, .js-marquee:first-letter{text-transform: uppercase !important;}
 
+<<<<<<< HEAD
 /* Flags de servicios */
 	.especial{background-color: rgba(200, 150, 0, 0.75);}
 	.rapido{background-color: rgba(0, 150, 255, 0.75);}
 	.semi-rapido{background-color: rgba(225, 225, 0, 0.75); color: #000;}
+=======
+	.especial{background-color: rgba(200, 150, 0, 0.75);}
+	.rapido{background-color: rgba(0, 150, 255, 0.75);}
+	.semi-rapido{background-color: rgba(200, 200, 200, 0.75); color: #000;}
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 
 
 /* Footer/Header mobile */
@@ -238,6 +269,7 @@
 	background-color: rgba(0, 0, 0, 0.75); 
 	color:#FFF;
 }
+<<<<<<< HEAD
 .datos-estacion.terminal{position: static;}
 .datos-estacion img#linea{padding: 3px 0;}
 .datos-estacion i.material-icons{font-size: 40px; vertical-align: top;}
@@ -260,4 +292,8 @@
   color: #FFF;
   background-color: rgba(0, 0, 0, 0.5);
   border-color: rgba(255, 255, 255, 0.5);
+=======
+@media (max-width: 767px) {
+	.datos-estacion{position: static;}
+>>>>>>> b2afb38... [v1.x.x] Primera versión.
 }
