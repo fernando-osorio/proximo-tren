@@ -1,0 +1,59 @@
+<!-- Station data -->
+<div class="row station-data">
+	<div class="container">
+		<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-left">
+			<img id="brand-line" />
+		</div>
+		<div class="col-xs-12 col-md-6 media-middle text-xs-center">
+			<h1 id="current-station"></h1>
+		</div>
+		<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-right">
+			<h1><span id="horaactual"></span></h1>
+		</div>
+	</div>
+</div>
+<!-- If has alerts -->
+<div class="col-xs-12" id="barra-mensaje-alerta">
+	<div class="container">
+		<div class="hidden-sm-down col-md-2 estacion">
+			<h1 id="current-station-2"></h1>
+		</div>
+		<div class="col-xs-12 col-md-8 mensaje" style="overflow: hidden;">
+			<h1 id="mensaje-alerta"></h1>
+		</div>
+		<div class="hidden-sm-down col-md-2 reloj">
+			<h1><span id="horaactual-msj"></span></h1>
+		</div>
+	</div>
+</div>
+<!-- Containers -->
+<div class="error-container container hidden"></div>
+<div class="loading-container container"></div>
+<div class="main-container container text-xs-center hidden">
+	<div class="col-xs-12 col-md-8 anden">
+		<div class="card first-train">
+			<div class="card-block">
+				<p class="salida" id="texto">Cargando...</p>
+				<p class="salida" id="hora">Sin datos</p>
+			</div>
+			<div class="card-footer">
+				<div class="servicio-atrasado" style="display: none;">Servicio atrasado</div>
+				<div class="servicio-especial" id="salida" style="display: none;">
+					<div class="col-xs-12 col-md-4 cuadro-serv-especiales tipo-serv" id="salida">
+						<p class="tipo-servicio" id="salida">Servicio normal</p>
+					</div>
+					<div class="col-xs-12 col-md-8 cuadro-serv-especiales" id="tipo-serv-est">
+						<p class="salida" id="estaciones">La formación se detiene en todas las estaciónes hasta llegar a destino.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-4 anden">
+		<div class="card first-train">
+			<p class="anden" id="texto">Desde el andén</p>
+			<p class="anden" id="numero"></p>
+			<p class="anden" id="mobile">Desde el andén</p>
+		</div>
+	</div>
+</div>

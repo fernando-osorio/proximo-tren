@@ -1,0 +1,28 @@
+{
+  "name": "proximo-tren",
+  "description": "WebApp alternativa a Trenes en Vivo del Ministerio de Transporte (ex-Ministerio del Interior y Transporte)",
+  "main": "main.js",
+  "authors": [
+    "Fernando Osorio"
+  ],
+  "license": "CC BY 4.0",
+  "keywords": [
+    "proximo-tren"
+  ],
+  "homepage": "https://github.com/Fermoto5HD/proximo-tren",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "4.0.0-alpha.2",
+    "moment": "^2.13.0",
+    "tether": "^1.3.1",
+    "jquery.marquee": "^1.3.9",
+    "moment-duration-format": "^1.3.0"
+  }
+}

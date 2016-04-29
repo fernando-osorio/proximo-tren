@@ -1,2 +1,6 @@
+bower_components
+node_modules
+index_maintenance.html
+test
 *.scssc
 *.sassc

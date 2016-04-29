@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
+	<!-- 
+		Sitio programado por Fernando Osorio (Fermoto5HD) para Lantalks WebMedia
+		Repositorio del sitio: http://github.com/Lantalks/web-loop 
+	-->
 	<head>
-		<title>Próximo tren</title>
+		<title>Próximo tren (beta)</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
@@ -20,364 +24,225 @@
 		<meta name="twitter:site" content="@Fermoto5HD" />
 		<meta name="twitter:creator" content="@Fermoto5HD" />
 
-		<script src="js/vendor/jquery-2.1.4.min.js"></script>
-		<link rel="stylesheet" href="css/vendor/bootstrap.css">
-		<script src="js/vendor/bootstrap.js"></script>
-
-		<!--[if lt IE 9]>
-			<script src="./assets/javascripts/html5.js"></script>
-		<![endif]-->
-		<!--[if (gt IE 8) | (IEMobile)]><!-->
-			<link rel="stylesheet" href="css/vendor/unsemantic-grid-responsive-rtl.css" />
-		<!--<![endif]-->
-		<!--[if (lt IE 9) & (!IEMobile)]>
-			<link rel="stylesheet" href="css/vendor/ie-rtl.css" />
-		<![endif]-->
-
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/tether/tether.js"></script>
+		<script src="vendor/bootstrap/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/material-icons.css" />
-		<script src="js/vendor/modernizr-3.2.0.min.js"></script>
-		<script src="js/vendor/jquery.marquee.js"></script>
-		<script src="js/vendor/moment.min.js"></script>
-		<script src="js/vendor/moment-duration-format.js"></script>
-		<script src="js/estaciones.js"></script>
-		<script src="js/estacion.js"></script>
-		<script src="js/anden.js"></script>
-		<script src="js/terminal.js"></script>
+		<script src="vendor/modernizr/modernizr.min.js"></script>
+		<script src="vendor/jquery.marquee/jquery.marquee.min.js"></script>
+		<script src="vendor/moment/moment-with-locales.min.js"></script>
+		<script src="vendor/moment-duration-format/moment-duration-format.js"></script>
+		<script src="js/scripts.js"></script>
 	</head>
-	<body>
+	<body class="dinpro">
 		<div id="fondo"></div>
 		<header>
-			<div class="grid-container">
-				<div class="grid-100 mobile-grid-100" style="text-align: left;">
-					<div id="volver" class="ocultarVolver oculto" onclick="volverAlSelector()"><i class="material-icons">&#xE5C4;</i></div><div class="brand" id="NFA" title="Nuevos Ferrocarriles Argentinos"></div>
+			<nav class="navbar navbar-static-top navbar-dark bg-inverse">
+				<div class="container">
+					<span id="btn-back"></span>
+					<a class="brand" id="OFSE" href="#home" title="Operadora Ferroviaria Sociedad del Estado"></a>
+		            <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#responsivemenu" style="font-family: inherit;"><i class="material-icons">menu</i></button>
+						<ul class="nav navbar-nav pull-xs-right collapse navbar-toggleable-xs" id="responsivemenu" style="margin-left: 0px;">
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-toggle="modal" data-target="#settings">Opciones</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" data-toggle="modal" data-target="#about">Acerca de</a>
+							</li>
+						</ul>
 				</div>
-			</div>
+			</nav>
 		</header>
-		<div class="grid-100 grid-parent datos-estacion">
-			<div class="grid-container">
-				<div class="grid-80 push-20 mobile-grid-100" style="padding:0; margin:0;">
-					<div class="grid-30 push-70 mobile-grid-100" onclick="volverAlSelector()">
-						<img id="linea" />
-					</div>
-					<div class="grid-70 pull-30 mobile-grid-100">
-						<h1 id="estacion-actual"></h1>
-					</div>
-				</div>
-				<div class="grid-20 pull-80 mobile-grid-100">
-					<h1><span id="horaactual"></span></h1>
-				</div>
-			</div>
-		</div>
-		<!-- En terminal, sólo si los destinos son los mismos entre sí. -->
-		<center><h1 id="tituloMismoDestino"><div class="grid-container">Próximos servicios a Moreno</div></h1></center>
-		<!-- Alerta en andén y estación -->
-		<div class="grid-100 grid-parent" id="barra-mensaje-alerta">
-			<div class="grid-container">
-				<div class="grid-80 push-20 mobile-grid-100" style="padding:0; margin:0;">
-					<div class="grid-20 push-80 mobile-grid-0 estacion">
-						<h1 id="estacion-actual-2"></h1>
-					</div>
-					<div class="grid-80 pull-20 mobile-grid-100 mensaje" style="overflow: hidden;">
-						<h1 id="mensaje-alerta"></h1>
-					</div>
-				</div>
-				<div class="grid-20 pull-80 mobile-grid-0 reloj">
-					<h1><span id="horaactual-msj"></span></h1>
-				</div>
-			</div>
-		</div>
-		<!-- Alerta en terminal -->
-		<div class="grid-100 grid-parent" id="barra-mensaje-alerta-terminal">
-			<div class="grid-container">
-				<h1 id="normal"></h1>
-				<h1 id="responsive"></h1>
-			</div>
-		</div>
-
-		<!-- Pantalla de selección de estaciones -->
-		<main id="selector">
-			<div class="selector">
-				<div class="grid-container">
-					<div class="grid-100 mobile-grid-100">
-						<script src="js/selector.js"></script>
-						<section id="selector-linea" style="border-top: none;">
-							<h1>Seleccioná la línea</h1>
-							<div class="btn-group" data-toggle="buttons" id="listaLineas">
-								Cargando...
-							</div>
-						</section>
-						<section id="selector-ramal" style="display: none;">
-							<h1>Seleccioná el ramal</h1>
-							<div class="btn-group" data-toggle="buttons" id="listaRamales">
-								Seleccioná una línea para ver los ramales disponibles. 
-							</div>
-						</section>
-						<section id="selector-estacion" style="display: none;">
-							<h1>Seleccioná la estación</h1>
-							<div id="contenedorEstacionesLinea">
-								<div id="estacionesLinea"></div>
-							</div>
-						</section>
-						<section id="selector-sentido" style="display: none;">
-							<div id="acceso-terminal"></div>
-							<h1 id="titulo"></h1>
-							<div class="btn-group" data-toggle="buttons" id="sentidos"></div>
-						</section>
-						<section id="botonera-acceso" style="display: none;">
-							<button id="acceso">Ver los próximos trenes</button>
-						</section>
-					</div>
-				</div>
-			</div>
-		</main>
-
-		<!-- Cargando -->
-		<main id="cargando" style="display:none;">
-			<div class="servicios-finalizados">
-				<div class="grid-container">
-					<div class="grid-100 mobile-grid-100 proximo-tren">
-						<i class="material-icons">&#xE2C0;</i>
-						<h1>Cargando información de los próximos trenes...</h1>
-					</div>
-				</div>
-			</div>
-		</main>
-
-		<!-- Offline -->
-		<main id="offline" style="display:none;">
-			<div class="servicios-finalizados">
-				<div class="grid-container">
-					<div class="grid-100 mobile-grid-100 proximo-tren">
-						<i class="material-icons">&#xE2C1;</i>
-						<h1>No hay conexión a la base de datos.</h1>
-						<h2>Reintentando de nuevo...</h2>
-					</div>
-				</div>
-			</div>
-		</main>
-
-		<!-- Datos incorrectos -->
-		<main id="error-data-incorrecta" style="display:none;">
-			<div class="servicios-finalizados">
-				<div class="grid-container">
-					<div class="grid-100 mobile-grid-100 proximo-tren">
-						<i class="material-icons">&#xE001;</i>
-						<h1>El ramal y estación no existen en la base de datos...</h1>
-					</div>
-				</div>
-			</div>
-		</main>
-
-		<!-- Cuando no hay más servicios o no tiene datos -->
-		<main id="fuera-de-servicio" style="display:none;">
-			<div class="servicios-finalizados">
-				<div class="grid-container">
-					<div class="grid-100 mobile-grid-100 proximo-tren">
-						<div class="grid-container">
-							<div class="grid-100 mobile-grid-20" style="padding: 0; margin: 0;">
-								<i class="material-icons">&#xE533;</i>
-							</div>
-							<div class="grid-100 mobile-grid-80" style="padding: 0; margin: 0;">
-								<h1>No hay información de los próximos servicios.</h1>
-							</div>
-							<div class="grid-100" style="padding: 0; margin: 0;">
-								<h2>Consultá la cartelera de horarios para más información.</h2>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-
-		<main id="en-servicio" style="display:none;">
-			<div class="grid-container" id="proximo">
-				<div class="grid-100 mobile-grid-100 proximo-tren">
-					<div class="cuadro-tren">
-						<p class="destino" id="proximo">El próximo hacia destino llega en</p>
-						<p class="num-tiempo" id="proximo">Sin datos</p>
-						<div class="bloque-servicios-especiales" id="proximo" style="display: none;">
-							<div class="grid-33 push-66 mobile-grid-100 cuadro-serv-especiales tipo-serv" id="proximo">
-								<p class="tipo-servicio" id="proximo">Servicio normal</p>
-							</div>
-							<div class="grid-66 pull-33 mobile-grid-100 cuadro-serv-especiales" id="cuadro-estaciones-serv">
-								<p id="estaciones-serv-especial">La formación se detiene en todas las estaciónes hasta llegar a destino.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="grid-container" id="siguientes">
-				<div class="grid-50 push-50 mobile-grid-100 siguiente-tren">
-					<div class="cuadro-tren">
-						<p class="destino" id="siguiente"></p>
-						<p class="num-tiempo" id="siguiente">Sin datos</p>
-						<div class="bloque-servicios-especiales" id="siguiente" style="display: none;">
-							<div class="grid-100 mobile-grid-100 cuadro-serv-especiales" id="cuadro-tipo-servicio">
-								<p class="tipo-servicio" id="siguiente">Servicio normal</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="grid-50 pull-50 mobile-grid-100 subsiguiente-tren">
-					<div class="cuadro-tren">
-						<p class="destino" id="sub-siguiente"></p>
-						<p class="num-tiempo" id="sub-siguiente">Sin datos</p>
-						<div class="bloque-servicios-especiales" id="sub-siguiente" style="display: none;">
-							<div class="grid-100 mobile-grid-100 cuadro-serv-especiales" id="cuadro-tipo-servicio">
-								<p class="tipo-servicio" id="sub-siguiente">Servicio normal</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-		<!-- Anden de terminal -->
-		<main id="anden-en-servicio" style="display:none;">
-			<div class="grid-container" id="salida">
-				<div class="grid-66 push-33 mobile-grid-100 anden">
-					<div class="cuadro">
-						<p class="salida" id="texto">El tren hacia [destino] sale a las</p>
-						<p class="salida" id="hora">Sin datos</p>
-						<div class="servicio-atrasado" style="display: none;">Servicio atrasado</div>
-						<div class="servicio-especial" id="salida" style="display: none;">
-							<div class="grid-40 push-60 mobile-grid-100 cuadro-serv-especiales tipo-serv" id="salida">
-								<p class="tipo-servicio" id="salida">Servicio normal</p>
-							</div>
-							<div class="grid-60 pull-40 mobile-grid-100 cuadro-serv-especiales" id="tipo-serv-est">
-								<p class="salida" id="estaciones">La formación se detiene en todas las estaciónes hasta llegar a destino.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="grid-33 pull-66 mobile-grid-100 anden">
-					<div class="cuadro">
-						<p class="anden" id="texto">Desde el andén</p>
-						<p class="anden" id="numero"></p>
-						<p class="anden" id="mobile">Desde el andén</p>
-					</div>
-				</div>
-			</div>
-		</main>
-		<!-- Pantalla de la terminal -->
-		<main id="terminal" style="display:none;">
-			<div class="grid-container" id="proximo">
-				<div class="grid-100 mobile-grid-100 terminal">
-					<div class="proximo-servicio" id="servicio1">
-						<div class="grid-container">
-							<div class="grid-50 push-50 mobile-grid-100">
-								<p class="destino-mobile"></p>
-								<p class="hora-mobile"></p>
-								<p class="destino-hora"></p>
-							</div>
-							<div class="grid-50 pull-50 mobile-grid-100">
-								<p class="estado-mobile"></p>
-								<p class="anden-mobile"></p>
-								<p class="estado-anden"></p>
-							</div>
-						</div>
-						<div class="grid-100 tipo-servicio oculto">
-							<div class="estaciones"><div id="estaciones1"></div></div>
-						</div>
-						<div class="grid-100 servicios-especiales oculto">
-							<div class="grid-30 push-70 mobile-grid-100 tipo"></div>
-							<div class="grid-70 pull-30 mobile-grid-100 estaciones"><div id="estaciones1"></div></div>
-						</div>
-					</div>
-					<div class="proximo-servicio" id="servicio2">
-						<div class="grid-container">
-							<div class="grid-50 push-50 mobile-grid-100">
-								<p class="destino-mobile"></p>
-								<p class="hora-mobile"></p>
-								<p class="destino-hora"></p>
-							</div>
-							<div class="grid-50 pull-50 mobile-grid-100">
-								<p class="estado-mobile"></p>
-								<p class="anden-mobile"></p>
-								<p class="estado-anden"></p>
-							</div>
-						</div>
-						<div class="grid-100 tipo-servicio oculto">
-							<div class="estaciones"><div id="estaciones2"></div></div>
-						</div>
-						<div class="grid-100 servicios-especiales oculto">
-							<div class="grid-30 push-70 mobile-grid-100 tipo"></div>
-							<div class="grid-70 pull-30 mobile-grid-100 estaciones"><div id="estaciones2"></div></div>
-						</div>
-					</div>
-					<div class="proximo-servicio" id="servicio3">
-						<div class="grid-container">
-							<div class="grid-50 push-50 mobile-grid-100">
-								<p class="destino-mobile"></p>
-								<p class="hora-mobile"></p>
-								<p class="destino-hora"></p>
-							</div>
-							<div class="grid-50 pull-50 mobile-grid-100">
-								<p class="estado-mobile"></p>
-								<p class="anden-mobile"></p>
-								<p class="estado-anden"></p>
-							</div>
-						</div>
-						<div class="grid-100 tipo-servicio oculto">
-							<div class="estaciones"><div id="estaciones3"></div></div>
-						</div>
-						<div class="grid-100 servicios-especiales oculto">
-							<div class="grid-30 push-70 mobile-grid-100 tipo"></div>
-							<div class="grid-70 pull-30 mobile-grid-100 estaciones"><div id="estaciones3"></div></div>
-						</div>
-					</div>
-					<div class="proximo-servicio" id="servicio4">
-						<div class="grid-container">
-							<div class="grid-50 push-50 mobile-grid-100">
-								<p class="destino-mobile"></p>
-								<p class="hora-mobile"></p>
-								<p class="destino-hora"></p>
-							</div>
-							<div class="grid-50 pull-50 mobile-grid-100">
-								<p class="estado-mobile"></p>
-								<p class="anden-mobile"></p>
-								<p class="estado-anden"></p>
-							</div>
-						</div>
-						<div class="grid-100 tipo-servicio oculto">
-							<div class="estaciones"><div id="estaciones5"></div></div>
-						</div>
-						<div class="grid-100 servicios-especiales oculto">
-							<div class="grid-30 push-70 mobile-grid-100 tipo"></div>
-							<div class="grid-70 pull-30 mobile-grid-100 estaciones"><div id="estaciones4"></div></div>
-						</div>
-					</div>
-					<div class="proximo-servicio" id="servicio5">
-						<div class="grid-container">
-							<div class="grid-50 push-50 mobile-grid-100">
-								<p class="destino-mobile"></p>
-								<p class="hora-mobile"></p>
-								<p class="destino-hora"></p>
-							</div>
-							<div class="grid-50 pull-50 mobile-grid-100">
-								<p class="estado-mobile"></p>
-								<p class="anden-mobile"></p>
-								<p class="estado-anden"></p>
-							</div>
-						</div>
-						<div class="grid-100 tipo-servicio oculto">
-							<div class="estaciones"><div id="estaciones5"></div></div>
-						</div>
-						<div class="grid-100 servicios-especiales oculto">
-							<div class="grid-30 push-70 mobile-grid-100 tipo"></div>
-							<div class="grid-70 pull-30 mobile-grid-100 estaciones"><div id="estaciones5"></div></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-		<!--<script type="text/javascript">
-			$.get("http://trenes.mininterior.gob.ar/v2_pg/lcd_public/ajax_get_datos_formaciones.php?ramal=1&estacion=5&cartel=&rnd=&key=v%23v%23QTUtWp%23MpWRy80Q0knTE10I30kj%23FNyZ",function(data2,status){
-					data=data2;
-				console.log(data);
-			}); 
-		</script>-->
 		<script type="text/javascript">
+			$('#options-nav a').click(function (e) {
+				e.preventDefault()
+				$(this).tab('show')
+			})
+		</script>
+		<!-- Start options modal -->
+		<div class="modal fade" id="settings" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Opciones</h4>
+					</div>
+					<div class="modal-body">
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" id="options-nav" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" data-toggle="tab" href="#update-frequency" role="tab">Obtención de datos</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#appearance" role="tab">Apartado estético</a>
+							</li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="update-frequency" role="tabpanel">
+								<br/>
+								<h4>Frecuencia de actualización</h4>
+								<p>Ajustá la frecuencia de actualización de los tiempos según el consumo de tus datos (en especial si lo usás en el celular).</p>
+								<div class="list-group" id="frequencies">
+									<a href="#" class="list-group-item" id="1000" onclick="updatefreq(1000)">
+										<h4 class="list-group-item-heading">Tiempo real</h4>
+										<p class="list-group-item-text">Segundo a segundo tenés los datos fresquitos.</p>
+									</a>
+									<a href="#" class="list-group-item" id="10000" onclick="updatefreq(10000)">
+										<h4 class="list-group-item-heading">Cada 10 segundos</h4>
+										<p class="list-group-item-text">Ideal para balancear entre datos precisos y ahorro de datos.</p>
+									</a>
+									<a href="#" class="list-group-item" id="20000" onclick="updatefreq(20000)">
+										<h4 class="list-group-item-heading">Cada 20 segundos</h4>
+										<p class="list-group-item-text">Ideal para los que quieren evitar gastar el prepago.</p>
+									</a>
+									<a href="#" class="list-group-item" id="none" onclick="updatefreq('none')">
+										<h4 class="list-group-item-heading">Desactivado</h4>
+										<p class="list-group-item-text">Si querés actualizar los datos cuando vos querés, esta es tu opción.</p>
+									</a>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="appearance" role="tabpanel">
+								<br/>
+								<h4>Marca visible</h4>
+								<p>¿Sos nostálgico? ¿Te gusta más la marca "Nuevos Ferrocarriles Argentinos" que la de "Operadora Ferroviaria"? Acá te doy la posibilidad de elegir entre esas dos marcas. ;) </p>
+								<div class="btn-group" id="brands" data-toggle="buttons">
+									<label class="btn btn-primary" id="OFSE">
+										<input type="radio" name="brand" id="OFSE" autocomplete="off">Operadora Ferroviaria
+									</label>
+									<label class="btn btn-primary" id="NFA">
+										<input type="radio" name="brand" id="NFA" autocomplete="off">Nuevos Ferrocarriles Argentinos
+									</label>
+								</div>
+								<hr>
+								<h4>Marca de las líneas (próximamente)</h4>
+								<p>Lo mismo acá pero con las líneas ferroviarias. ¿Preferís las marcas anteriores o las actuales?</p>
+								<div class="btn-group" id="linebrands" data-toggle="buttons">
+									<label class="btn btn-primary disabled" id="lines">
+										<input type="radio" name="brand" id="lines" autocomplete="off">Actuales
+									</label>
+									<label class="btn btn-primary disabled" id="lines-old">
+										<input type="radio" name="brand" id="lines-old" autocomplete="off">Anteriores
+									</label>
+								</div>
+								<hr>
+								<h4>Fuente tipográfica</h4>
+								<div class="btn-group" id="fonts" data-toggle="buttons">
+									<label class="btn btn-primary" id="gotham">
+										<input type="radio" name="font" id="gotham" autocomplete="off" checked>Gotham
+									</label>
+									<label class="btn btn-primary" id="dinpro">
+										<input type="radio" name="font" id="dinpro" autocomplete="off">DIN Pro
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End options modal -->
+		<!-- Start About modal -->
+		<div class="modal fade" id="about" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Acerca de "Próximo tren"</h4>
+					</div>
+					<div class="modal-body">
+						<h3>Sobre la WebApp</h3>
+						<div class="alert alert-warning">
+							<strong>¡Atención!</strong>
+							<p>Esta versión está en desarrollo. Pueden presentarse errores durante la ejecución. </p>
+						</div>
+						<p>Ante nada, gracias por utilizar la WebApp. </p>
+						<p>Este es un proyecto basado en la webapp "Trenes en Vivo" del Ministerio de Transporte (antes Ministerio del Interior y Transporte"), juntando las tres distintas pantallas utilizadas en la red ferroviaria en una sóla y en forma de aplicación. Por supuesto, esta <strong>no es la aplicación oficial</strong>.</p>
+						<p>Originalmente quería realizar una versión responsive de las pantallas de las estaciónes pero más tarde decidí juntar las otras y armar una webapp basada en Unsemantic (fork de 960gs con responsive). </p>
+						<p>Junto a este proyecto estoy realizando "Viaje en vivo", el cual lo trabajo aparte de "Próximo tren" aunque ya lo estoy preparando para agregarlo y unificarlo con este proyecto. </p>
+						<p>A partir de la versión v1.5 se utiliza el framework Bootstrap v4.0.0-alpha2 por su diversidad de componentes a utilizar. </p>
+						<hr>
+						<h3>Créditos y aclaraciones</h3>
+						<p>La API de Trenes en Vivo es desarrollada por el Ministerio de Transporte de la Nación (antes Ministerio del Interior y Transporte de la Nación). Los créditos del desarrollo de dicha API van para los desarrolladores de la misma. Esta WebApp sólo realiza pedidos de información, no manipula ni altera la información generada por dicha API. </p>
+						<p>Las imágenes utilizadas en los diferentes fondos de la webapp no son de mi autoría. </p>
+						<p>Las marcas "Nuevos Ferrocarriles Argentinos", "Operadora Ferroviaria Sociedad del Estado", "Línea Sarmiento", "Línea Roca", "Línea Mitre", "Línea San Martín", "Línea Belgrano Sur" y "Tren de la Costa" pertenecen al Ministerio de Transporte de la Nación y a la Sociedad Operadora Ferroviaria Sociedad del Estado. </p>
+						<p>El isologo de Metrovías pertenece a la empresa Metrovías S.A. </p>
+						<p>El isologo de Ferrovías pertenece a la empresa Ferrovías S.A. </p>
+						<p>El uso de las imágenes y marcas mencionadas en este apartado no pretenden perseguir beneficio monetario alguno. </p>
+						<hr>
+						<h3>CC BY 4.0 + Open Source</h3>
+						<p>Como (casi) todos los proyectos que vengo llevando a cabo, el contenido de este proyecto, exceptuando los mencionados en "Créditos y aclaraciones", están bajo Creative Commons 4.0 Internacional. </p>
+						<p>También está cargado en GitHub, podés forkearlo, reportar un issue o simplemente revisarlo por dentro. </p>
+						<a class="btn btn-primary" href="http://github.com/Fermoto5HD/proximo-tren" target="_blank">GitHub</a>
+						<hr>
+						<p>¡Gracias por utilizar la webapp!</p>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End About modal -->
+		<!-- Start First-time modal -->
+		<div class="modal fade" id="first-time" tabindex="-1" role="dialog" data-backdrop="false" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title">¡Bienvenido!</h4>
+					</div>
+					<div class="modal-body">
+						<p>Desde acá vas a poder saber el horario de partida de un tren, saber en cuánto tiempo llega el próximo tren a la estación y muy pronto realizar un seguimiento de tu tren en tiempo real.  </p>
+						<p>En esta webapp podés tener la información en tiempo real, segundo a segundo. Pero, si estás muy preocupado por el consumo de los datos móviles (en caso de que estés en un área sin WiFi), podés hacer que los datos se actualicen cada 10 segundos, 20 segundos o directamente desactivarla y actualizar los datos en forma manual. </p>
+						<p>Por defecto está configurado en "Tiempo real". Esto podés cambiarlo en cualquier momento en el apartado de opciones.</p>
+						<hr>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End First-time modal -->
+		<!-- Start soon modal -->
+		<div class="modal fade" id="soon" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">¡Muy pronto!</h4>
+					</div>
+					<div class="modal-body">
+						<p>Próximamente podrás realizar el seguimiento de tu tren estación por estación. </p>
+						<p>En una primera instancia estará disponible para usuarios del Sarmiento, San Martín y Tren de la Costa, y más adelante para las líneas Roca (sólo del ramal a La Plata) y toda la línea Mitre, dado a que la API general está limitada sólo a esas líneas. </p>
+						<p>Se puede implementar para las demás líneas, pero tienden a fallar debido a la constante falta de precisión que tienen al momento de brindar los datos. </p>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End soon modal -->
+		<!-- No connection -->
+		<div id="no-connection" class="container" hidden>
+			<div class="alert alert-danger">No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.</div>
+		</div>
+		<!-- Sections will appear here -->
+		<main id="main"></main>
+		<script type="text/javascript">
+			var JSONstations; 
 			var mostrarHora = function(){
 				var horaactual = moment().format("hh:mma"); 
 				var strHoraActual = '<i class="material-icons">&#xE192;</i> ' + horaactual; 
@@ -433,118 +298,75 @@
 						fondoCheck = fondo; 
 					};
 				};
-				//$('#fondo').attr('style', 'background-image: url(img/background/'+fondo+')'); 
 			}; 
 			setInterval(function(){horaFondo(); }, 1000); 
 
-			var imgFooter = function(ramal){
-				if ((((ramal === 1) || (ramal === 2)) || ((ramal === 51) || (ramal === 52))) || ((ramal === 53) || (ramal === 54))) {
-					$('#linea').prop('src', 'img/lineas/Sarmiento.png').attr('width', "95%");  
-				} 
-				else if ((((ramal === 5) || (ramal === 6)) || ((ramal === 7) || (ramal === 8))) || ((ramal === 9) || (ramal === 10))) {
-					$('#linea').prop('src', 'img/lineas/Mitre.png').attr('width', "70%");  
-				} 
-				else if ((((ramal === 11) || (ramal === 12)) || ((ramal === 13) || (ramal === 14))) || (((ramal === 15) || (ramal === 16)) || ((ramal === 17) || (ramal === 18))) || (((ramal === 19) || (ramal === 20)) || ((ramal === 27) || (ramal === 28)))) {
-					$('#linea').prop('src', 'img/lineas/Roca.png').attr('width', "95%"); 
-				}
-				else if ((((ramal === 21) || (ramal === 22)) || ((ramal === 23) || (ramal === 24))) || ((ramal === 25) || (ramal === 26))) {
-					$('#linea').prop('src', 'img/lineas/BelgranoSur.png').attr('width', "95%"); 
-				}
-				else if ((ramal === 31) || (ramal === 32)) {
-					$('#linea').prop('src', 'img/lineas/SanMartin.png').attr('width', "100%"); 
-				}
-				else if ((ramal === 41) || (ramal === 42)) {
-					$('#linea').prop('src', 'img/lineas/TrenDeLaCosta.png').attr('width', "90%"); 
-				}
-				else if ((ramal === 61) || (ramal === 62)) {
-					$('#linea').prop('src', 'img/lineas/BelgranoNorte.png').attr('width', "95%"); 
-				}
-				else if ((ramal === 71) || (ramal === 72)) {
-					$('#linea').prop('src', 'img/lineas/Urquiza.png').attr('width', "95%"); 
-				} else {
-					$('#linea').prop('src', 'img/lineas/LargaDistancia.png').attr('width', '40%'); 
-				}; 
-			}
+			
 
 			var type = window.location.hash.substr(1);
 			var selector = false; 
 			var paginaInicialVisible = false; 
 			var timeout = null;
 
-			var barraInf768px = function() {
-				
-			}; 
+			$.getJSON( "data/stations.json", function(jsondata){
+				JSONstations = jsondata; 
+				if (type !== "") {
+					$('main#cargando').css('display', 'block'); 
+					var parts = type.split("&");
+					var split1 = parts[0].split(':'); 
+					var split2 = parts[1].split(':'); 
 
-			$(document).on('mousemove', function() {
-				var altoPagina = Modernizr.mq('(max-height: 719px)');
-				var anchoPagina = Modernizr.mq('(max-width: 767px)');
-
-				if (paginaInicialVisible == false) {
-						if (timeout !== null) {
-							$('#volver').removeClass('ocultarVolver').removeClass('oculto'); 
-							clearTimeout(timeout);
-						}
-
-						timeout = setTimeout(function() {
-							$('#volver').addClass('ocultarVolver'); 
-							$('#volver').addClass('oculto'); 
-						}, 3000);
-				};
-			});
-
-			if (type !== "") {
-				$('main#cargando').css('display', 'block'); 
-				var parts = type.split("&");
-				var split1 = parts[0].split(':'); 
-				var split2 = parts[1].split(':'); 
-
-				if ((split1[0] === "ramal") && (split2[0] === "estacion")) {
-					var ramalURL = parseInt(split1[1]); 
-					var estacionURL = parseInt(split2[1]); 
+					if ((split1[0] === "ramal") && (split2[0] === "estacion")) {
+						var ramalURL = parseInt(split1[1]); 
+						var estacionURL = parseInt(split2[1]); 
+						selector = true; 
+						verifEstacion = true; 
+						proximoTren(ramalURL, estacionURL); 
+						setInterval(function() {proximoTren(ramalURL, estacionURL);}, 1500);
+					}
+					else if ((split1[0] === "estacion") && (split2[0] === "ramal")) {
+						var estacionURL = parseInt(split1[1]); 
+						var ramalURL = parseInt(split2[1]); 
+						selector = true; 
+						verifEstacion = true; 
+						proximoTren(ramalURL, estacionURL); 
+						setInterval(function() {proximoTren(ramalURL, estacionURL);}, 1500);
+					} 
+					else if ((split1[0] === "anden") && (split2[0] === "ramal")) {
+						var anden = parseInt(split1[1]); 
+						var ramal = parseInt(split2[1]); 
+						verifAnden = true; 
+						proximaSalida(); 
+						setInterval(function() {proximaSalida();}, 1500);
+					} 
+					else if ((split1[0] === "ramal") && (split2[0] === "anden") ) {
+						var ramal = parseInt(split1[1]); 
+						var anden = parseInt(split2[1]); 
+						verifAnden = true; 
+						proximaSalida(); 
+						setInterval(function() {proximaSalida();}, 1500);
+					} 
+					else{
+						var ramalURL = 0; 
+						var estacionURL = 0; 
+						var cartel = 0; 
+					};
+					imgFooter(ramalURL); 
+					$('.datos-estacion').css('display', 'block'); 
+					$('main#main').css('display', 'none'); 
 					selector = true; 
-					verifEstacion = true; 
-					proximoTren(ramalURL, estacionURL); 
-					setInterval(function() {proximoTren(ramalURL, estacionURL);}, 1500);
-				}
-				else if ((split1[0] === "estacion") && (split2[0] === "ramal")) {
-					var estacionURL = parseInt(split1[1]); 
-					var ramalURL = parseInt(split2[1]); 
-					selector = true; 
-					verifEstacion = true; 
-					proximoTren(ramalURL, estacionURL); 
-					setInterval(function() {proximoTren(ramalURL, estacionURL);}, 1500);
-				} 
-				else if ((split1[0] === "anden") && (split2[0] === "ramal")) {
-					var anden = parseInt(split1[1]); 
-					var ramal = parseInt(split2[1]); 
-					verifAnden = true; 
-					proximaSalida(); 
-					setInterval(function() {proximaSalida();}, 1500);
-				} 
-				else if ((split1[0] === "ramal") && (split2[0] === "anden") ) {
-					var ramal = parseInt(split1[1]); 
-					var anden = parseInt(split2[1]); 
-					verifAnden = true; 
-					proximaSalida(); 
-					setInterval(function() {proximaSalida();}, 1500);
-				} 
-				else{
-					var ramalURL = 0; 
-					var estacionURL = 0; 
-					var cartel = 0; 
+					paginaInicialVisible = false; 
+				} else {
+					selector = false; 
+					paginaInicialVisible = true; 
+					console.info('Cargando selector inicial'); 
+					$('.datos-estacion').css('display', 'none'); 
+					$('main#main').css('display', 'block'); 
+					$('#btn-back').html('');
 				};
-				imgFooter(ramalURL); 
-				$('.datos-estacion').css('display', 'block'); 
-				$('main#selector').css('display', 'none'); 
-				selector = true; 
-				paginaInicialVisible = false; 
-			} else {
-				selector = false; 
-				paginaInicialVisible = true; 
-				console.info('Cargando selector inicial'); 
-				$('.datos-estacion').css('display', 'none'); 
-				$('main#selector').css('display', 'block'); 
-			};
+			}).error(function(){
+				console.error('Error with JSON'); 
+			}); 
 		</script>
 	</body>
 </html>

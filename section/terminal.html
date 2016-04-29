@@ -1,0 +1,136 @@
+<!-- Station data -->
+<div class="row datos-estacion">
+	<div class="container">
+		<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-left">
+			<img id="brand-line" />
+		</div>
+		<div class="col-xs-12 col-md-6 media-middle text-xs-center">
+			<h1 id="estacion-actual"></h1>
+		</div>
+		<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-right">
+			<h1><span id="horaactual"></span></h1>
+		</div>
+	</div>
+</div>
+<!-- If has alerts -->
+<div class="grid-100 grid-parent" id="barra-mensaje-alerta-terminal">
+	<div class="grid-container">
+		<h1 id="normal"></h1>
+		<h1 id="responsive"></h1>
+	</div>
+</div>
+<!-- Pantalla de la terminal -->
+<!-- Shows if the destiny are the same in all blocks -->
+<center><h1 id="sameDestiny" class="hidden"><div class="container">Próximos servicios</div></h1></center>
+<!-- Containers -->
+<div class="error-container container hidden"></div>
+<div class="loading-container container"></div>
+<div class="main-container container hidden">
+	<div class="col-sm-12 terminal">
+		<div class="card next-train text-sm-center" id="serv1">
+			<div class="card-block row">
+				<div class="col-sm-12 col-md-6 destiny-timedeparture">
+					<p class="mobile hidden-md-up">Sin datos</p>
+					<p class="desktop hidden-sm-down">Sin datos</p>
+				</div>
+				<div class="col-sm-12 col-md-6 status-platform">
+					<p>Servicio a confirmar</p>
+				</div>
+			</div>
+			<div class="card-footer hidden">
+				<div class="row">
+					<div class="col-sm-12 col-md-4 train-type">
+						<p>Servicio desconocido</p>
+					</div>
+					<div class="col-sm-12 col-md-8 stops">
+						<div class="the-overflow"><div id="stops1"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card next-train text-sm-center" id="serv2">
+			<div class="card-block row">
+				<div class="col-sm-12 col-md-6 destiny-timedeparture">
+					<p class="mobile hidden-md-up">Sin datos</p>
+					<p class="desktop hidden-sm-down">Sin datos</p>
+				</div>
+				<div class="col-sm-12 col-md-6 status-platform">
+					<p>Servicio a confirmar</p>
+				</div>
+			</div>
+			<div class="card-footer hidden">
+				<div class="row">
+					<div class="col-sm-12 col-md-4 train-type">
+						<p>Servicio desconocido</p>
+					</div>
+					<div class="col-sm-12 col-md-8 stops">
+						<div class="the-overflow"><div id="stops2"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card next-train text-sm-center" id="serv3">
+			<div class="card-block row">
+				<div class="col-sm-12 col-md-6 destiny-timedeparture">
+					<p class="mobile hidden-md-up">Sin datos</p>
+					<p class="desktop hidden-sm-down">Sin datos</p>
+				</div>
+				<div class="col-sm-12 col-md-6 status-platform">
+					<p>Sin datos</p>
+				</div>
+			</div>
+			<div class="card-footer hidden">
+				<div class="row">
+					<div class="col-sm-12 col-md-4 train-type">
+						<p>Servicio desc.</p>
+					</div>
+					<div class="col-sm-12 col-md-8 stops">
+						<div class="the-overflow"><div id="stops3"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card next-train text-sm-center" id="serv4">
+			<div class="card-block row">
+				<div class="col-sm-12 col-md-6 destiny-timedeparture">
+					<p class="mobile hidden-md-up">Sin datos</p>
+					<p class="desktop hidden-sm-down">Sin datos</p>
+				</div>
+				<div class="col-sm-12 col-md-6 status-platform">
+					<p>Sin datos</p>
+				</div>
+			</div>
+			<div class="card-footer hidden">
+				<div class="row">
+					<div class="col-sm-12 col-md-4 train-type">
+						<p>Servicio desc.</p>
+					</div>
+					<div class="col-sm-12 col-md-8 stops">
+						<div class="the-overflow"><div id="stops4"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card next-train text-sm-center" id="serv5">
+			<div class="card-block row">
+				<div class="col-sm-12 col-md-6 destiny-timedeparture">
+					<p class="mobile hidden-md-up">Sin datos</p>
+					<p class="desktop hidden-sm-down">Sin datos</p>
+				</div>
+				<div class="col-sm-12 col-md-6 status-platform">
+					<p>Sin datos</p>
+				</div>
+			</div>
+			<div class="card-footer hidden">
+				<div class="row">
+					<div class="col-sm-12 col-md-4 train-type">
+						<p>Servicio desc.</p>
+					</div>
+					<div class="col-sm-12 col-md-8 stops">
+						<div class="the-overflow"><div id="stops5"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

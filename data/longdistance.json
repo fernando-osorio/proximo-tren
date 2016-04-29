@@ -1,0 +1,72 @@
+[
+	{
+		"id": 8, 
+		"linea": "Interior", 
+		"ramales": [
+			{"idRamal": 0, "ramal": "Constitución-Mar del Plata", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Constitución", "anden": [{"id": 0}], "idTerminal": 101, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Mar del Plata", "anden": [{"id": 0}], "idTerminal": 102, "sentido": 1}
+				], 
+				"sentido": [	{"id": 	102, 	"estacion": "Constitución"},
+								{"id": 	101, 	"estacion": "Mar del Plata"}]
+			}, 
+			{"idRamal": 1, "ramal": "Once-General Pico", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Once", "anden": [{"id": 0}], "idTerminal": 111, "sentido": 1}, 
+											{"id": 14, 	"nombre": "General Pico", "anden": [{"id": 0}], "idTerminal": 112, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	112, 	"estacion": "Once"},
+											{"id": 	111, 	"estacion": "General Pico"}]
+			}, 
+			{"idRamal": 2, "ramal": "Retiro-Rufino", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Retiro", "anden": [{"id": 0}], "idTerminal": 131, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Rufino", "anden": [{"id": 0}], "idTerminal": 132, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	132, 	"estacion": "Retiro"},
+											{"id": 	131, 	"estacion": "Rufino"}]
+			}, 
+			{"idRamal": 3, "ramal": "Retiro-Rosario Sur", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Retiro", "anden": [{"id": 0}], "idTerminal": 141, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Rosario Sur", "anden": [{"id": 0}], "idTerminal": 142, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	142, 	"estacion": "Retiro"},
+											{"id": 	141, 	"estacion": "Rosario Sur"}]
+			}, 
+			{"idRamal": 4, "ramal": "Retiro-Córdoba", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Retiro", "anden": [{"id": 0}], "idTerminal": 151, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Córdoba", "anden": [{"id": 0}], "idTerminal": 152, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	152, 	"estacion": "Retiro"},
+											{"id": 	151, 	"estacion": "Córdoba"}]
+			}, 
+			{"idRamal": 5, "ramal": "Neuquén-Cipoletti", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Neuquén", "anden": [{"id": 0}], "idTerminal": 161, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Cipoletti", "anden": [{"id": 0}], "idTerminal": 162, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	162, 	"estacion": "Neuquén"},
+											{"id": 	161, 	"estacion": "Cipoletti"}]
+			}, 
+			{"idRamal": 6, "ramal": "Retiro-Tucumán", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Retiro", "anden": [{"id": 0}], "idTerminal": 171, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Tucumán", "anden": [{"id": 0}], "idTerminal": 172, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	172, 	"estacion": "Retiro"},
+											{"id": 	171, 	"estacion": "Tucumán"}]
+			}, 
+			{"idRamal": 7, "ramal": "Constitución-Bahía Blanca", 
+				"estacion": [
+											{"id": 1, 	"nombre": "Constitución", "anden": [{"id": 0}], "idTerminal": 181, "sentido": 1}, 
+											{"id": 2, 	"nombre": "Bahía Blanca", "anden": [{"id": 0}], "idTerminal": 182, "sentido": 2}
+				], 
+				"sentido": [	{"id": 	182, 	"estacion": "Constitución"},
+											{"id": 	181, 	"estacion": "Bahía Blanca"}]
+			} 
+		]
+	} 
+]

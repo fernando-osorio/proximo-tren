@@ -58,33 +58,39 @@ var ocultarSecciones = function(){
 	$('main#fuera-de-servicio').css('display', 'none'); 
 	$('#barra-mensaje-alerta').css('display', 'none'); 
 	$('#barra-mensaje-alerta-terminal').css('display', 'none'); 
-	$('#volver').attr('onClick', 'volverAlSelector()'); 
+	//$('button#btn-back').attr('onClick', 'volverAlSelector()').removeClass('hidden'); 
+	$('#btn-back').html('<button type="button" class="btn btn-secondary bg-inverse back"><i class="material-icons">&#xE5C4;</i></button>');
+	$('#btn-back button').attr('onClick', 'loadSection("selector")'); 
 }
 
 $(document).ready(function(){
-	// Lista las líneas
-		var listarLineas= ""; 
-		for (var i = 0; i < jsonList.Trenes.length; i++){
-			listarLineas+= "<label class='btnlinea btn btn-default' onClick='paso2("+jsonList.Trenes[i].id+")'>"+jsonList.Trenes[i].linea+"</label>";
-		}
-		$("#listaLineas").html(listarLineas);
-
-		$('label.btnlinea').click(function() {
-			$('label.btnlinea').removeClass('active'); 
-			$(this).addClass('active'); 
-		});
+	//paso1(); 
 });	
 
-var paso2 = function(linea){
-	resetear(); 
-	$('#selector-ramal').css('display', 'block'); 
-	lineaSeleccionada = parseInt(linea);
-	var listarRamales= ""; 
-	for (var j = 0; j < jsonList.Trenes[lineaSeleccionada].ramales.length; j++){
-		listarRamales+= "<label class='btnramal btn btn-default' onClick='paso3(" + jsonList.Trenes[lineaSeleccionada].ramales[j].idRamal + ")'>"+jsonList.Trenes[lineaSeleccionada].ramales[j].ramal+"</label>";
+var paso1 = function(){
+	// Lista las líneas
+	var listarLineas= ""; 
+	for (var i = 0; i < JSONstations.length; i++){
+		listarLineas+= "<label class='btnlinea btn btn-default' id='"+JSONstations[i].id+"' onClick='step2("+JSONstations[i].id+")'>"+JSONstations[i].linea+"</label>";
 	}
-	if ((jsonList.Trenes[lineaSeleccionada].ramales[0].ramal == "Unico") || (jsonList.Trenes[lineaSeleccionada].ramales[0].ramal == "Único")) {
-		paso3(0); 
+	$("#listaLineas").html(listarLineas);
+
+	$('label.btnlinea').click(function() {
+		$('label.btnlinea').removeClass('active'); 
+	});
+}
+
+var step2 = function(line){
+	resetear(); 
+	$('label.btnlinea#'+line).addClass('active'); 
+	$('#selector-ramal').css('display', 'block'); 
+	lineaSeleccionada = parseInt(line);
+	var listarRamales= ""; 
+	for (var j = 0; j < JSONstations[lineaSeleccionada].ramales.length; j++){
+		listarRamales+= "<label class='btnramal btn btn-default' id=" + JSONstations[lineaSeleccionada].ramales[j].idRamal + " onClick='step3(" + JSONstations[lineaSeleccionada].ramales[j].idRamal + ")'>"+JSONstations[lineaSeleccionada].ramales[j].ramal+"</label>";
+	}
+	if ((JSONstations[lineaSeleccionada].ramales[0].ramal == "Unico") || (JSONstations[lineaSeleccionada].ramales[0].ramal == "Único")) {
+		step3(0); 
 		$('#selector-ramal').css('display', 'none'); 
 	};
 	if (lineaSeleccionada === 1) {
@@ -96,16 +102,16 @@ var paso2 = function(linea){
 
 	$('label.btnramal').click(function() {
 		$('label.btnramal').removeClass('active'); 
-		$(this).addClass('active'); 
 	});
 }; 
 
-var paso3 = function(ramal){ 
+var step3 = function(branch){ 
 	resetear(); 
+	$('label.btnramal#'+branch).addClass('active'); 
 	$('#selector-ramal').css('display', 'block'); 
 	// Después de seleccionar el ramal
-		//$('input[type=radio][name=ramal]').change(function() {
-			ramalSeleccionado = parseInt(ramal);
+		//$('input[type=radio][name=branch]').change(function() {
+			ramalSeleccionado = parseInt(branch);
 
 			var escalarCajaEstaciones = function(){
 				var responsive = Modernizr.mq('(max-width: 800px)');
@@ -172,8 +178,8 @@ var paso3 = function(ramal){
 			});
 
 			var estacionesLinea = ""; 
-			for (var k = 0; k < jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion.length; k++){
-				estacionesLinea+= "<div class='estacion'><input type='radio' name='estacion'  onClick='paso4("+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[k].id+")' /> "+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[k].nombre+"</div>";
+			for (var k = 0; k < JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion.length; k++){
+				estacionesLinea+= "<div class='estacion'><input type='radio' name='estacion'  onClick='step4("+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[k].id+")' /> "+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[k].nombre+"</div>";
 			}
 			//console.log(estacionesLinea); 
 			$("#estacionesLinea").html(estacionesLinea); 
@@ -181,7 +187,7 @@ var paso3 = function(ramal){
 		//});
 }; 
 
-var paso4 = function(estacion){
+var step4 = function(estacion){
 	//resetear(); 
 	//$('#selector-ramal').css('display', 'block'); 
 	// Después de seleccionar la estación 
@@ -191,35 +197,35 @@ var paso4 = function(estacion){
 			$('section#selector-sentido h1').html('Sentido a').css('display', 'block'); 
 			$('section#selector-sentido #acceso-terminal').css('display', 'none'); 
 			var sentidos = ""; 
-			for (var k = 0; k < jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido.length; k++){
+			for (var k = 0; k < JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido.length; k++){
 
 				if (k === 1) {
 					if ((((lineaSeleccionada === 1) && (ramalSeleccionado === 1)) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 5))) || (((lineaSeleccionada === 1) && (ramalSeleccionado === 2))) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 5))) {
-						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>J.L.Suárez/Bme.Mitre</label>";
+						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>J.L.Suárez/Bme.Mitre</label>";
 					} else if ((((lineaSeleccionada === 6) && (ramalSeleccionado === 0)) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 8))) || (((lineaSeleccionada === 6) && (ramalSeleccionado === 1))) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 8))) {
-						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>M.C.G.Belgrano/G.Catán</label>";
+						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>M.C.G.Belgrano/G.Catán</label>";
 					} else {
-						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
+						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
 					}; 
 				} else {
-					sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
+					sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
 				}; 
 			}
 			//console.log(sentidos); 
 			$("#sentidos").html(sentidos); 
 
 			estSeleccionada = estacionSeleccionada - 1; 
-			nombreEstacion = jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].nombre; 
+			nombreEstacion = JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].nombre; 
 			
-			var checkTerminal = jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden; 
+			var checkTerminal = JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden; 
 			if (checkTerminal !== undefined) {
 				var sentidos = ""; 
 				$('section#selector-sentido h1').html('').css('display', 'none'); 
-				$('#selector-sentido #acceso-terminal').html("<button id='acceso-terminal' class='btn btn-default' onClick='mostrarTerminal("+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].idTerminal+", "+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].sentido+")'>Ver servicios programados</button>").css('display', 'block'); 
-				if (jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[0].id != 0) {
+				$('#selector-sentido #acceso-terminal').html("<button id='acceso-terminal' class='btn btn-default' onClick='mostrarTerminal("+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].idTerminal+", "+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].sentido+")'>Ver servicios programados</button>").css('display', 'block'); 
+				if (JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[0].id != 0) {
 					$('#selector-sentido h1').html('O seleccioná el andén').css('display', 'block'); 
-					for (var l = 0; l < jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden.length; l++){
-						sentidos+= "<label class='btnanden btn btn-default' onClick='mostrarAnden("+ jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[l].idTerminal +", " + jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[l].id + ")'>"+jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[l].nombre+"</label>";
+					for (var l = 0; l < JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden.length; l++){
+						sentidos+= "<label class='btnanden btn btn-default' onClick='mostrarAnden("+ JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[l].idTerminal +", " + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[l].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[l].nombre+"</label>";
 					}
 				};
 				//console.log(sentidos); 
@@ -233,20 +239,18 @@ var paso4 = function(estacion){
 
 
 var mostrarEstacion = function(numeroEst, sentido){
+	station.direction = sentido; 
+	station.station = estacionSeleccionada; 
 	//sentidoSeleccionado = sentido;
 	//sentidoId = numeroEst;
 
-	nombreDestino = jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].sentido[numeroEst].estacion; 
+	nombreDestino = JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[numeroEst].estacion; 
 
 	//ramal = sentidoSeleccionado; 
 	//anden = andenSeleccionado; 
 	estacion = estacionSeleccionada; 
 
 	ocultarSecciones(); 
-	$('.datos-estacion').css('display', 'block'); 
-	$('main#cargando').css('display', 'block'); 
-	$('#estacion-actual').html('Estación ' + nombreEstacion); 
-	$('#estacion-actual-2').html(nombreEstacion); 
 	
 	selector = true; 
 	paginaInicialVisible = false; 
@@ -257,15 +261,19 @@ var mostrarEstacion = function(numeroEst, sentido){
 	imgFooter(sentido);
 
 	clearInterval(intervaloEstacion); 
-	intervaloEstacion = setInterval(function() {proximoTren(sentido, estacion)}, 1500);
+	//intervaloEstacion = setInterval(proximoTren(sentido, estacion), 1500);
+	loadSection('estacion'); 
 };
 
 var mostrarAnden = function(idTerminal, idanden, sentidoTerminal, estDefaultTerminal){
+	platform.station = idTerminal; 
+	platform.platform = idanden; 
+
 	andenSeleccionado = idanden;
 	if (idTerminal == 5) {
 		nombreEstacion = "Retiro"; 
 	} else {
-		nombreEstacion = jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].nombre; 
+		nombreEstacion = JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].nombre; 
 		estacion = estacionSeleccionada; 
 	}
 	//ramal = jsonList.Trenes[lineaSeleccionada].ramales[ramalSeleccionado].estacion[estSeleccionada].anden[andenSeleccionado - 1].idTerminal; 
@@ -275,14 +283,16 @@ var mostrarAnden = function(idTerminal, idanden, sentidoTerminal, estDefaultTerm
 	//anden = andenSeleccionado; 
 
 	ocultarSecciones(); 
-	$('.datos-estacion').css('display', 'block'); 
-	$('main#cargando').css('display', 'block'); 
 	$('#estacion-actual').html('Estación ' + nombreEstacion); 
 	$('#estacion-actual-2').html(nombreEstacion); 
 	
 	if (estDefaultTerminal == "mitre") {
+		//$('button#btn-back').attr('onClick', 'mostrarTerminal('+idTerminal+', '+sentidoTerminal+', "'+estDefaultTerminal+'")').removeClass('hidden'); 
+		$('#btn-back').html('<button type="button" class="btn btn-secondary bg-inverse back" onClick="mostrarTerminal('+idTerminal+', '+sentidoTerminal+', "'+estDefaultTerminal+'")"><i class="material-icons">&#xE5C4;</i></button>');
 		$('#volver').attr('onClick', 'mostrarTerminal('+idTerminal+', '+sentidoTerminal+', "'+estDefaultTerminal+'")'); 
 	} else if (sentidoTerminal != "") {
+		//$('button#btn-back').attr('onClick', 'mostrarTerminal('+idTerminal+', '+sentidoTerminal+')').removeClass('hidden'); 
+		$('#btn-back').html('<button type="button" class="btn btn-secondary bg-inverse back" onClick="mostrarTerminal('+idTerminal+', '+sentidoTerminal+')"><i class="material-icons">&#xE5C4;</i></button>');
 		$('#volver').attr('onClick', 'mostrarTerminal('+idTerminal+', '+sentidoTerminal+')'); 
 	}; 
 
@@ -295,11 +305,15 @@ var mostrarAnden = function(idTerminal, idanden, sentidoTerminal, estDefaultTerm
 	imgFooter(idTerminal); 
 
 	clearInterval(intervaloAnden); 
-	intervaloAnden = setInterval(function() {proximaSalida(idTerminal, idanden);}, 1500);
+	loadSection('platform'); 
+	//intervaloAnden = setInterval(function() {proximaSalida(idTerminal, idanden);}, 1500);
 	//setInterval(function() {proximaSalida();}, 1500);
 };
 
 var mostrarTerminal = function(idTerminal, numsentido, estdefault){
+	terminal.station = idTerminal; 
+	terminal.direction = numsentido; 
+	terminal.defaultstation = estdefault; 
 	//idramal = idTerminal; 
 	//sentido = numsentido;
 	var estacionTerminal = estdefault; 
@@ -309,10 +323,6 @@ var mostrarTerminal = function(idTerminal, numsentido, estdefault){
 	ramal = idTerminal; 
 
 	ocultarSecciones(); 
-	$('.datos-estacion').css('display', 'block').addClass('terminal'); 
-	$('main#cargando').css('display', 'block'); 
-	$('#estacion-actual').html('Estación ' + nombreEstacion); 
-	$('#estacion-actual-2').html(nombreEstacion); 
 
 	selector = true; 
 	paginaInicialVisible = false; 
@@ -331,32 +341,26 @@ var mostrarTerminal = function(idTerminal, numsentido, estdefault){
 	var estacionesback4 = ""; 
 	var estacionesback5 = ""; 
 
-	imgFooter(idTerminal); 
-
 	clearInterval(intervaloSalidas); 
-	intervaloSalidas = setInterval(function() {proximasSalidas(idTerminal, numsentido, estacionTerminal);}, 1500);
+	loadSection('terminal'); 
 	//setInterval(function() {proximasSalidas(estdefault, idTerminal, numsentido);}, 1500);
 };
 
 var volverAlSelector = function(){
-	clearInterval(intervaloEstacion); 
-	clearInterval(intervaloAnden); 
-	clearInterval(intervaloSalidas); 
-	$('.btnlinea').removeClass('active'); 
-	$('.btnramal').removeClass('active'); 
-	$('#volver').addClass('ocultarVolver').addClass('oculto'); 
 	selector = false; 
 	paginaInicialVisible = true; 
 	verifEstacion = false; 
 	verifAnden = false; 
 	verifTerminal = false; 
+	clearInterval(intervaloEstacion); 
+	clearInterval(intervaloAnden); 
+	clearInterval(intervaloSalidas); 
+	$('.btnlinea').removeClass('active'); 
+	$('.btnramal').removeClass('active'); 
+	//$('button#btn-back').addClass('hidden'); 
+	$('#btn-back').html('');
+	$('#volver').addClass('ocultarVolver').addClass('oculto'); 
 	resetear(); 
 	ocultarSecciones(); 
-	$('main#selector').css('display', 'block'); 
-	ocultarSecciones(); 
-	$('main#selector').css('display', 'block'); 
-	ocultarSecciones(); 
-	$('main#selector').css('display', 'block'); 
-	ocultarSecciones(); 
-	$('main#selector').css('display', 'block'); 
+	$('main#main').css('display', 'block'); 
 }

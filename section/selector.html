@@ -1,0 +1,43 @@
+<!--<script src="js/selector.js"></script>-->
+<div class="selector">
+	<div class="container text-xs-center">
+		<div class="col-sm-12">
+			<script src="js/selector.js"></script>
+			<section id="selector-linea" style="border-top: none;">
+				<h1>Seleccioná la línea</h1>
+				<div class="btn-group" data-toggle="buttons" id="listaLineas">
+					Cargando...
+				</div>
+			</section>
+			<section id="selector-ramal" style="display: none;">
+				<h1>Seleccioná el ramal</h1>
+				<div class="btn-group" data-toggle="buttons" id="listaRamales">
+					Seleccioná una línea para ver los ramales disponibles. 
+				</div>
+			</section>
+			<section id="selector-estacion" style="display: none;">
+				<h1>Seleccioná la estación</h1>
+				<div id="contenedorEstacionesLinea">
+					<div id="estacionesLinea"></div>
+				</div>
+			</section>
+			<section id="selector-sentido" style="display: none;">
+				<div id="acceso-terminal"></div>
+				<h1 id="titulo"></h1>
+				<div class="btn-group" data-toggle="buttons" id="sentidos"></div>
+			</section>
+			<section id="botonera-acceso" style="display: none;">
+				<button id="acceso">Ver los próximos trenes</button>
+			</section>
+			<!-- Coming soon -->
+			<section id="favourites" class="hidden">
+				<h2>Acceso rápido</h2>
+				<div id="stations">
+					<div class="btn btn-primary">Moreno - Sarmiento (Once-Moreno)</div>
+					<div class="btn btn-primary">Morón - Sarmiento (Once-Moreno)</div>
+					<div class="btn btn-primary">Ranelagh - Roca (Constitución-La Plata)</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

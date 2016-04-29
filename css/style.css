@@ -1,9 +1,15 @@
 /* Fuentes */
 	@font-face {
-		font-family: "fuente";
+		font-family: "dinpro";
 		font-weight: normal;
 		font-style: normal;
 		src: url("../fonts/DINPro-Regular.otf") format("opentype");
+	}
+	@font-face {
+		font-family: "gotham";
+		font-weight: normal;
+		font-style: normal;
+		src: url("../fonts/gotham-medium.ttf") format("truetype");
 	}
 	@font-face {
 		font-family: "tiempo";
@@ -13,13 +19,15 @@
 	}
 
 /* Estilos generales */
-	*{
+	body{
 		padding: 0; margin: 0;
-		font-family: "fuente", Arial, Serif;
 		-webkit-user-select: none; 
 		-moz-user-select: none;
 		user-select: none; 
+		background-color: transparent;
 	} 
+	body.dinpro{font-family: "dinpro", Arial, Serif;} 
+	body.gotham{font-family: "gotham", Arial, Serif;} 
 	section{margin: 10px; border-top: 1px solid rgba(200, 200, 200, 0.5);}
 	button{
 		margin: 10px; 
@@ -54,26 +62,6 @@
 
 /* Barra superior */
 	header{background-image: linear-gradient(to bottom, rgb(20, 20, 20) 0%, transparent 100%);}
-	.brand{
-		margin: 10px;
-		background-size: cover; 
-		background-position: center;
-		display: inline-block; 
-	}
-	.brand#NFA{
-		background-image: url(../img/brand-NFA.png); 
-		width: 225px; 
-		height: 75px; 
-		text-align: left; 
-		vertical-align: middle;
-	}
-	.brand#min-transporte{
-		background-image: url(../img/brand-FM5HD.png); 
-		width: 340px; 
-		height: 60px; 
-		right: 0;
-		float: right;
-	}
 	#volver {display: inline-block; width: 80px; vertical-align: middle; transition: 0.5s; cursor: pointer;}
 	#volver i.material-icons{font-size: 70px; color: #FFF;}
 	#volver.ocultarVolver {width: 0px;}
@@ -157,6 +145,8 @@
 	.subsiguiente-tren p						{font-size: 40px;}
 
 	.proximo-tren p.num-tiempo					{font-size: 180px; line-height: 190px;}
+	.proximo-tren p.num-tiempo.hour				{font-size: 168px !important;}
+	.proximo-tren p.num-tiempo.hour-mins		{font-size: 156px !important;}
 	.siguiente-tren p.num-tiempo				{font-size: 70px;}
 	.subsiguiente-tren p.num-tiempo				{font-size: 70px;}
 	@media (max-width: 767px) {
@@ -164,9 +154,43 @@
 		.siguiente-tren p							{font-size: 30px;}
 		.subsiguiente-tren p						{font-size: 30px;}
 
-		.proximo-tren p.num-tiempo					{font-size: 60px; line-height: inherit;}
-		.siguiente-tren p.num-tiempo				{font-size: 60px;}
+		.proximo-tren p.num-tiempo					{font-size: 59px; line-height: inherit;}
+			.proximo-tren p.num-tiempo.hour				{font-size: 58px !important;}
+			.proximo-tren p.num-tiempo.hour-mins		{font-size: 56px !important;}
+		.siguiente-tren p.num-tiempo				{font-size: 59px;}
+			.siguiente-tren p.num-tiempo.hour			{font-size: 58px !important;}
+			.siguiente-tren p.num-tiempo.hour-mins		{font-size: 56px !important;}
 		.subsiguiente-tren p.num-tiempo				{font-size: 60px;}
+			.subsiguiente-tren p.num-tiempo.hour		{font-size: 58px !important;}
+			.subsiguiente-tren p.num-tiempo.hour-mins	{font-size: 56px !important;}
+	}
+
+	@media (max-width: 480px) {
+		.proximo-tren p.num-tiempo					{font-size: 54px; line-height: inherit;}
+			.proximo-tren p.num-tiempo.hour				{font-size: 52px !important;}
+			.proximo-tren p.num-tiempo.hour-mins		{font-size: 50px !important;}
+		.siguiente-tren p.num-tiempo				{font-size: 54px;}
+			.siguiente-tren p.num-tiempo.hour			{font-size: 52px !important;}
+			.siguiente-tren p.num-tiempo.hour-mins		{font-size: 50px !important;}
+		.subsiguiente-tren p.num-tiempo				{font-size: 54px;}
+			.subsiguiente-tren p.num-tiempo.hour		{font-size: 52px !important;}
+			.subsiguiente-tren p.num-tiempo.hour-mins	{font-size: 50px !important;}
+	}
+
+	@media (max-width: 360px) {
+		.proximo-tren p 							{font-size: 24px;}
+		.siguiente-tren p							{font-size: 24px;}
+		.subsiguiente-tren p						{font-size: 24px;}
+
+		.proximo-tren p.num-tiempo					{font-size: 48px; line-height: inherit;}
+			.proximo-tren p.num-tiempo.hour				{font-size: 42px !important;}
+			.proximo-tren p.num-tiempo.hour-mins		{font-size: 40px !important;}
+		.siguiente-tren p.num-tiempo				{font-size: 48px;}
+			.siguiente-tren p.num-tiempo.hour			{font-size: 42px !important;}
+			.siguiente-tren p.num-tiempo.hour-mins		{font-size: 40px !important;}
+		.subsiguiente-tren p.num-tiempo				{font-size: 48px;}
+			.subsiguiente-tren p.num-tiempo.hour		{font-size: 42px !important;}
+			.subsiguiente-tren p.num-tiempo.hour-mins	{font-size: 40px !important;}
 	}
 
 /* Andén de terminal */
@@ -226,7 +250,7 @@
 	p#estaciones-serv-especial:first-letter, .js-marquee-wrapper:first-letter, .js-marquee:first-letter{text-transform: uppercase !important;}
 
 /* Flags de servicios */
-	.especial{background-color: rgba(200, 150, 0, 0.75);}
+	.especial, .special{background-color: rgba(200, 150, 0, 0.75);}
 	.rapido{background-color: rgba(0, 150, 255, 0.75);}
 	.semi-rapido{background-color: rgba(225, 225, 0, 0.75); color: #000;}
 
@@ -237,27 +261,194 @@
 	bottom: 0; 
 	background-color: rgba(0, 0, 0, 0.75); 
 	color:#FFF;
+	padding: 10px;
+	margin-left: 0px; margin-right: 0px; 
 }
 .datos-estacion.terminal{position: static;}
 .datos-estacion img#linea{padding: 3px 0;}
+.datos-estacion h1{margin-bottom: 0px;}
 .datos-estacion i.material-icons{font-size: 40px; vertical-align: top;}
 @media (max-width: 1060px) {
 	.datos-estacion{position: static;}
 	.datos-estacion img#linea{max-width: 250px;}
-	.datos-estacion h1{font-size: 22px;}
+	.datos-estacion h1{font-size: 24px; padding-top: 5px;}
 	.datos-estacion i.material-icons{font-size: 30px;}
 }
 
-@media (max-height: 720px) {
+@media (max-height: 768px) {
 	.datos-estacion{position: static;}
 	.datos-estacion img#linea{max-width: 250px;}
-	.datos-estacion h1{font-size: 22px;}
+	.datos-estacion h1{font-size: 24px; padding-top: 5px;}
 	.datos-estacion i.material-icons{font-size: 30px;}
 }
 
 /* Modificaciones a Bootstrap */
 .btn-default {
-  color: #FFF;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.5);
+	color: #FFF;
+	background-color: rgb(0, 0, 0);
+	border-color: rgba(255, 255, 255, 0.5);
+	opacity: 0.65; 
+	transition: 0.5s; 
 }
+@media (min-width: 48em){
+	.btn-default {
+		opacity: 0.45; 
+	}
+}
+.btn-default:hover, 
+.btn-default:focus,
+.btn-default.focus {opacity: 1;}
+
+
+
+
+
+
+.navbar {background-color: transparent; }
+	.brand{
+		margin: 10px;
+		background-size: cover; 
+		background-position: center;
+		display: inline-block; 
+	}
+	.brand#NFA{
+		background-image: url(../img/brand-NFA.svg); 
+		width: 110px; 
+		height: 35px; 
+		text-align: left; 
+		vertical-align: middle;
+	}
+	.brand#OFSE{
+		background-image: url(../img/brand-OFSE.svg); 
+		width: 120px; 
+		height: 35px; 
+		margin-right: 0px; 
+		text-align: left; 
+		vertical-align: middle;
+	}
+	@media (min-width: 48em){
+		.brand#NFA{
+			width: 225px; 
+			height: 75px; 
+		}
+		.brand#OFSE{
+			width: 230px; 
+			height: 75px; 
+		}
+	}
+
+.navbar .back{display: inline-block; padding-left: 5px; padding-right: 5px; padding-bottom: 0px; background-color: transparent; border: none;}
+.navbar:hover .back{
+	display: inline-block;
+}
+@media (min-width: 48em){
+	.navbar .back{display: none;}
+}
+
+/* Station data */
+.station-data{
+	position: fixed; 
+	bottom: 0; 
+	background-color: rgba(0, 0, 0, 0.75); 
+	color:#FFF;
+	padding: 10px;
+	margin-left: 0px; margin-right: 0px; 
+	width: 100%; 
+}
+.station-data.terminal{position: static;}
+.station-data img#linea{padding: 3px 0;}
+.station-data h1{margin-bottom: 0px; font-size: 30px}
+.station-data i.material-icons{font-size: 40px; vertical-align: top;}
+@media (max-width: 1060px) {
+	.station-data{position: static;}
+	.station-data img#linea{max-width: 250px;}
+	.station-data h1{font-size: 24px; padding-top: 5px;}
+	.station-data i.material-icons{font-size: 30px;}
+}
+
+@media (max-height: 748px) {
+	.station-data{position: static;}
+	.station-data img#linea{max-width: 250px;}
+	.station-data h1{font-size: 24px; padding-top: 5px;}
+	.station-data i.material-icons{font-size: 30px;}
+}
+
+/* Statuses */
+.card-status i.material-icons{font-size: 30px; padding-bottom: 0;}
+.card-status h1{font-size: 30px;}
+.card-status h2{font-size: 18px;}
+@media (max-width: 47.9em){
+	.card-status .card-block{height: 190px}
+}
+@media (max-width: 33.9em){
+	.card-status .card-block{height: 300px}
+}
+@media (min-width: 48em){
+	.card-status i.material-icons{font-size: 175px; padding-bottom: 0;}
+	.card-status h1{font-size: 80px;}
+	.card-status h2{font-size: 42px; margin-top: 15px;}
+}
+
+.proximo-servicio .card-block{
+	padding:0px;
+}
+
+.servicio-prestado{
+	padding: 0px;
+}
+ 	.servicio-prestado .tipo{padding: 0px;}
+ 	.servicio-prestado .estaciones{padding: 0px;}
+
+/* Cards */
+.card.next-train{
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #FFF; 
+	opacity: 0.5; 
+	transition: 0.5s; 
+}
+	.card.next-train .card-footer{
+		background-color: rgba(0, 0, 0, 0.5);
+		padding: 0px; 
+		font-size: 24px; 
+	}
+.card.first-train, .card.second-train, .card.third-train{
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #FFF; 
+	transition: 0.5s; 
+}
+	.card.first-train .card-footer, .card.second-train .card-footer, .card.third-train .card-footer{
+		background-color: rgba(0, 0, 0, 0.5);
+		padding: 0px; 
+		font-size: 24px; 
+	}
+.card.next-train.confirmed{opacity: 1; cursor: pointer;}
+.card.next-train.on-platform{
+	background-color: #FFF; 
+	color: rgb(40, 40, 40);
+}
+	.card.next-train p{margin-bottom: 0px;}
+	.card.next-train .card-block{font-size: 30px;}
+	.card.next-train .card-footer{
+		background-color: rgba(0, 0, 0, 0.5);
+		padding: 0px; 
+		font-size: 24px; 
+	}
+	@media (min-width: 768px){
+		.card.next-train .card-block{font-size: 40px;}
+		.card.next-train .card-footer{font-size: 36px;}
+	}
+	.card .card-footer .row{margin-left: 0; margin-right: 0;}
+		.card .train-type, .card .stops{
+			margin-left: 0; margin-right: 0; 
+			padding-left: 0; padding-right: 0;
+		}
+			.card .stops .the-overflow{overflow: hidden;}
+		.card .special{background-color: rgba(200, 140, 0, 0.5);}}
+		.card.on-platform .special{background-color: transparent; color: rgb(200, 140, 0);}
+
+
+/* Terminal */
+	h1#sameDestiny{background-color: rgba(255, 255, 255, 0.75); color: rgb(20, 20, 20);}
+
+
+.hidden{display: none;}
