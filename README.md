@@ -9,25 +9,30 @@ A diferencia de Trenes en Vivo, esta plataforma híbrida (lo considero de esa fo
 
 # Líneas y ramales disponibles 
 Al contrario de la app oficial, acá se despliegan todos los datos de todos los ramales en donde se haya implementado la generación de datos en tiempo real, incluyendo servicios en/hacia el interior del país. 
+
 ## Sarmiento. 
 * Once-Moreno. 
 * Merlo-Lobos. 
 * Moreno-Mercedes. 
+
 ## Mitre. 
 * Retiro-Tigre. 
 * Retiro-J.L.Suárez/Bme.Mitre. 
 * Victoria-Capilla del Señor (sólo cabeceras). 
 * Zárate-Villa Ballester (sólo cabeceras). 
+
 ## Roca. 
 * Constitución-La Plata. 
 * Constitución Bosques/Gutiérrez (en pruebas). 
 * Constitución Alejandro Korn (en pruebas). 
 * Constitución Cañuelas (en pruebas). 
 * Constitución Haedo-Temperley (en pruebas). 
+
 ## Belgrano Sur. 
 * Buenos Aires-M.C.G.Belgrano. 
 * Buenos Aires-González Catán. 
 * Puente Alsina-Aldo Bonzi (sólo cabeceras). 
+
 ## Líneas de ramal único
 * San Martín. 
 * Tren de la Costa. 
@@ -55,7 +60,13 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 | Próximo tren en: Destino: Moreno. 5 minutos | El próximo hacia Moreno llega en 5 minutos |
 | El tren es tuyo, cuidalo. | No hay información de los próximos servicios. Consultá la cartelera de horarios para más información. |
 
-# Changelog
+# Changelog 
+## v1.5.1 
+* Más optimización en el funcionamiento. 
+* Corrección del bug de la estación de destino en mayúsculas. 
+* Cambio de algunos textos. 
+* Habilitación de la personalización de las marcas de las líneas. 
+
 ## v1.5
 * Optimización de scripts. 
 * Migración de Unsemantic a Bootstrap. 

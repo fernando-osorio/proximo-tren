@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<!-- 
-		Sitio programado por Fernando Osorio (Fermoto5HD) para Lantalks WebMedia
-		Repositorio del sitio: http://github.com/Lantalks/web-loop 
+		Sitio programado por Fernando Osorio (Fermoto5HD). 
+		Repositorio del sitio: http://github.com/Fermoto5HD/proximo-tren 
 	-->
 	<head>
 		<title>Próximo tren (beta)</title>
@@ -119,14 +119,14 @@
 									</label>
 								</div>
 								<hr>
-								<h4>Marca de las líneas (próximamente)</h4>
+								<h4>Marca de las líneas</h4>
 								<p>Lo mismo acá pero con las líneas ferroviarias. ¿Preferís las marcas anteriores o las actuales?</p>
 								<div class="btn-group" id="linebrands" data-toggle="buttons">
-									<label class="btn btn-primary disabled" id="lines">
-										<input type="radio" name="brand" id="lines" autocomplete="off">Actuales
+									<label class="btn btn-primary" id="lines">
+										<input type="radio" name="linebrands" id="lines" autocomplete="off">Actuales
 									</label>
-									<label class="btn btn-primary disabled" id="lines-old">
-										<input type="radio" name="brand" id="lines-old" autocomplete="off">Anteriores
+									<label class="btn btn-primary" id="lines-old">
+										<input type="radio" name="linebrands" id="lines-old" autocomplete="off">Anteriores
 									</label>
 								</div>
 								<hr>
@@ -194,7 +194,7 @@
 		</div>
 		<!-- End About modal -->
 		<!-- Start First-time modal -->
-		<div class="modal fade" id="first-time" tabindex="-1" role="dialog" data-backdrop="false" data-keyboard="false">
+		<div class="modal fade" id="first-time" tabindex="-1" role="dialog" data-backdrop="false" data-keyboard="false" style="background-color: rgba(0, 0, 0, 0.5)">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content bg-inverse">
 					<div class="modal-header">
@@ -235,6 +235,20 @@
 			</div>
 		</div>
 		<!-- End soon modal -->
+		<!-- Loading modal -->
+		<div class="modal fade" id="loading-section" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title">Cargando...</h4>
+					</div>
+					<div class="modal-footer">
+						<progress class="progress progress-striped progress-animated" value="100" max="100">Cargando...</progress>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Loading modal -->
 		<!-- No connection -->
 		<div id="no-connection" class="container" hidden>
 			<div class="alert alert-danger">No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.</div>

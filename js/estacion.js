@@ -40,7 +40,8 @@ var proximoTren = function(ramalEst, estacion) {
 		if (ramalEst>0 && estacion>0) {
 			var datosEstacion='';
 			$.get("php/station.php?linea="+ramalEst+"&estacion="+estacion, function(jsonEstacion,status){
-				datosEstacion=jsonEstacion;
+				datosEstacion = jsonEstacion;
+				$('#loading-section').modal('hide');
 			}).error(function() {
 				errorDBEstacion = true; 
 				intentos++;
@@ -71,9 +72,9 @@ var proximoTren = function(ramalEst, estacion) {
 					var datast = "("+datosEstacion+")"; 
 					respuesta = eval(datast);
 					var reload = respuesta.items['reload'];
-					tiempo1 = respuesta.items['demora_formacion_1'];
-					tiempo2 = respuesta.items['demora_formacion_2'];
-					tiempo3 = respuesta.items['demora_formacion_3'];
+					time_1 = respuesta.items['demora_formacion_1'];
+					time_2 = respuesta.items['demora_formacion_2'];
+					time_3 = respuesta.items['demora_formacion_3'];
 					formacion_local_1 = respuesta.items['local_1'];
 					formacion_local_2 = respuesta.items['local_2'];
 					formacion_local_3 = respuesta.items['local_3'];
@@ -95,75 +96,73 @@ var proximoTren = function(ramalEst, estacion) {
 					//  var estHastaMinusculas = respuesta.items['estacion_hasta_1'].toLowerCase();
 					//}
 					//var estacion_hasta_1 = estHastaMinusculas;
-					var estacion_hasta_1 = respuesta.items['estacion_hasta_1']; 
+					var stationto_1 = respuesta.items['estacion_hasta_1']; 
 					//alert(formacion_tipo_servicio_1+'-'+formacion_tipo_servicio_2+'-'+formacion_tipo_servicio_3);
 
 
-					// Cuando el tiempo es superior a 59 minutos se parsea en horas y minutos
-					var tiempo1_PreHorasMinutos = parseInt(tiempo1); 
-					var tiempo1_HorasMinutos = moment.duration(tiempo1_PreHorasMinutos, "minutes").format("h [hora] m [min]");
-					var tiempo1_HorasMinutos120 = moment.duration(tiempo1_PreHorasMinutos, "minutes").format("h [horas] m [min]");
+					// If time is more than 59 minutes, parse to hours and minutes. 
+					var time1_pre = parseInt(time_1); 
+					var time1_1hr = moment.duration(time1_pre, "minutes").format("h [hora] m [min]");
+					var time1_2hr = moment.duration(time1_pre, "minutes").format("h [horas] m [min]");
 
-					var tiempo2_PreHorasMinutos = parseInt(tiempo2); 
-					var tiempo2_HorasMinutos = moment.duration(tiempo2_PreHorasMinutos, "minutes").format("h [hora] m [min]");
-					var tiempo2_HorasMinutos120 = moment.duration(tiempo2_PreHorasMinutos, "minutes").format("h [horas] m [min]");
+					var time2_pre = parseInt(time_2); 
+					var time2_1hr = moment.duration(time2_pre, "minutes").format("h [hora] m [min]");
+					var time2_2hr = moment.duration(time2_pre, "minutes").format("h [horas] m [min]");
 
-					var tiempo3_PreHorasMinutos = parseInt(tiempo3); 
-					var tiempo3_HorasMinutos = moment.duration(tiempo3_PreHorasMinutos, "minutes").format("h [hora] m [min]");
-					var tiempo3_HorasMinutos120 = moment.duration(tiempo3_PreHorasMinutos, "minutes").format("h [horas] m [min]");
+					var time3_pre = parseInt(time_3); 
+					var time3_1hr = moment.duration(time3_pre, "minutes").format("h [hora] m [min]");
+					var time3_2hr = moment.duration(time3_pre, "minutes").format("h [horas] m [min]");
 
 					intentos=0;
 
-					if (tiempo1 >= 0) {
+					// Start time parsing. 
+					if (time_1 >= 0) {
 						//$('.destino#proximo').html('El próximo hacia <span style="text-transform:capitalize;">'+estacion_hasta_1+'</span> llega en');
 						$('.destino#proximo').html('El próximo hacia <span id="station-to" style="text-transform:capitalize;"></span> llega en');
-						$('#station-to').text(stationConverter(estacion_hasta_1));
+						$('#station-to').text(stationConverter(stationto_1));
 						$('.num-tiempo#proximo').removeClass('hour').removeClass('hour-mins');
 						$('.siguiente-tren').css('display', 'inherit'); 
-						if (tiempo1 == 120) {$('.num-tiempo#proximo').html('2 horas');}
-						else if (tiempo1 > 120) {$('.num-tiempo#proximo').html(tiempo1_HorasMinutos120).addClass('hour-mins');}
-						else if (tiempo1 > 60) {$('.num-tiempo#proximo').html(tiempo1_HorasMinutos).addClass('hour');}
-						else if (tiempo1 == 60) {$('.num-tiempo#proximo').html('1 hora');}
-						else if (tiempo1 == 1) {$('.num-tiempo#proximo').html('1 minuto');}
-						else if (tiempo1 == 0) {
-							$('.destino#proximo').html('La formación está en andén. Destino: ');
-							$('.num-tiempo#proximo').html('<span style="text-transform:capitalize;">'+estacion_hasta_1+'</span>'); 
+						if (time_1 == 120) {$('.num-tiempo#proximo').html('2 horas');}
+						else if (time_1 > 120) {$('.num-tiempo#proximo').html(time1_2hr).addClass('hour-mins');}
+						else if (time_1 > 60) {$('.num-tiempo#proximo').html(time1_1hr).addClass('hour');}
+						else if (time_1 == 60) {$('.num-tiempo#proximo').html('1 hora');}
+						else if (time_1 == 1) {$('.num-tiempo#proximo').html('1 minuto');}
+						else if (time_1 == 0) {
+							$('.destino#proximo').html('La formación está en andén. <br/>Este tren finaliza en: ');
+							$('.num-tiempo#proximo').text(stationConverter(stationto_1));
 						}
-						else {$('.num-tiempo#proximo').html(tiempo1+' minutos');}
+						else {$('.num-tiempo#proximo').html(time_1+' minutos');}
 					}
 					else {$('.destino#proximo').html('');$('.num-tiempo#proximo').html('Sin datos');}; 
 
-					if (tiempo2 >= 0) {
+					if (time_2 >= 0) {
 						$('.destino#siguiente').html('El siguiente viene en');
 						$('.num-tiempo#siguiente').removeClass('hour').removeClass('hour-mins');
 						$('.siguiente-tren').prop('hidden', ''); 
-						if (tiempo2 >= 120) {$('.num-tiempo#siguiente').html(tiempo2_HorasMinutos120).addClass('hour-mins');}
-						else if (tiempo2 > 60) {$('.num-tiempo#siguiente').html(tiempo2_HorasMinutos).addClass('hour');}
-						else if (tiempo2 == 60) {$('.num-tiempo#siguiente').html('1 hora');}
-						else if (tiempo2 == 1) {$('.num-tiempo#siguiente').html('1 minuto');}
-						else if (tiempo2 == 0) {$('.num-tiempo#siguiente').html('En andén');}
-						else {$('.num-tiempo#siguiente').html(tiempo2+' minutos');}
+						if (time_2 == 120) {$('.num-tiempo#siguiente').html('2 horas');}
+						else if (time_2 > 120) {$('.num-tiempo#siguiente').html(time2_2hr).addClass('hour-mins');}
+						else if (time_2 > 60) {$('.num-tiempo#siguiente').html(time2_1hr).addClass('hour');}
+						else if (time_2 == 60) {$('.num-tiempo#siguiente').html('1 hora');}
+						else if (time_2 == 1) {$('.num-tiempo#siguiente').html('1 minuto');}
+						else if (time_2 == 0) {$('.num-tiempo#siguiente').html('En andén');}
+						else {$('.num-tiempo#siguiente').html(time_2+' minutos');}
 					}
 					else {
 						$('.destino#siguiente').html('');
 						$('.num-tiempo#siguiente').html('Sin datos'); 
 						$('.siguiente-tren').prop('hidden', true); 
 					};
-					if (tiempo3>=0) {
+					if (time_3 >= 0) {
 						$('.destino#sub-siguiente').html('Y el sub-siguiente en');
 						$('.siguiente-tren').addClass('col-md-6').removeClass('col-md-12'); 
 						$('.subsiguiente-tren').addClass('col-md-6').removeClass('col-md-12').prop('hidden', ''); 
-						if (tiempo3<60) { 
-							$('.num-tiempo#sub-siguiente').html(tiempo3+' minutos'); 
-						}
-						if (tiempo3>=120) {$('.num-tiempo#sub-siguiente').html(tiempo3_HorasMinutos120);}
-						else if (tiempo3>60) {$('.num-tiempo#sub-siguiente').html(tiempo3_HorasMinutos);}
-						else if (tiempo3==60) {$('.num-tiempo#sub-siguiente').html('1 hora');}
-						else if (tiempo3 == 1) {$('.num-tiempo#sub-siguiente').html('1 minuto');}
-						else if (tiempo3 == 1) {$('.num-tiempo#sub-siguiente').html('En andén');}
-						else {
-							$('.num-tiempo#sub-siguiente').html(tiempo3+' minutos');
-						}; 
+						if (time_3 == 120) {$('.num-tiempo#sub-siguiente').html('2 horas');}
+						else if (time_3 >= 120) {$('.num-tiempo#sub-siguiente').html(time3_2hr);}
+						else if (time_3 > 60) {$('.num-tiempo#sub-siguiente').html(time3_1hr);}
+						else if (time_3 == 60) {$('.num-tiempo#sub-siguiente').html('1 hora');}
+						else if (time_3 == 1) {$('.num-tiempo#sub-siguiente').html('1 minuto');}
+						else if (time_3 == 0) {$('.num-tiempo#sub-siguiente').html('En andén');}
+						else {$('.num-tiempo#sub-siguiente').html(time_3+' minutos');}; 
 					}
 					else {
 						$('.destino#sub-siguiente').html(''); 
@@ -171,10 +170,10 @@ var proximoTren = function(ramalEst, estacion) {
 						$('.siguiente-tren').removeClass('col-md-6').addClass('col-md-12'); 
 						$('.subsiguiente-tren').removeClass('col-md-6').removeClass('col-md-12').prop('hidden', true); 
 					}
+					// End time parsing. 
 
-					// Si es un rápido
-					if (formacion_tipo_servicio_1 == "R")
-					{
+					// Set train type. 
+					if (formacion_tipo_servicio_1 == "R") {
 						$('#bloque-servicios-especiales').css('display','block');
 						$('p#tipo-servicio').html('Servicio rápido');
 						if (estaciones_1 != estacionesServEspecial) {
@@ -185,8 +184,7 @@ var proximoTren = function(ramalEst, estacion) {
 						};
 					}
 					// Si es un especial
-					else if (formacion_tipo_servicio_1 == "E")
-					{
+					else if (formacion_tipo_servicio_1 == "E") {
 						$('.cuadro-serv-especiales.tipo-serv#proximo').addClass('especial').removeClass('semi-rapido').removeClass('rapido');
 						$('.bloque-servicios-especiales#proximo').css('display','block');
 						$('p.tipo-servicio#proximo').html('Servicio especial');
@@ -199,8 +197,7 @@ var proximoTren = function(ramalEst, estacion) {
 						};
 					}
 					// Si es un semi-rápido
-					else if (formacion_tipo_servicio_1 == "S")
-					{
+					else if (formacion_tipo_servicio_1 == "S") {
 						$('.bloque-servicios-especiales#proximo').css('display','block');
 						$('p.tipo-servicio#proximo').html('Servicio s-rápido');
 						if (estaciones_1 != estacionesServEspecial) {
@@ -211,8 +208,7 @@ var proximoTren = function(ramalEst, estacion) {
 						};
 					}
 					// Servicio normal
-					else  if (formacion_tipo_servicio_1 == "N")
-					{
+					else  if (formacion_tipo_servicio_1 == "N") {
 						$('.bloque-servicios-especiales#proximo').css('display','none');
 					}
 

@@ -117,6 +117,7 @@ function proximaSalida(numRamal, anden) {
 		
 		$.get("php/platform.php?ramal="+numRamal+"&anden="+anden+"&cartel="+cartel ,function(datosAndenOrigen,status){					
 			datosAnden=datosAndenOrigen;
+			$('#loading-section').modal('hide'); 
 		})
 		.error(function() {
 			errorDBAnden = true; 

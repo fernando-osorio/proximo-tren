@@ -115,10 +115,14 @@ $(document).ready(function(){
 	$('#brands .btn-primary').on('click', function(){
 		brand($(this).find('input').attr('id'))
 	}); 
+	$('#linebrands .btn-primary').on('click', function(){
+		linebrands($(this).find('input').attr('id'))
+	}); 
 	$('#fonts .btn-primary').on('click', function(){
 		font($(this).find('input').attr('id'))
 	}); 
 	brand(config.brand); 
+	linebrands(config.linebrands); 
 	font(config.font); 
 	updatefreq(config.frequency); 
 }); 
@@ -128,6 +132,9 @@ var loadSection = function(section, method){
 	$(maindiv).load(showLoading);
 	clearInterval(interval); 
 	console.log(section); 
+	if (section !== "selector") {
+		$('#loading-section').modal('show');
+	};
 	$(maindiv).load("section/"+section+".html", function( response, status, xhr ) {
 		console.log('after'); 
 		if (status == "success") {
@@ -136,20 +143,23 @@ var loadSection = function(section, method){
 					paso1();
 					$('#btn-back').html('');
 				} else if (section == "estacion") {
-					$('.loading-container').html(showLoadingData); 
+					//$('.loading-container').html(showLoadingData); 
+					proximoTren(station.direction, station.station);
 					if (autoupdate) {
 						interval = setInterval(function(){proximoTren(station.direction, station.station);}, parseInt(config.frequency));
-					} else {proximoTren(station.direction, station.station);}
+					}
 				} else if (section == "platform") {
-					$('.loading-container').html(showLoadingData); 
+					//$('.loading-container').html(showLoadingData); 
+					proximaSalida(platform.station, platform.platform);
 					if (autoupdate) {
 						interval = setInterval(function() {proximaSalida(platform.station, platform.platform);}, parseInt(config.frequency));
-					} else {proximaSalida(platform.station, platform.platform);}
+					}
 				} else if (section == "terminal") {
-					$('.loading-container').html(showLoadingData); 
+					//$('.loading-container').html(showLoadingData); 
+					proximasSalidas(terminal.station, terminal.direction, terminal.defaultstation); 
 					if (autoupdate) {
 						interval = setInterval(function() {proximasSalidas(terminal.station, terminal.direction, terminal.defaultstation);}, parseInt(config.frequency));
-					} else {proximasSalidas(terminal.station, terminal.direction, terminal.defaultstation);}
+					}
 				}
 			}); 
 		}
@@ -240,6 +250,7 @@ var stationConverter = function(original){
 		case "Cabred": return "Dr. Cabred";
 		// Roca
 		case "Constit.": return "Plaza Constitución";
+		case "La plata": return "La Plata";
 		case "Gutierrez": return "Gutiérrez";
 		case "Alejandro korn": return "Alejandro Korn";
 		case "Cañuelas": return "Cañuelas";
@@ -264,6 +275,12 @@ var brand = function(brand){
 	$('#brands label').removeClass('active'); 
 	$('#brands label#'+brand).addClass('active'); 
 	localStorage.setItem("brand", brand); 
+};
+var linebrands = function(linebrands){
+	$('#linebrands label').removeClass('active'); 
+	$('#linebrands label#'+linebrands).addClass('active'); 
+	localStorage.setItem("linebrands", linebrands); 
+	config.linebrands = localStorage.getItem("linebrands"); 
 };
 var font = function(font){
     $('body').removeClass('dinpro').removeClass('gotham').addClass(font);

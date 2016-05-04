@@ -114,6 +114,7 @@ function proximasSalidas(idramal, sentido, estdefault) {
 
 		$.get(urlget+"cartel=&key=v%23v%23QTUtWp%23MpWRy80Q0knTE10I30kj%23FNyZ",function(jsonTerminal,status){
 			datosTerminal=jsonTerminal;
+			$('#loading-section').modal('hide');
 		})
 		.error(function() {
 			errorDBTerminal = true; 
@@ -208,9 +209,10 @@ function proximasSalidas(idramal, sentido, estdefault) {
 						mismoDestino(); 
 					} else {
 						$('h1#sameDestiny').addClass('hidden'); 
-						$('.next-train#serv'+ n +' .destiny-timedeparture p.mobile').html('Próximo servicio a <span style="text-transform: capitalize;">'+destinoMinusculas+'</span> a las '+horaSalidaAMPM);
+						$('.next-train#serv'+ n +' .destiny-timedeparture p.mobile').html('Próximo servicio a <span id="dest'+n+'" style="text-transform: capitalize;">'+stationConverter(destinoMinusculas)+'</span> a las '+horaSalidaAMPM);
 						//$('.proximo-servicio#servicio'+ n +' .hora-mobile').html(row.salida_hora);
-						$('.next-train#serv'+ n +' .destiny-timedeparture p.desktop').html('A <span style="text-transform: capitalize;">'+destinoMinusculas+'</span>: '+horaSalidaAMPM);
+						$('.next-train#serv'+ n +' .destiny-timedeparture p.desktop').html('A <span id="dest'+n+'" style="text-transform: capitalize;">'+stationConverter(destinoMinusculas)+'</span>: '+horaSalidaAMPM);
+						$('#dest'+n).text(stationConverter(destinoMinusculas));
 						//$('#anden_'+n).html(row.salida_anden.toUpperCase());
 					}
 
@@ -414,31 +416,11 @@ function proximasSalidas(idramal, sentido, estdefault) {
 			};
 			if (estacionPorDefecto == "mitre") {
 				if (estaciones4 !== estacionesback4) {
-					$('.tipo-servicio #estaciones4').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
-					$('.servicios-especiales #estaciones4').marquee({
-						//speed in milliseconds of the marquee
-						speed: 4000,
-						//gap in pixels between the tickers
-						gap: 8000,
-						//gap in pixels between the tickers
-						delayBeforeStart: 0,
-						//'left' or 'right'
-						direction: 'left'
-					});
+					$('.card-footer #stops4').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 					estacionesback4 = estaciones4; 
 				}; 
 				if (estaciones5 !== estacionesback5) {
-					$('.tipo-servicio #estaciones5').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
-					$('.servicios-especiales #estaciones5').marquee({
-						//speed in milliseconds of the marquee
-						speed: 4000,
-						//gap in pixels between the tickers
-						gap: 8000,
-						//gap in pixels between the tickers
-						delayBeforeStart: 0,
-						//'left' or 'right'
-						direction: 'left'
-					});
+					$('.card-footer #stops5').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 					estacionesback5 = estaciones5; 
 				}; 
 			}			
