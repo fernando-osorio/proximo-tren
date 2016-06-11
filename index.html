@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 	<!-- 
 		Sitio programado por Fernando Osorio (Fermoto5HD). 
 		Repositorio del sitio: http://github.com/Fermoto5HD/proximo-tren 
 	-->
 	<head>
-		<title>Próximo tren (beta)</title>
+		<title>Próximo tren</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-		<meta name="theme-color" content="rgb(20, 20, 20)" />
+		<!-- Chrome for Android theme color -->
+		<meta name="theme-color" content="rgb(20, 20, 20)">
+		<!-- Tile color for Win8 -->
+		<meta name="msapplication-TileColor" content="rgb(20, 20, 20)">
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="application-name" content="Próximo Tren">
+		<link rel="icon" sizes="192x192" href="img/touch/chrome-touch-icon-192x192.png">
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Próximo Tren">
+		<link rel="apple-touch-icon" href="img/touch/apple-touch-icon.png">
+		<!-- Tile icon for Win8 (144x144) -->
+		<meta name="msapplication-TileImage" content="img/touch/ms-touch-icon-144x144-precomposed.png">
 		<!-- Meta og -->
 		<meta property="og:description" content='Consultá cuándo va a llegar el tren a la estación.'>
 		<meta property="og:site_name" content="Próximo tren" />
@@ -35,20 +49,35 @@
 		<script src="vendor/moment/moment-with-locales.min.js"></script>
 		<script src="vendor/moment-duration-format/moment-duration-format.js"></script>
 		<script src="js/scripts.js"></script>
+		<script src="js/selector.js"></script>
+		<script src="js/station.js"></script>
+		<script src="js/terminal.js"></script>
+		<script src="js/platform.js"></script>
+		<script src="js/tracker.js"></script>
 	</head>
 	<body class="dinpro">
-		<div id="fondo"></div>
+		<div id="app-bg"></div>
 		<header>
 			<nav class="navbar navbar-static-top navbar-dark bg-inverse">
-				<div class="container">
+				<div class="fluid-container">
 					<span id="btn-back"></span>
 					<a class="brand" id="OFSE" href="#home" title="Operadora Ferroviaria Sociedad del Estado"></a>
-		            <button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#responsivemenu" style="font-family: inherit;"><i class="material-icons">menu</i></button>
+								<button class="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#responsivemenu" style="font-family: inherit;"><i class="material-icons">menu</i></button>
 						<ul class="nav navbar-nav pull-xs-right collapse navbar-toggleable-xs" id="responsivemenu" style="margin-left: 0px;">
-							<li class="nav-item">
+							<li class="nav-item" data-toggle="collapse" data-target="#responsivemenu">
+								<a class="nav-link" nohref onClick="loadSection('selector')">Inicio</a>
+							</li>
+							<!-- Coming soon! ;) -->
+							<!--<li class="nav-item">
+								<a class="nav-link" nohref onClick="loadSection('datastats')">Estadísticas</a>
+							</li>-->
+							<li class="nav-item" id="nav-fav" data-toggle="collapse" data-target="#responsivemenu" style="display: hidden;">
+								<a class="nav-link" href="#">Agregar al acceso rápido</a>
+							</li>
+							<li class="nav-item" data-toggle="collapse" data-target="#responsivemenu">
 								<a class="nav-link" href="#" data-toggle="modal" data-target="#settings">Opciones</a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item" data-toggle="collapse" data-target="#responsivemenu">
 								<a class="nav-link" href="#" data-toggle="modal" data-target="#about">Acerca de</a>
 							</li>
 						</ul>
@@ -61,10 +90,24 @@
 				$(this).tab('show')
 			})
 		</script>
+		<!-- Starting alert modal -->
+		<div class="modal fade" id="loading-app" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title">Iniciando aplicación...</h4>
+					</div>
+					<div class="modal-footer">
+						<progress class="progress progress-striped progress-animated" value="100" max="100">Iniciando...</progress>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Starting alert modal -->
 		<!-- Start options modal -->
 		<div class="modal fade" id="settings" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content bg-inverse">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -74,19 +117,28 @@
 					<div class="modal-body">
 						<!-- Nav tabs -->
 						<ul class="nav nav-tabs" id="options-nav" role="tablist">
-							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#update-frequency" role="tab">Obtención de datos</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#appearance" role="tab">Apartado estético</a>
-							</li>
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#opt-data" role="tab">Datos</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#opt-visual" role="tab">Apariencia</a></li>
 						</ul>
 						<!-- Tab panes -->
 						<div class="tab-content">
-							<div class="tab-pane fade in active" id="update-frequency" role="tabpanel">
+							<div class="tab-pane fade in active" id="opt-data" role="tabpanel">
 								<br/>
+								<h4>Ver datos consumidos</h4>
+								<p>Dentro de poco podrás ver (u ocultar) la información de los datos que consumiste por consulta. </p>
+								<p>Por ahora sólo está en pruebas al consultar una estación. </p>
+								<div class="btn-group" id="viewdataused" data-toggle="buttons">
+									<label class="btn btn-primary disabled" id="show">
+										<input type="radio" name="dataused" id="show" autocomplete="off">Mostrar
+									</label>
+									<label class="btn btn-primary disabled" id="hide">
+										<input type="radio" name="dataused" id="hide" autocomplete="off">Ocultar
+									</label>
+								</div>
+								<hr>
 								<h4>Frecuencia de actualización</h4>
 								<p>Ajustá la frecuencia de actualización de los tiempos según el consumo de tus datos (en especial si lo usás en el celular).</p>
+								<p><strong>Aclaración: </strong>Los cambios se aplican fuera de las consultas. </p>
 								<div class="list-group" id="frequencies">
 									<a href="#" class="list-group-item" id="1000" onclick="updatefreq(1000)">
 										<h4 class="list-group-item-heading">Tiempo real</h4>
@@ -106,7 +158,7 @@
 									</a>
 								</div>
 							</div>
-							<div class="tab-pane fade" id="appearance" role="tabpanel">
+							<div class="tab-pane fade" id="opt-visual" role="tabpanel">
 								<br/>
 								<h4>Marca visible</h4>
 								<p>¿Sos nostálgico? ¿Te gusta más la marca "Nuevos Ferrocarriles Argentinos" que la de "Operadora Ferroviaria"? Acá te doy la posibilidad de elegir entre esas dos marcas. ;) </p>
@@ -139,6 +191,17 @@
 										<input type="radio" name="font" id="dinpro" autocomplete="off">DIN Pro
 									</label>
 								</div>
+								<hr>
+								<h4>Publicidad y anuncios</h4>
+								<p>Este apartado está en pruebas. Soporta tanto video como imagen o un pedazo de HTML. </p>
+								<div class="btn-group" id="ads" data-toggle="buttons">
+									<label class="btn btn-primary disabled" id="on">
+										<input type="radio" name="ad" id="on" autocomplete="off" checked>Activado
+									</label>
+									<label class="btn btn-primary disabled" id="off">
+										<input type="radio" name="ad" id="off" autocomplete="off">Desactivado
+									</label>
+								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -151,7 +214,7 @@
 		<!-- End options modal -->
 		<!-- Start About modal -->
 		<div class="modal fade" id="about" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content bg-inverse">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -160,29 +223,46 @@
 						<h4 class="modal-title">Acerca de "Próximo tren"</h4>
 					</div>
 					<div class="modal-body">
-						<h3>Sobre la WebApp</h3>
-						<div class="alert alert-warning">
-							<strong>¡Atención!</strong>
-							<p>Esta versión está en desarrollo. Pueden presentarse errores durante la ejecución. </p>
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" id="options-nav" role="tablist">
+							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#ab-version" role="tab">Versión</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ab-webapp" role="tab">La webapp</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ab-credits" role="tab">Créditos</a></li>
+						</ul>
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div class="tab-pane fade in active" id="ab-version" role="tabpanel">
+								<br/>
+								<div class="text-xs-center">
+									<h1>Próximo Tren</h1>
+									<strong>Versión 1.6</strong>
+								</div>
+								<br/>
+								<p>El contenido de este proyecto, exceptuando los mencionados en "Créditos", están bajo Creative Commons 4.0 Internacional. </p>
+								<p>El proyecto también está cargado en GitHub, podés forkearlo, reportar un issue, ver el changelog o simplemente revisarlo por dentro. </p>
+								<a class="btn btn-primary btn-lg btn-block" href="http://github.com/Fermoto5HD/proximo-tren" target="_blank">Proyecto en GitHub</a>
+							</div>
+							<div class="tab-pane fade" id="ab-webapp" role="tabpanel">
+								<br/>
+								<h3>Sobre la WebApp</h3>
+								<p>Ante nada, gracias por utilizar esta webapp. </p>
+								<p>Este es un proyecto basado en la webapp "Trenes en Vivo" del Ministerio de Transporte (antes Ministerio del Interior y Transporte"), juntando las tres distintas pantallas utilizadas en la red ferroviaria (ubicadas en estaciones, andenes y terminales) en una sóla y en forma de aplicación. Por supuesto, esta <strong><u>no es la aplicación oficial</u></strong>.</p>
+								<p>Originalmente quería realizar una versión responsive de las pantallas de las estaciónes pero más tarde decidí juntar las otras y armar una webapp basada en Unsemantic (fork de 960gs con responsive). </p>
+								<p>Junto a este proyecto estve realizando "Viaje en vivo", el cual lo trabajé aparte de "Próximo tren" y sirvió no sólo para unificarlo con este proyecto sino también para mejorarlo y adaptar otro tipo de información a esta webapp. </p>
+								<p>A partir de la versión v1.5 se pasó a utilizar de lleno el framework Bootstrap v4.0.0-alpha2 por su diversidad de componentes y funciones a la hora de informar sobre funciones y opciones. </p>
+								<p>En esta versión (1.6) se hicieron algunas reescrituras de códigos, aplicando métodos para no sólo reducir el código de la aplicación, sino también optimizar los tiempos de carga. </p>
+							</div>
+							<div class="tab-pane fade" id="ab-credits" role="tabpanel">
+								<br/>
+								<h3>Creditos y aclaraciones</h3>
+								<p>La API de Trenes en Vivo es desarrollada por el Ministerio de Transporte de la Nación (antes Ministerio del Interior y Transporte de la Nación). Los créditos del desarrollo de dicha API van para los desarrolladores de la misma. Esta WebApp sólo realiza pedidos de información, no manipula ni altera la información generada por dicha API. </p>
+								<p>Las imágenes utilizadas en los diferentes fondos de la webapp no son de mi autoría. </p>
+								<p>Las marcas "Nuevos Ferrocarriles Argentinos", "Operadora Ferroviaria Sociedad del Estado", "Línea Sarmiento", "Línea Roca", "Línea Mitre", "Línea San Martín", "Línea Belgrano Sur" y "Tren de la Costa" pertenecen al Ministerio de Transporte de la Nación y a la Sociedad Operadora Ferroviaria Sociedad del Estado. </p>
+								<p>El isologo de Metrovías pertenece a la empresa Metrovías S.A. </p>
+								<p>El isologo de Ferrovías pertenece a la empresa Ferrovías S.A. </p>
+								<p>El uso de las imágenes y marcas mencionadas en este apartado no pretenden perseguir beneficio monetario alguno. </p>
+							</div>
 						</div>
-						<p>Ante nada, gracias por utilizar la WebApp. </p>
-						<p>Este es un proyecto basado en la webapp "Trenes en Vivo" del Ministerio de Transporte (antes Ministerio del Interior y Transporte"), juntando las tres distintas pantallas utilizadas en la red ferroviaria en una sóla y en forma de aplicación. Por supuesto, esta <strong>no es la aplicación oficial</strong>.</p>
-						<p>Originalmente quería realizar una versión responsive de las pantallas de las estaciónes pero más tarde decidí juntar las otras y armar una webapp basada en Unsemantic (fork de 960gs con responsive). </p>
-						<p>Junto a este proyecto estoy realizando "Viaje en vivo", el cual lo trabajo aparte de "Próximo tren" aunque ya lo estoy preparando para agregarlo y unificarlo con este proyecto. </p>
-						<p>A partir de la versión v1.5 se utiliza el framework Bootstrap v4.0.0-alpha2 por su diversidad de componentes a utilizar. </p>
-						<hr>
-						<h3>Créditos y aclaraciones</h3>
-						<p>La API de Trenes en Vivo es desarrollada por el Ministerio de Transporte de la Nación (antes Ministerio del Interior y Transporte de la Nación). Los créditos del desarrollo de dicha API van para los desarrolladores de la misma. Esta WebApp sólo realiza pedidos de información, no manipula ni altera la información generada por dicha API. </p>
-						<p>Las imágenes utilizadas en los diferentes fondos de la webapp no son de mi autoría. </p>
-						<p>Las marcas "Nuevos Ferrocarriles Argentinos", "Operadora Ferroviaria Sociedad del Estado", "Línea Sarmiento", "Línea Roca", "Línea Mitre", "Línea San Martín", "Línea Belgrano Sur" y "Tren de la Costa" pertenecen al Ministerio de Transporte de la Nación y a la Sociedad Operadora Ferroviaria Sociedad del Estado. </p>
-						<p>El isologo de Metrovías pertenece a la empresa Metrovías S.A. </p>
-						<p>El isologo de Ferrovías pertenece a la empresa Ferrovías S.A. </p>
-						<p>El uso de las imágenes y marcas mencionadas en este apartado no pretenden perseguir beneficio monetario alguno. </p>
-						<hr>
-						<h3>CC BY 4.0 + Open Source</h3>
-						<p>Como (casi) todos los proyectos que vengo llevando a cabo, el contenido de este proyecto, exceptuando los mencionados en "Créditos y aclaraciones", están bajo Creative Commons 4.0 Internacional. </p>
-						<p>También está cargado en GitHub, podés forkearlo, reportar un issue o simplemente revisarlo por dentro. </p>
-						<a class="btn btn-primary" href="http://github.com/Fermoto5HD/proximo-tren" target="_blank">GitHub</a>
 						<hr>
 						<p>¡Gracias por utilizar la webapp!</p>
 						<div class="modal-footer">
@@ -195,38 +275,111 @@
 		<!-- End About modal -->
 		<!-- Start First-time modal -->
 		<div class="modal fade" id="first-time" tabindex="-1" role="dialog" data-backdrop="false" data-keyboard="false" style="background-color: rgba(0, 0, 0, 0.5)">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content bg-inverse">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title">¡Bienvenido!</h4>
 					</div>
 					<div class="modal-body">
-						<p>Desde acá vas a poder saber el horario de partida de un tren, saber en cuánto tiempo llega el próximo tren a la estación y muy pronto realizar un seguimiento de tu tren en tiempo real.  </p>
+						<p>Desde acá vas a poder saber el horario de partida de un tren, saber en cuánto tiempo llega el próximo tren a la estación y también hacer un seguimiento de tu tren en tiempo real. </p>
 						<p>En esta webapp podés tener la información en tiempo real, segundo a segundo. Pero, si estás muy preocupado por el consumo de los datos móviles (en caso de que estés en un área sin WiFi), podés hacer que los datos se actualicen cada 10 segundos, 20 segundos o directamente desactivarla y actualizar los datos en forma manual. </p>
 						<p>Por defecto está configurado en "Tiempo real". Esto podés cambiarlo en cualquier momento en el apartado de opciones.</p>
+						<br/>
+						<p>Si estás en un entorno de escritorio el menú está arriba (se oculta automáticamente). </p>
+						<br/>
+						<p>Sin más que agregar, bienvenido a "Próximo Tren"! </p>
 						<hr>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">¡Comenzar!</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- End First-time modal -->
-		<!-- Start soon modal -->
-		<div class="modal fade" id="soon" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
+		<!-- Start tracking not supported modal -->
+		<div class="modal fade" id="tr-notsupported" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title">¡Muy pronto!</h4>
+						<h4 class="modal-title">Función no soportada</h4>
 					</div>
 					<div class="modal-body">
-						<p>Próximamente podrás realizar el seguimiento de tu tren estación por estación. </p>
-						<p>En una primera instancia estará disponible para usuarios del Sarmiento, San Martín y Tren de la Costa, y más adelante para las líneas Roca (sólo del ramal a La Plata) y toda la línea Mitre, dado a que la API general está limitada sólo a esas líneas. </p>
-						<p>Se puede implementar para las demás líneas, pero tienden a fallar debido a la constante falta de precisión que tienen al momento de brindar los datos. </p>
+						<p>Mil disculpas, pero la función de tracking (anteriormente "Viaje en vivo") no está disponible para las líneas Roca (excepto el ramal a La Plata), Urquiza, Belgrano Norte y Belgrano Sur. </p>
+						<table class="table table-sm">
+							<thead>
+								<tr>
+									<th>Soportadas</th>
+									<th>No soportadas</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Sarmiento (todos)</td>
+									<td>Urquiza</td>
+								</tr>
+								<tr>
+									<td>Mitre (eléctricos)</td>
+									<td>Mitre (diesel)</td>
+								</tr>
+								<tr>
+									<td>Roca (sólo La Plata)</td>
+									<td>Roca (resto de los ramales)</td>
+								</tr>
+								<tr>
+									<td>San Martín</td>
+									<td>Belgrano Norte</td>
+								</tr>
+								<tr>
+									<td>Tren de la Costa</td>
+									<td>Belgrano Sur</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Entiendo :(</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End tracking not supported modal -->
+		<!-- Loading modal -->
+		<div class="modal fade" id="loading-section" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title">Cargando...</h4>
+					</div>
+					<div class="modal-footer">
+						<progress class="progress progress-striped progress-animated" value="100" max="100">Cargando...</progress>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" onClick="loadSection('selector')">Detener</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Loading modal -->
+		<!-- Start wrong URL's modal -->
+		<div class="modal fade" id="error-url" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Utilización correcta de los hashes</h4>
+					</div>
+					<div class="modal-body">
+						<p>Los usos correctos de los hashes son: </p>
+						<ul>
+							<li><strong>Para estaciónes: </strong>"#station&brnch:[número de línea]&stat:[número de estación]</li>
+							<li><strong>Para terminales: </strong>"#terminal&line:[número de línea]&term:[número de estación]</li>
+							<li><strong>Para terminal del Mitre: </strong>"#terminal&line:mitre</li>
+							<li><strong>Para andenes: </strong>"#platform&term:[número de terminal]&plat:[número de andén]</li>
+						</ul>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 						</div>
@@ -234,153 +387,201 @@
 				</div>
 			</div>
 		</div>
-		<!-- End soon modal -->
-		<!-- Loading modal -->
-		<div class="modal fade" id="loading-section" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
-			<div class="modal-dialog" role="document">
+		<!-- End wrong URL's modal -->
+		<!-- Starting error modal -->
+		<div class="modal fade" id="error-loadingsections" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content bg-inverse">
 					<div class="modal-header">
-						<h4 class="modal-title">Cargando...</h4>
+						<h4 class="modal-title">Ups! No se cargaron correctamente las secciones.</h4>
+					</div>
+					<div class="modal-body">
+						<p>Puede ser un error del servidor o un error de conexión. </p>
 					</div>
 					<div class="modal-footer">
-						<progress class="progress progress-striped progress-animated" value="100" max="100">Cargando...</progress>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Reintentar</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End Loading modal -->
-		<!-- No connection -->
-		<div id="no-connection" class="container" hidden>
-			<div class="alert alert-danger">No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.</div>
+		<!-- End Starting error modal -->
+		<!-- Offline mode modal -->
+		<div class="modal fade" id="error-offline" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title">Estás sin conexión</h4>
+					</div>
+					<div class="modal-body">
+						<p>No se logró obtener los datos de la estación. </p>
+						<p>Por favor conectate o activá los datos móviles y reintentá de nuevo. </p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Reintentar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="loadSection('selector')">Volver al selector</button>
+					</div>
+				</div>
+			</div>
 		</div>
+		<!-- End Offline mode modal -->
+		<!-- No apache modal -->
+		<div class="modal fade" id="error-noapache" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title">El servidor está fallando</h4>
+					</div>
+					<div class="modal-body">
+						<p>El servidor no está funcionando bien y está brindando los datos en formato erróneo. </p>
+						<p>Por favor, reintentá de nuevo más tarde. </p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="loadSection('selector')">Volver al selector</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End No apache modal -->
+		<!-- Station data -->
+		<section id="station-data" style="display: hidden">
+			<div class="fluid-container">
+				<div class="row" style="margin-left: 0px; margin-right: 0px">
+					<div class="col-xs-12 col-sm-6 col-md-3 media-middle text-xs-center text-md-left" id="data_line">
+						<img />
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 media-middle text-xs-center" id="data_station">
+						<h1></h1>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6 media-middle text-xs-center hidden" id="data_direction">
+						<h1>Sentido a Once/Plaza Miserere</h1>
+					</div>
+					<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-right" id="data_time">
+						<h1></h1>
+					</div>
+				</div>
+			</div>
+		</section>
 		<!-- Sections will appear here -->
-		<main id="main"></main>
+		<main id="main" style="display: hidden"></main>
+		<main id="selector" style="display: hidden">
+			<!-- No connection -->
+			<div id="no-connection" class="fluid-container" hidden>
+				<div class="alert alert-danger"><strong><i class="material-icons">&#xE2C1;</i></strong> No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.</div>
+			</div>
+			<div class="selector">
+				<!--<div class="fluid-container">
+					<div class="alert alert-info">
+						<strong>Nueva versión v1.6 (beta): </strong>
+						<p>Se agregaron funciones nuevas y se optimizaron otras más. </p>
+						<p>En caso de encontrar fallas por favor <a href="http://github.com/Fermoto5HD/proximo-tren/issues" target="_blank">abrí un issue acá</a>. ¡Gracias! </p>
+					</div>
+				</div>-->
+				<div class="fluid-container text-xs-center">
+					<div class="col-xs-12 col-md-8" id="sec-selector">
+						<section id="selector-linea" style="border-top: none;">
+							<h1>Seleccioná la línea</h1>
+							<div class="btn-group" data-toggle="buttons" id="listaLineas">
+								Cargando...
+							</div>
+						</section>
+						<section id="selector-ramal" style="display: none;">
+							<h1>Seleccioná el ramal</h1>
+							<div class="btn-group" data-toggle="buttons" id="listaRamales">
+								Seleccioná una línea para ver los ramales disponibles. 
+							</div>
+						</section>
+						<section id="selector-estacion" style="display: none;">
+							<h1>Seleccioná la estación</h1>
+							<div id="contenedorEstacionesLinea">
+								<div id="estacionesLinea"></div>
+							</div>
+						</section>
+						<section id="selector-sentido" style="display: none;">
+							<div id="acceso-terminal"></div>
+							<h1 id="titulo"></h1>
+							<div class="btn-group" data-toggle="buttons" id="sentidos"></div>
+						</section>
+						<section id="botonera-acceso" style="display: none;">
+							<button id="acceso">Ver los próximos trenes</button>
+						</section>
+					</div>
+					<div class="col-xs-12 col-md-4" id="sec-favs">
+						<section>
+							<h2>Acceso rápido</h2>
+							<p>Por el momento son sólo estaciones.</p>
+							<div class="list-group" id="fav-stations">
+								<a href="#" class="list-group-item disabled">
+									<h4 class="list-group-item-heading">Acá aparecerán las estaciones que marques para accederlas rápidamente desde la página de inicio.</h4>
+									<p class="list-group-item-text"></p>
+								</a>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</main>
 		<script type="text/javascript">
-			var JSONstations; 
-			var mostrarHora = function(){
+			var app_clock = function(){
 				var horaactual = moment().format("hh:mma"); 
 				var strHoraActual = '<i class="material-icons">&#xE192;</i> ' + horaactual; 
-				$('#horaactual').html(strHoraActual); 
-				$('#horaactual-msj').html(strHoraActual); 
+				$('#station-data #data_time h1').html(strHoraActual); 
 			}; 
 
 			$(document).ready(function(){
-				mostrarHora(); 
-				setInterval(function(){mostrarHora();}, 60); 
+				app_clock(); 
+				setInterval(function(){app_clock();}, 60); 
 			}); 
 
-			var hs = moment().get('hour'); 
-			var hsActuales = ""; 
-			var fondo = "";  
-			var fondoCheck = ""; 
-			var horaFondo = function(){
-				hs = moment().get('hour'); 
+			var app_ux_hs = moment().get('hour'); 
+			var app_ux_hours = ""; 
+			var app_ux_bg = "";  
+			var app_ux_bgcheck = ""; 
 
-				fondo = "default.jpg"; 
+			var app_ux = function(){
+				app_ux_hs = moment().get('hour'); 
 
-				if ((hs >= 23) || (hs < 4)) {
-					fondo = "noche1.jpg"; 
-				} else if (hs < 6) {
-					fondo = "madrugada.png"; 
-				} else if (hs < 8) {
-					fondo = "mañana0.jpg"; 
-				} else if (hs < 11) {
-					fondo = "mañana1.jpg"; 
-				} else if (hs < 18) {
-					fondo = "mediodia.jpg"; 
-				} else if (hs < 20) {
-					fondo = "tarde0.jpg";  
-				} else if (hs < 21) {
-					fondo = "tarde1.jpg"; 
-				} else if (hs < 23) {
-					fondo = "noche0.jpg"; 
+				app_ux_bg = "default.jpg"; 
+
+				if ((app_ux_hs >= 23) || (app_ux_hs < 4)) {
+					app_ux_bg = "noche1.jpg"; 
+				} else if (app_ux_hs < 6) {
+					app_ux_bg = "madrugada.png"; 
+				} else if (app_ux_hs < 8) {
+					app_ux_bg = "mañana0.jpg"; 
+				} else if (app_ux_hs < 11) {
+					app_ux_bg = "mañana1.jpg"; 
+				} else if (app_ux_hs < 18) {
+					app_ux_bg = "mediodia.jpg"; 
+				} else if (app_ux_hs < 20) {
+					app_ux_bg = "tarde0.jpg";  
+				} else if (app_ux_hs < 21) {
+					app_ux_bg = "tarde1.jpg"; 
+				} else if (app_ux_hs < 23) {
+					app_ux_bg = "noche0.jpg"; 
 				}; 
 
-				if (hsActuales !== hs) {
-					if ((hs < 7) || (hs > 21)) {
+				if (app_ux_hours !== app_ux_hs) {
+					if ((app_ux_hs < 7) || (app_ux_hs > 21)) {
 						$('head').append('<link rel="stylesheet" href="css/noche.css" type="text/css" />');
 					} else {
 						$('head').append('<link rel="stylesheet" href="css/mañana.css" type="text/css" />');
 					}; 
-					hsActuales = hs; 
-					console.log('Estilo asignado'); 
-					if (fondoCheck !== fondo) {
-						$('#fondo').fadeTo('slow', 0.3, function()
+					app_ux_hours = app_ux_hs; 
+					console.info('App: Style appended.'); 
+					if (app_ux_bgcheck !== app_ux_bg) {
+						$('#app-bg').fadeTo('slow', 0.3, function()
 						{
-							$(this).css('background-image', 'url(img/background/'+fondo+')');
+							$(this).css('background-image', 'url(img/background/'+app_ux_bg+')');
 						}).fadeTo('slow', 1);
-						fondoCheck = fondo; 
+						app_ux_bgcheck = app_ux_bg; 
 					};
 				};
 			}; 
-			setInterval(function(){horaFondo(); }, 1000); 
+			setInterval(function(){app_ux(); }, 1000); 
 
-			
-
-			var type = window.location.hash.substr(1);
 			var selector = false; 
 			var paginaInicialVisible = false; 
 			var timeout = null;
-
-			$.getJSON( "data/stations.json", function(jsondata){
-				JSONstations = jsondata; 
-				if (type !== "") {
-					$('main#cargando').css('display', 'block'); 
-					var parts = type.split("&");
-					var split1 = parts[0].split(':'); 
-					var split2 = parts[1].split(':'); 
-
-					if ((split1[0] === "ramal") && (split2[0] === "estacion")) {
-						var ramalURL = parseInt(split1[1]); 
-						var estacionURL = parseInt(split2[1]); 
-						selector = true; 
-						verifEstacion = true; 
-						proximoTren(ramalURL, estacionURL); 
-						setInterval(function() {proximoTren(ramalURL, estacionURL);}, 1500);
-					}
-					else if ((split1[0] === "estacion") && (split2[0] === "ramal")) {
-						var estacionURL = parseInt(split1[1]); 
-						var ramalURL = parseInt(split2[1]); 
-						selector = true; 
-						verifEstacion = true; 
-						proximoTren(ramalURL, estacionURL); 
-						setInterval(function() {proximoTren(ramalURL, estacionURL);}, 1500);
-					} 
-					else if ((split1[0] === "anden") && (split2[0] === "ramal")) {
-						var anden = parseInt(split1[1]); 
-						var ramal = parseInt(split2[1]); 
-						verifAnden = true; 
-						proximaSalida(); 
-						setInterval(function() {proximaSalida();}, 1500);
-					} 
-					else if ((split1[0] === "ramal") && (split2[0] === "anden") ) {
-						var ramal = parseInt(split1[1]); 
-						var anden = parseInt(split2[1]); 
-						verifAnden = true; 
-						proximaSalida(); 
-						setInterval(function() {proximaSalida();}, 1500);
-					} 
-					else{
-						var ramalURL = 0; 
-						var estacionURL = 0; 
-						var cartel = 0; 
-					};
-					imgFooter(ramalURL); 
-					$('.datos-estacion').css('display', 'block'); 
-					$('main#main').css('display', 'none'); 
-					selector = true; 
-					paginaInicialVisible = false; 
-				} else {
-					selector = false; 
-					paginaInicialVisible = true; 
-					console.info('Cargando selector inicial'); 
-					$('.datos-estacion').css('display', 'none'); 
-					$('main#main').css('display', 'block'); 
-					$('#btn-back').html('');
-				};
-			}).error(function(){
-				console.error('Error with JSON'); 
-			}); 
 		</script>
 	</body>
 </html>

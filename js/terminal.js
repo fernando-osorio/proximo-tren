@@ -98,8 +98,7 @@ function func_fadeIn(n) {
 function proximasSalidas(idramal, sentido, estdefault) {
 	$('.loading-container').addClass('hidden'); 
 	$('.main-container').removeClass('hidden'); 
-	$('#estacion-actual').html('Estación ' + nombreEstacion); 
-	$('#estacion-actual-2').html(nombreEstacion); 
+	$('#station-data #data_station h1').html('Estación ' + nombreEstacion); 
 	imgFooter(terminal.station); 
 	if ((selector) && (verifTerminal)) {
 		var datosTerminal='';
@@ -173,26 +172,25 @@ function proximasSalidas(idramal, sentido, estdefault) {
 					var destino = destinoMinusculas;
 
 					for (var o = 1; o <= rows.length ; o++) {
-							if (o === 1) {
-								destino1 = rows[0].salida_destino; 
-							}
-							else if (o === 2) {
-								destino2 = rows[1].salida_destino; 
+						if (o === 1) {
+							destino1 = rows[0].salida_destino; 
 						}
-							else if (o === 3) {
-								destino3 = rows[2].salida_destino; 
+						else if (o === 2) {
+							destino2 = rows[1].salida_destino; 
 						}
-							else if (o === 4) {
-								destino4 = rows[3].salida_destino; 
+						else if (o === 3) {
+							destino3 = rows[2].salida_destino; 
 						}
-							else if (o === 5) {
-								destino5 = rows[4].salida_destino; 
+						else if (o === 4) {
+							destino4 = rows[3].salida_destino; 
+						}
+						else if (o === 5) {
+							destino5 = rows[4].salida_destino; 
 						};
 					}; 
 
 					var mismoDestino = function(){
-						//console.log('Mismo destino'); 
-						//$('h1#sameDestiny').html('Próximos servicios a <span style="text-transform: capitalize;">'+destinoMinusculas+'</span>').removeClass('hidden'); 
+						console.info('Same'); 
 						$('h1#sameDestiny').html('Próximos servicios a <span id="station-to"></span>').removeClass('hidden'); 
 						$('#station-to').text(stationConverter(destinoMinusculas));
 						$('.next-train#serv'+ n +' .destiny-timedeparture p.mobile').html('A las '+horaSalidaAMPM);
@@ -208,12 +206,11 @@ function proximasSalidas(idramal, sentido, estdefault) {
 					} else if (destino1 === destino2) {
 						mismoDestino(); 
 					} else {
+						console.info('Different');
 						$('h1#sameDestiny').addClass('hidden'); 
 						$('.next-train#serv'+ n +' .destiny-timedeparture p.mobile').html('Próximo servicio a <span id="dest'+n+'" style="text-transform: capitalize;">'+stationConverter(destinoMinusculas)+'</span> a las '+horaSalidaAMPM);
-						//$('.proximo-servicio#servicio'+ n +' .hora-mobile').html(row.salida_hora);
 						$('.next-train#serv'+ n +' .destiny-timedeparture p.desktop').html('A <span id="dest'+n+'" style="text-transform: capitalize;">'+stationConverter(destinoMinusculas)+'</span>: '+horaSalidaAMPM);
 						$('#dest'+n).text(stationConverter(destinoMinusculas));
-						//$('#anden_'+n).html(row.salida_anden.toUpperCase());
 					}
 
 					if (row.salida_tipo_servicio_desc == "Normal") {
@@ -236,7 +233,7 @@ function proximasSalidas(idramal, sentido, estdefault) {
 					}
 
 					if (row.paradas.length>0) {
-						$('#stops'+n).css('display','block');
+						$('#stops'+n).removeClass('hidden');
 						var paradas='';
 						for (var i=0; i<row.paradas.length; i++) {
 							paradas = paradas + row.paradas[i].toLowerCase();
@@ -253,18 +250,21 @@ function proximasSalidas(idramal, sentido, estdefault) {
 							estaciones1 = paradas;
 							if (estacionesback1 !== estaciones1) {
 								$('.card-footer #stops1').html(espacios+estaciones1);
+								console.log('New marquee.'); 
 							}; 
 						} 
 						else if (n == 2) {
 							estaciones2 = paradas;
 							if (estacionesback2 !== estaciones2) {
 								$('.card-footer #stops2').html(espacios+estaciones2);
+								console.log('New marquee.'); 
 							}; 
 						} 
 						else if (n == 3) {
 							estaciones3 = paradas;
 							if (estacionesback3 !== estaciones3) {
 								$('.card-footer #stops3').html(espacios+estaciones3);
+								console.log('New marquee.'); 
 							}; 
 						}
 						else if (n == 4) {
@@ -289,10 +289,10 @@ function proximasSalidas(idramal, sentido, estdefault) {
 						$('.card-footer .stops'+n).html('');
 					}
 					if (estdefault != "") {
-						var attr = 'mostrarAnden('+ramal+', '+row.salida_anden+', '+sentido+', "'+estdefault+'")'; 
+						var attr = 'mostrarAnden('+terminal.station+', '+row.salida_anden+', '+sentido+', "'+estdefault+'")'; 
 						$('.next-train#serv'+n).attr('onClick', attr); 
 					} else {
-						$('.next-train#serv'+n).attr('onClick', 'mostrarAnden('+ramal+', '+row.salida_anden+', '+sentido+')'); 
+						$('.next-train#serv'+n).attr('onClick', 'mostrarAnden('+terminal.station+', '+row.salida_anden+', '+sentido+')'); 
 					};
 					switch (Math.round(row.salida_estado)) {
 					case 1:
@@ -405,23 +405,28 @@ function proximasSalidas(idramal, sentido, estdefault) {
 			if (estaciones1 !== estacionesback1) {
 				$('.card-footer #stops1').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 				estacionesback1 = estaciones1; 
+				console.info('Terminal: "1 Start new marquee.'); 
 			};
 			if (estaciones2 !== estacionesback2) {
 				$('.card-footer #stops2').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 				estacionesback2 = estaciones2; 
+				console.info('Terminal: #2 Start new marquee.'); 
 			};
 			if (estaciones3 !== estacionesback3) {
 				$('.card-footer #stops3').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 				estacionesback3 = estaciones3; 
+				console.info('Terminal: #3 Start new marquee.'); 
 			};
 			if (estacionPorDefecto == "mitre") {
 				if (estaciones4 !== estacionesback4) {
 					$('.card-footer #stops4').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 					estacionesback4 = estaciones4; 
+					console.info('Terminal: #4 Start new marquee.')
 				}; 
 				if (estaciones5 !== estacionesback5) {
 					$('.card-footer #stops5').marquee({speed: 4000, gap: 8000, delayBeforeStart: 0, direction: 'left'});
 					estacionesback5 = estaciones5; 
+					console.info('Terminal: $5 Start new marquee.')
 				}; 
 			}			
 		});

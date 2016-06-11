@@ -1,20 +1,6 @@
-<!-- Station data -->
-<div class="row datos-estacion">
-	<div class="container">
-		<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-left">
-			<img id="brand-line" />
-		</div>
-		<div class="col-xs-12 col-md-6 media-middle text-xs-center">
-			<h1 id="estacion-actual"></h1>
-		</div>
-		<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-right">
-			<h1><span id="horaactual"></span></h1>
-		</div>
-	</div>
-</div>
 <!-- If has alerts -->
 <div class="grid-100 grid-parent" id="barra-mensaje-alerta-terminal">
-	<div class="grid-container">
+	<div class="fluid-container">
 		<h1 id="normal"></h1>
 		<h1 id="responsive"></h1>
 	</div>
@@ -23,9 +9,8 @@
 <!-- Shows if the destiny are the same in all blocks -->
 <center><h1 id="sameDestiny" class="hidden"><div class="container">Próximos servicios</div></h1></center>
 <!-- Containers -->
-<div class="error-container container hidden"></div>
-<div class="loading-container container"></div>
-<div class="main-container container hidden">
+<div class="error-container fluid-container hidden"></div>
+<div class="main-container fluid-container hidden">
 	<div class="col-sm-12 terminal">
 		<div class="card next-train text-xs-center" id="serv1">
 			<div class="card-block row">

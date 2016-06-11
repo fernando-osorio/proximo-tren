@@ -45,6 +45,7 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 * Posibilidad de elegir la frecuencia de actualización, evitando el consumo excesivo de los datos móviles. 
 * Es responsive, adaptando la forma de mostrar la información según el tamaño del dispositivo. 
 * Interfaz gráfica agradable que se adapta a cualquier paleta de colores. 
+* Personalización de elementos gráficos y tipografías. 
 * Fondo diferente según el horario. 
 * Facilidad de cambiar de línea y estación. 
 * Los tiempos superiores a 60 minutos se traducen en horas y minutos. 
@@ -61,6 +62,18 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 | El tren es tuyo, cuidalo. | No hay información de los próximos servicios. Consultá la cartelera de horarios para más información. |
 
 # Changelog 
+## v1.6 
+Una de las actualizaciones más importantes de la webapp (por eso la tardanza). 
+* Corregido el bypass apuntando a los nuevos servers de la API (se hizo hace un par de meses), ahora apunta a los servers de SOFSE, con la misma base íntegra, donde en un principio estaba MUY inestable pero ahora ya se normalizó todo. 
+* El menú mobile es más amigable. c: 
+* Se cambia `container` por `container-fluid` para el mejor aprovechamiento del espacio. 
+* Reescritura de un par de scripts, reducción de 15% del código original. 
+* Nuevo soporte de hashing, más eficiente que en la primera versión. 
+* Detección de errores mediante un modal al obtener erróneamente los datos. 
+* Soporta publicidad tanto en imagen como en video. Ambos modos mantienen la visualización de los tiempos de llegada. Por el momento sólo está en el modo estación. Por defecto está desactivado y será de esta forma para no frustrar la experiencia en mobile. 
+* EN PRUEBAS: Módulo de estaciones de acceso rápido (o favoritos, como más te guste llamarlo), no recomiendo usarlo porque no están disponibles las opciones de quitar estación y hasta se puede duplicar la estación en la pantalla. 
+* EN PRUEBAS: Módulo de tracking (unificación del sub-proyecto "Viaje en vivo"), por el momento no cambia a la siguiente estación pero obtiene los datos del N° de servicio y formación. 
+
 ## v1.5.1 
 * Más optimización en el funcionamiento. 
 * Corrección del bug de la estación de destino en mayúsculas. 

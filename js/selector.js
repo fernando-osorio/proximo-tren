@@ -67,14 +67,8 @@ $(document).ready(function(){
 	//paso1(); 
 });	
 
-var paso1 = function(){
+var step1 = function(){
 	// Lista las líneas
-	var listarLineas= ""; 
-	for (var i = 0; i < JSONstations.length; i++){
-		listarLineas+= "<label class='btnlinea btn btn-default' id='"+JSONstations[i].id+"' onClick='step2("+JSONstations[i].id+")'>"+JSONstations[i].linea+"</label>";
-	}
-	$("#listaLineas").html(listarLineas);
-
 	$('label.btnlinea').click(function() {
 		$('label.btnlinea').removeClass('active'); 
 	});
@@ -201,14 +195,14 @@ var step4 = function(estacion){
 
 				if (k === 1) {
 					if ((((lineaSeleccionada === 1) && (ramalSeleccionado === 1)) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 5))) || (((lineaSeleccionada === 1) && (ramalSeleccionado === 2))) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 5))) {
-						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>J.L.Suárez/Bme.Mitre</label>";
+						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='sl_station("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>J.L.Suárez/Bme.Mitre</label>";
 					} else if ((((lineaSeleccionada === 6) && (ramalSeleccionado === 0)) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 8))) || (((lineaSeleccionada === 6) && (ramalSeleccionado === 1))) && ((estacionSeleccionada > 0) && (estacionSeleccionada <= 8))) {
-						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>M.C.G.Belgrano/G.Catán</label>";
+						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='sl_station("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>M.C.G.Belgrano/G.Catán</label>";
 					} else {
-						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
+						sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='sl_station("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
 					}; 
 				} else {
-					sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='mostrarEstacion("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
+					sentidos+= "<label class='btnanden btn btn-default' id='"+k+"' onClick='sl_station("+k+"," + JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].id + ")'>"+JSONstations[lineaSeleccionada].ramales[ramalSeleccionado].sentido[k].estacion+"</label>";
 				}; 
 			}
 			//console.log(sentidos); 
@@ -238,7 +232,7 @@ var step4 = function(estacion){
 
 
 
-var mostrarEstacion = function(numeroEst, sentido){
+var sl_station = function(numeroEst, sentido){
 	station.direction = sentido; 
 	station.station = estacionSeleccionada; 
 	//sentidoSeleccionado = sentido;
@@ -258,11 +252,9 @@ var mostrarEstacion = function(numeroEst, sentido){
 	verifAnden = false; 
 	verifTerminal = false; 
 
-	imgFooter(sentido);
-
 	clearInterval(intervaloEstacion); 
 	//intervaloEstacion = setInterval(proximoTren(sentido, estacion), 1500);
-	loadSection('estacion'); 
+	loadSection('station'); 
 };
 
 var mostrarAnden = function(idTerminal, idanden, sentidoTerminal, estDefaultTerminal){

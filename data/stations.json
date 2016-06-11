@@ -64,12 +64,12 @@
 											{"id": 1, 	"nombre": "Moreno", "anden":[{"id": 0}], "idTerminal": 51, "sentido": 1}, 
 											{"id": 2, 	"nombre": "La Reja"}, 
 											{"id": 3, 	"nombre": "Francisco Alvarez"}, 
-											{"id": 4, 	"nombre": "Ingeniero P.P. Marín"}, 
+											{"id": 4, 	"nombre": "Ingeniero P.P. Marín", "shortname": "Ing. P. Marín"}, 
 											{"id": 5, 	"nombre": "Las Malvinas"}, 
 											{"id": 6, 	"nombre": "General Rodríguez"}, 
 											{"id": 7, 	"nombre": "La Fraternidad"}, 
 											{"id": 8, 	"nombre": "Lezica y Torrezuri"}, 
-											{"id": 9, 	"nombre": "Universidad de Luján"}, 
+											{"id": 9, 	"nombre": "Universidad de Luján", "shortname": "UNLU"}, 
 											{"id": 10, 	"nombre": "Luján"}, 
 											{"id": 11, 	"nombre": "Jauregui"}, 
 											{"id": 12, 	"nombre": "Olivera"}, 
@@ -101,7 +101,7 @@
 																															{"id": 12, "nombre": "12", "idTerminal": 5, "sentido": 1} 
 												]
 											, "idTerminal": 5, "sentido": 1}, 
-											{"id": 2, 	"nombre": "Lisandro de la Torre"}, 
+											{"id": 2, 	"nombre": "Lisandro de la Torre", "shortname": "L. de la Torre"}, 
 											{"id": 3, 	"nombre": "Belgrano C."}, 
 											{"id": 4, 	"nombre": "Nuñez"}, 
 											{"id": 5, 	"nombre": "Rivadavia"}, 
@@ -237,7 +237,7 @@
 																															{"id": 6, "nombre": "6", "idTerminal": 11}
 												]
 											, "idTerminal": 11, "sentido": 1}, 
-											{"id": 2, 	"nombre": "Avellaneda/Darío y Maxi"}, 
+											{"id": 2, 	"nombre": "Avellaneda/Darío y Maxi", "shortname": "Avellaneda"}, 
 											{"id": 3, 	"nombre": "Sarandí"}, 
 											{"id": 4, 	"nombre": "Villa Domínico"}, 
 											{"id": 5, 	"nombre": "Wilde"}, 
@@ -269,7 +269,7 @@
 																															{"id": 6, "nombre": "6", "idTerminal": 13}
 												]
 											, "idTerminal": 13, "sentido": 1}, 
-											{"id": 2, 	"nombre": "Avellaneda/Darío y Maxi"}, 
+											{"id": 2, 	"nombre": "Avellaneda/Darío y Maxi", "shortname": "Avellaneda"}, 
 											{"id": 3, 	"nombre": "Temperley"}, 
 											{"id": 4, 	"nombre": "Mármol"}, 
 											{"id": 5, 	"nombre": "Calzada"}, 
@@ -292,7 +292,7 @@
 																															{"id": 6, "nombre": "6", "idTerminal": 15}
 												]
 											, "idTerminal": 15, "sentido": 1}, 
-											{"id": 2, 	"nombre": "Avellaneda/Darío y Maxi"}, 
+											{"id": 2, 	"nombre": "Avellaneda/Darío y Maxi", "shortname": "Avellaneda"}, 
 											{"id": 3, 	"nombre": "Temperley"}, 
 											{"id": 4, 	"nombre": "Mármol"}, 
 											{"id": 5, 	"nombre": "Calzada"}, 
@@ -318,7 +318,7 @@
 												]
 											, "idTerminal": 17, "sentido": 1}, 
 											{"id": 2, 	"nombre": "Hipólito Irigoyen"}, 
-											{"id": 3, 	"nombre": "Avellaneda/Darío y Maxi"}, 
+											{"id": 3, 	"nombre": "Avellaneda/Darío y Maxi", "shortname": "Avellaneda"}, 
 											{"id": 4, 	"nombre": "Gerli"}, 
 											{"id": 5, 	"nombre": "Lanús"}, 
 											{"id": 6, 	"nombre": "Remedios de Escalada"}, 
@@ -346,7 +346,7 @@
 												]
 											, "idTerminal": 19, "sentido": 1}, 
 											{"id": 2, 	"nombre": "Hipólito Irigoyen"}, 
-											{"id": 3, 	"nombre": "Avellaneda/Darío y Maxi"}, 
+											{"id": 3, 	"nombre": "Avellaneda/Darío y Maxi", "shortname": "Avellaneda"}, 
 											{"id": 4, 	"nombre": "Gerli"}, 
 											{"id": 5, 	"nombre": "Lanús"}, 
 											{"id": 6, 	"nombre": "Remedios de Escalada"}, 
@@ -434,7 +434,7 @@
 											, "idTerminal": 32, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	32, 	"estacion": "Retiro"},
-											{"id": 	31, 	"estacion": "José C. Paz/Pilar/Cabred"}]
+											{"id": 	31, 	"estacion": "J.C.Paz/Pilar/Cabred"}]
 			} 
 		]
 	},

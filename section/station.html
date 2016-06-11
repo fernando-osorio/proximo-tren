@@ -1,0 +1,93 @@
+<div class="fluid-container">
+	<div id="status-online" class="alert"></div>
+	<div id="status-data" class="alert alert-info" style="display: none;">
+		<i class="material-icons">&#xE916;</i> <span id="date"></span> | <i class="material-icons">&#xE8AE;</i> <span id="time"></span> | <i class="material-icons">&#xE884;</i> <span id="data"></span>
+	</div>
+	<!-- If has alerts -->
+	<div class="alert alert-danger" id="alert-bar" style="overflow: hidden; display: none;">
+		<h1></h1>
+	</div>
+</div>
+<!-- Containers -->
+<div class="main-stations main-container fluid-container text-xs-center hidden" id="scr-station">
+	<div class="col-xs-12" id="no-services">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-xs-12 col-sm-2 col-md-3">
+						<i class="material-icons">&#xE533;</i>
+					</div>
+					<div class="col-xs-12 col-sm-10 col-md-9">
+						<h1>No hay información de los próximos servicios.</h1>
+						<h2>Consultá la cartelera para más información.</h2>
+					</div>
+					<div class="col-xs-12">
+						<div class="btn btn-primary btn-lg btn-block hidden-md-up">Ver grilla de horarios</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-lg-7 col-xl-8" id="advertisement" style="display: none">
+		<div class="card ad">
+			<div class="card-header text-xs-center" style="display: none">
+				<h3>Publicidad</h3>
+			</div>
+			<div class="card-block">
+				<h1>Registrá tu tarjeta SUBE para acceder a la tarifa social.</h1>
+				<h2>Podés viajar hasta con un 55% de descuento sobre la tarifa normal.</h2>
+				<p>Para más información llamá al 0800-777-SUBE</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12" id="main-services">
+		<div class="col-xs-12" id="first" style="display: none;">
+			<div class="card service">
+				<div class="card-block row">
+					<p class="destiny"></p>
+					<p class="remaining"></p>
+				</div>
+				<div class="card-footer" style="display: none;">
+					<div class="row">
+						<div class="col-xs-12 col-md-4 type">
+							<p><span class="intro">Servicio </span><span class="string"></span></p>
+						</div>
+						<div class="col-xs-12 col-md-8 stations">
+							<p></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6" id="second" style="display: none;">
+			<div class="card service">
+				<div class="card-block row">
+					<p class="destiny"></p>
+					<p class="remaining"></p>
+				</div>
+				<div class="card-footer" style="display: none;">
+					<div class="row">
+						<div class="col-xs-12 type">
+							<p><span class="intro">Servicio </span><span class="string"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6" id="third" style="display: none;">
+			<div class="card service">
+				<div class="card-block row">
+					<p class="destiny"></p>
+					<p class="remaining"></p>
+				</div>
+				<div class="card-footer" style="display: none;">
+					<div class="row">
+						<div class="col-xs-12 type">
+							<p><span class="intro">Servicio </span><span class="string"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

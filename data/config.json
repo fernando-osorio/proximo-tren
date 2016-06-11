@@ -1,0 +1,20 @@
+{
+	"img": "<div class='embed-responsive embed-responsive-16by9'>\
+				<video id='ad-vid' controls>\
+					<source src='../yns.mp4' type='video/mp4'>\
+					Por favor usá un browser moderno para poder mostrar el video.\
+				</video>\
+			</div>", 
+	"vid": "<div class='embed-responsive embed-responsive-16by9'>\
+				<video id='ad-vid' controls>\
+					<source src='../yns.mp4' type='video/mp4'>\
+					Por favor usá un browser moderno para poder mostrar el video.\
+				</video>\
+			</div>", 
+	"html": "<div class='embed-responsive embed-responsive-16by9'>\
+				<video id='ad-vid' controls>\
+					<source src='../yns.mp4' type='video/mp4'>\
+					Por favor usá un browser moderno para poder mostrar el video.\
+				</video>\
+			</div>
+}

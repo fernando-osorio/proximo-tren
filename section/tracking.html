@@ -1,0 +1,40 @@
+<!-- If has alerts -->
+<div class="col-xs-12 hidden" id="alert-bar">
+	<div class="fluid-container">
+		<div class="col-xs-12 mensaje" style="overflow: hidden;">
+			<h1 id="mensaje-alerta"></h1>
+		</div>
+	</div>
+</div>
+
+<div class="fluid-container">
+	<div id="status-online" class="alert"></div>
+	<div id="status-data" class="alert alert-info">
+		<i class="material-icons">&#xE916;</i> <span id="date"></span> | <i class="material-icons">&#xE8AE;</i> <span id="time"></span> | <i class="material-icons">&#xE884;</i> <span id="data"></span>
+	</div>
+</div>
+<!-- Containers -->
+<div class="main-tracker fluid-container text-xs-left text-md-center" id="scr-tracker">
+	<div class="col-xs-12" id="now">
+		<div class="alert alert-warning">
+			<strong>Atención</strong>
+			<p>Este módulo aún está en pruebas y el tracker no pasa automáticamente a la siguiente estación. </p>
+		</div>
+		<div class="card service">
+			<div class="card-header">
+				<p class="destiny" style="font-size: 24px; margin-bottom: 0px;">Cargando datos... </p>
+			</div>
+			<div class="card-block row" style="padding-top: 0; padding-bottom: 1.75rem; padding-left: 2rem; padding-right: 2rem;">
+				<p class="now" style="font-size: 36px; margin: 0;">Cargando estado actual...</p>
+				<p class="remaining" style="margin: 0;">Cargando tiempo...</p>
+			</div>
+		</div>
+	</div>
+	<!--<div class="col-xs-12 col-md-6" id="stations">
+		<div class="card service">
+			<div class="card-block row">
+				<p>Próximamente podrás ver las estaciones donde se detiene la formación.</p>
+			</div>
+		</div>
+	</div>-->
+</div>
