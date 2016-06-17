@@ -162,7 +162,7 @@
 											, "idTerminal": 7, "sentido": 2} 
 				], 
 				"sentido": [	{"id": 	8, 	"estacion": "Retiro"},
-											{"id": 	7, 	"estacion": "Bartolomé Mitre"}]
+											{"id": 	7, 	"estacion": "Bartolomé Mitre", "shortname": "Bmé. Mitre"}]
 			},  
 			{"idRamal": 2, "ramal": "Retiro-J.L.Suárez", 
 				"estacion": [
@@ -203,7 +203,7 @@
 											, "idTerminal": 9, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	10, 	"estacion": "Retiro"},
-											{"id": 	9, 	"estacion": "José Leon Suárez"}]
+											{"id": 	9, 	"estacion": "José Leon Suárez","shortname": "J. L. Suárez"}]
 			}, 
 			{"idRamal": 3, "ramal": "Victoria-Capilla del Señor", 
 				"estacion": [
@@ -333,7 +333,7 @@
 											{"id": 15, 	"nombre": "Alejandro Korn", "anden": [{"id": 0}], "idTerminal": 17, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	18, 	"estacion": "Constitución"},
-											{"id": 	17, 	"estacion": "Alejandro Korn"}]
+											{"id": 	17, 	"estacion": "Alejandro Korn", "shortname": "A. Korn"}]
 			}, 
 			{"idRamal": 4, "ramal": "Constitución-Cañuelas", 
 				"estacion": [
@@ -434,7 +434,7 @@
 											, "idTerminal": 32, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	32, 	"estacion": "Retiro"},
-											{"id": 	31, 	"estacion": "J.C.Paz/Pilar/Cabred"}]
+											{"id": 	31, 	"estacion": "J.C.Paz/Pilar/Cabred", "shortname": "Dr. Cabred"}]
 			} 
 		]
 	},
@@ -551,7 +551,7 @@
 											{"id": 17, 	"nombre": "M. C. General Belgrano", "anden": [{"id": 0}], "idTerminal": 21, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	22, 	"estacion": "Buenos Aires"},
-											{"id": 	21, 	"estacion": "M. C. General Belgrano"}]
+											{"id": 	21, 	"estacion": "M. C. General Belgrano", "shortname": "M.C.G. Belgrano"}]
 			}, 
 			{"idRamal": 1, "ramal": "Buenos Aires-González Catán", 
 				"estacion": [
@@ -581,11 +581,17 @@
 											, "anden": [{"id": 0}], "idTerminal": 25, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	26, 	"estacion": "Buenos Aires"},
-											{"id": 	25, 	"estacion": "González Catán"}]
+											{"id": 	25, 	"estacion": "González Catán", "shortname": "G. Catán"}]
 			}, 
 			{"idRamal": 2, "ramal": "Puente Alsina-Aldo Bonzi", 
 				"estacion": [
 											{"id": 1, 	"nombre": "Puente Alsina", "anden": [{"id": 0}], "idTerminal": 23, "sentido": 1}, 
+												{"id": 2, 	"nombre": "Villa Diamante"}, 
+												{"id": 3, 	"nombre": "Villa Caraza"}, 
+												{"id": 4, 	"nombre": "Villa Fiorito"}, 
+												{"id": 5, 	"nombre": "Ingeniero Budge"}, 
+												{"id": 6, 	"nombre": "La Salada"}, 
+												{"id": 7, 	"nombre": "Apeadero Kilómetro 12"}, 
 											{"id": 2, 	"nombre": "Aldo Bonzi", "anden": [{"id": 0}], "idTerminal": 23, "sentido": 2}
 				], 
 				"sentido": [	{"id": 	24, 	"estacion": "Puente Alsina"},

@@ -48,6 +48,21 @@ Supported branches: \n\
 	}
 	dataConverter(parseInt(branch)); 
 	imgFooter(parseInt(branch)); 
+	var tr_dir; 
+	if (inverse) {
+		if (JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[0].shortname === undefined) {
+			tr_dir = JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[0].estacion; 
+		} else {
+			tr_dir = JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[0].shortname; 
+		};
+	} else {
+		if (JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[1].shortname === undefined) {
+			tr_dir = JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[1].estacion; 
+		} else {
+			tr_dir = JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[1].shortname; 
+		};
+	}; 
+	$("#station-data #data_direction h1").text("Sentido a "+tr_dir); 
 	$.get("php/tracker.php?branch="+branch, function(json, status, xhr){
 	}).error(function() {
 		$('#status-online').show()
@@ -56,8 +71,18 @@ Supported branches: \n\
 		console.error('Tracking: No connection. Retrying... '); 
 	}).success(function(data, status, xhr) {
 		thisdata = xhr.getResponseHeader('Content-Length'); 
-		datausedorig.tracking = datausedorig.tracking + parseInt(thisdata);
-		dataused.tracking = sizeconverter(datausedorig.tracking); 
+		console.log(datausedorig.tracking); 
+		if (datausedorig.tracking === undefined) {
+			datausedorig.tracking = 0; 
+		}; 
+		if (thisdata !== undefined) {
+			datausedorig.tracking = datausedorig.tracking + parseInt(thisdata);
+			dataused.tracking = sizeconverter(datausedorig.tracking); 
+		} else {
+			datausedorig.tracking = datausedorig.tracking + 0; 
+		};
+		console.log(thisdata); 
+		console.log(datausedorig.tracking); 
 		$('#loading-section').modal('hide');
 		if (data[0] == "<") {
 			$('#error-noapache').modal('show');
@@ -77,7 +102,15 @@ Supported branches: \n\
 			//console.log(data_tracker.salidas[1].estado); 
 		} else {console.info("Tracker: Terminal doesn't have any data.")}
 		//console.log(data_tracker.intermedias); 
+		var stationPosition;
+		if (inverse) {
+			stationPosition = data_tracker.intermedias[station].min_1; 
+		} else {
+			stationPosition = data_tracker.intermedias[station-2].min_1; 
+		};
 		if (data_tracker.intermedias[station-2].min_1 >= 0) {
+			$(".main-tracker #no-services").addClass("hidden"); 
+			$(".main-tracker #now").removeClass("hidden"); 
 			if (data_tracker.intermedias[station-2].tren_1 === "-1") {
 				service = "Servicio desconocido";
 			} else {
@@ -111,11 +144,19 @@ Supported branches: \n\
 			}
 			else if (data_tracker.intermedias[station-2].min_1 == 0) {
 				mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
-				secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | El tren de atrás vendrá en " + data_tracker.intermedias[station-2].min_2 + " minutos."; 
-			};
+				if (data_tracker.intermedias[station-2].min_2 < 0) {
+					secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | Probablemente este tren sea el último del día. "; 
+				} else {
+					secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | El tren de atrás vendrá en " + data_tracker.intermedias[station-2].min_2 + " minutos."; 
+				}
+			}; 
 			$("#now p.destiny").text(dataTrain); 
 			$("#now p.now").text(mainline); 
 			$("#now p.remaining").text(secondline); 
-		}
+		} else {
+			$(".main-tracker #no-services").removeClass("hidden"); 
+			$(".main-tracker #now").addClass("hidden"); 
+			console.error("fn_tracking: No trains available. "); 
+		};
 	});
 }

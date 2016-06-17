@@ -15,7 +15,25 @@
 </div>
 <!-- Containers -->
 <div class="main-tracker fluid-container text-xs-left text-md-center" id="scr-tracker">
-	<div class="col-xs-12" id="now">
+	<div class="col-xs-12 hidden" id="no-services">
+		<div class="card">
+			<div class="card-block">
+				<div class="row">
+					<div class="col-xs-12 col-sm-2 col-md-3">
+						<i class="material-icons">&#xE533;</i>
+					</div>
+					<div class="col-xs-12 col-sm-10 col-md-9">
+						<h1>No hay trenes para trackear.</h1>
+						<h2>Probablemente haya pasado el último del día.</h2>
+					</div>
+					<div class="col-xs-12">
+						<div class="btn btn-primary btn-lg btn-block hidden-md-up">Ver grilla de horarios</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 hidden" id="now">
 		<div class="alert alert-warning">
 			<strong>Atención</strong>
 			<p>Este módulo aún está en pruebas y el tracker no pasa automáticamente a la siguiente estación. </p>

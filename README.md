@@ -31,7 +31,7 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 ## Belgrano Sur. 
 * Buenos Aires-M.C.G.Belgrano. 
 * Buenos Aires-González Catán. 
-* Puente Alsina-Aldo Bonzi (sólo cabeceras). 
+* Puente Alsina-Aldo Bonzi. 
 
 ## Líneas de ramal único
 * San Martín. 
@@ -62,6 +62,11 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 | El tren es tuyo, cuidalo. | No hay información de los próximos servicios. Consultá la cartelera de horarios para más información. |
 
 # Changelog 
+## v1.6.1
+* Mejoras en los handlers de errores de conexión sólo en estaciones. 
+* Algunas modificaciones en el tracker pero sigue sin funcionar el pase automático. 
+* Opción de mostrar u ocultar los datos consumidos sólo en estaciones. 
+
 ## v1.6 
 Una de las actualizaciones más importantes de la webapp (por eso la tardanza). 
 * Corregido el bypass apuntando a los nuevos servers de la API (se hizo hace un par de meses), ahora apunta a los servers de SOFSE, con la misma base íntegra, donde en un principio estaba MUY inestable pero ahora ya se normalizó todo. 

@@ -8,17 +8,43 @@ var fn_station = function(branch, station) {
 	dataConverter(parseInt(branch)); 
 	imgFooter(parseInt(branch)); 
 	$('#station-data #data_station h1').html('Estación ' + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre); 
-	$("#nav-fav").show();
 	fav_name = ""; 
+	fav_dir = ""; 
 	if (JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].shortname === undefined) {
 		fav_name = "Estación " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
 	} else {
 		fav_name = "Estación " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].shortname; 
+	};
+	console.log(branch); 
+	if (lineinfo.desc) {
+		if (JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[0].shortname === undefined) {
+			fav_dir = "A " + JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[0].estacion; 
+		} else {
+			fav_dir = "A " + JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[0].shortname; 
+		};
+	} else {
+		if (JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[1].shortname === undefined) {
+			fav_dir = "A " + JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[1].estacion; 
+		} else {
+			fav_dir = "A " + JSONstations[lineinfo.id].ramales[lineinfo.branch].sentido[1].shortname; 
+		};
 	}
-	$("#nav-fav a").attr('onClick', 'addfavourite("stat", station.direction, station.station, "' + fav_name + '", "' + "Línea " + JSONstations[lineinfo.id].linea + '")');
+	for (var i = 0; i < config.favourite.length; i++) {
+		if (config.favourite[i].param1 !== branch) {
+			if (config.favourite[i].param2 !== station) {
+				$("#nav-fav").show();
+				$("#nav-fav a").attr('onClick', 'addfavourite("stat", station.direction, station.station, "' + fav_name + '", "' + "Línea " + JSONstations[lineinfo.id].linea + ' - ' + fav_dir + '")');
+			}
+		}
+	}
 	if ((branch > 0) && (station > 0)) {
 		var st_attempts; 
-		$.get("php/station.php?linea="+branch+"&estacion="+station, function(json, status, xhr){
+		if (config.viewdataused === "show") {
+			$('#status-data').removeClass('hidden'); 
+		} else if (config.viewdataused === "hide") {
+			$('#status-data').addClass('hidden'); 
+		};
+		$.get("php/station.php?branch="+branch+"&station="+station, function(json, status, xhr){
 
 		}).error(function() {
 			st_attempts++; 
@@ -26,15 +52,40 @@ var fn_station = function(branch, station) {
 				fn_station(branch, station); 
 			} else{
 				if (window.navigator.onLine) {
-					$('#status-online').show()
-									   .removeClass('alert-success').removeClass('alert-warning') 
-									   .html('<strong><i class="material-icons">&#xE2C1;</i></strong> Hay una mala noticia: ocurrió un error con el servidor. :( <br/>También hay una buena noticia: aún tenés internet. :)').addClass('alert-danger'); 
-					console.error("Fn_station: Maybe happened an 500 internal server error."); 
+					icon = "&#xE2C1;"; 
+					titleerror = "Ocurrió un error con el servidor :( "; 
+					stringerror = "Eso sí, hay una buena noticia: aún tenés internet. :)"; 
+					if (flag) {
+						$('#status-online').show()
+										   .removeClass('alert-success').removeClass('alert-warning') 
+										   .html('<strong><i class="material-icons">' + icon + '</i></strong> ' + titleerror + "<br/>" + stringerror).addClass('alert-danger'); 
+						console.error("Fn_station: Maybe happened an 500 internal server error."); 
+					} else {
+						$("#md-error").show(); 
+						$("#md-error .modal-header h4.modal-title").html(titleerror); 
+						$("#md-error .modal-body p").html(stringerror); 
+						$("#md-error .modal-footer").html('<button type=button class="btn btn-secondary" data-dismiss="modal" onClick="loadSection(\'selector\')">Volver al selector</button>');
+						return false; 
+					}
 				} else {
-					$('#status-online').show()
-									   .removeClass('alert-success').removeClass('alert-warning') 
-									   .html('<strong><i class="material-icons">&#xE2C1;</i></strong> No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.').addClass('alert-danger'); 
-					console.error("Fn_station: You're offline."); 
+					icon = "&#xE2C1;"; 
+					titleerror = "No tenés conexión a Internet. "; 
+					stringerror = "Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi."; 
+					if (flag) {
+						$('#status-online').show()
+										   .removeClass('alert-success').removeClass('alert-warning') 
+										   .html('<strong><i class="material-icons">' + icon + '</i></strong> ' + titleerror + "<br/>" + stringerror).addClass('alert-danger'); 
+						console.error("Fn_station: You're offline."); 
+					} else {
+						$("#md-error").show(); 
+						$("#md-error .modal-header h4.modal-title").html(titleerror); 
+						$("#md-error .modal-body p").html(stringerror); 
+						$("#md-error .modal-footer").html('<button type=button class="btn btn-secondary" data-dismiss="modal" onClick="loadSection(\'selector\')">Volver al selector</button>');
+						return false; 
+					}
+					//$('#status-online').show()
+					//				   .removeClass('alert-success').removeClass('alert-warning') 
+					//				   .html('<strong><i class="material-icons">&#xE2C1;</i></strong>  ').addClass('alert-danger'); 
 				}
 			}
 		}).success(function(data, status, xhr) {
@@ -53,11 +104,25 @@ var fn_station = function(branch, station) {
 				clearInterval(interval); 
 				return false; 
 			} else if (data[0] == undefined) {
-				$('#status-online').show()
-								   .removeClass('alert-success').removeClass('alert-warning') 
-								   .html('<strong><i class="material-icons">&#xE2C1;</i></strong> Ocurrió un error al intentar obtener los datos. Probablemente tengas que revisar la conexión a Internet o, en caso de estar en una red WiFi, loguearte en la misma. ').addClass('alert-danger'); 
-				console.error("Fn_station: Undefined value. Maybe you're offline or you must log in into the network."); 
-				return false; 
+				icon = "&#xE2C1;"; 
+				titleerror = "Ocurrió un error al intentar obtener los datos. "; 
+				stringerror = "Probablemente tengas que revisar la conexión a Internet o, en caso de estar en una red WiFi, loguearte en la misma. "; 
+				if (flag) {
+					$('#status-online').show()
+									   .removeClass('alert-success').removeClass('alert-warning') 
+									   .html('<strong><i class="material-icons">' + icon + '</i></strong> ' + titleerror + "<br/>" + stringerror).addClass('alert-danger'); 
+					console.error("Fn_station: Undefined value. Maybe you're offline or you must log in into the network."); 
+				} else {
+					$("#md-error").modal('show'); 
+					$("#md-error .modal-header h4.modal-title").html(titleerror); 
+					$("#md-error .modal-body p").html(stringerror); 
+					$("#md-error .modal-footer").html('<button type=button class="btn btn-secondary" data-dismiss="modal" onClick="loadSection(\'selector\')">Volver al selector</button>');
+					return false; 
+				}
+				//$('#status-online').show()
+				//				   .removeClass('alert-success').removeClass('alert-warning') 
+				//				   .html('<strong><i class="material-icons">&#xE2C1;</i></strong>  ').addClass('alert-danger'); 
+				//return false; 
 			}
 			if (data === "incorrect key") {
 				$('#status-online').show()
@@ -70,6 +135,7 @@ var fn_station = function(branch, station) {
 				console.info('Fn_station: "wait" from SOFSE server.'); 
 				fn_station(branch, station); 
 			} else {
+				flag = true; 
 				getHourData(); 
 				$('#status-online').hide();
 				//$('#status-data').show(); 
@@ -100,6 +166,9 @@ var fn_station = function(branch, station) {
 				st["alert"] = st_data.items['alerta']; 
 
 				st_notrains = 0; 
+
+				console.log(st[0].to);
+				console.log(stationParser(st[0].to, "station"));
 
 				for (var i = 0; i < st.length; i++) {
 					if (i === 0) {target = "#first"} 

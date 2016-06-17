@@ -68,11 +68,12 @@ var terminal = [station = undefined, defaultstation = undefined, direction = und
 var platform = [station = undefined, platform = undefined]; 
 var station = [direction = undefined, station = undefined]; 
 var lineinfo = [id = undefined, branch = undefined, limit = undefined, desc = undefined]; 
-var config = [brand = undefined, linebrands = undefined, font = undefined, frequency = undefined, favourite = undefined]; 
+var config = [brand = undefined, linebrands = undefined, font = undefined, viewdataused = undefined,  frequency = undefined, favourite = undefined]; 
 var interval = undefined; 
 var autoupdate = false; 
 var internet = undefined; 
 var lastUpdate = [date = 0, time = 0]; 
+var flag = false;
 
 var JSONstations; 
 
@@ -99,6 +100,11 @@ config.font = localStorage.getItem("font");
 if (config.font === null) {
 	localStorage.setItem("font", "gotham"); 
 	config.font = localStorage.getItem("font");
+};
+config.viewdataused = localStorage.getItem("viewdataused"); 
+if (config.viewdataused === null) {
+	localStorage.setItem("viewdataused", "hide"); 
+	config.viewdataused = localStorage.getItem("viewdataused");
 };
 config.frequency = localStorage.getItem("updfrequency"); 
 if (config.frequency === null) {
@@ -144,9 +150,13 @@ $(document).ready(function(){
 	$('#fonts .btn-primary').on('click', function(){
 		font($(this).find('input').attr('id'))
 	}); 
+	$('#viewdataused .btn-primary').on('click', function(){
+		viewdataused($(this).find('input').attr('id')); 
+	}); 
 	brand(config.brand); 
 	linebrands(config.linebrands); 
 	font(config.font); 
+	viewdataused(config.viewdataused); 
 	updatefreq(config.frequency); 
 	
 	var hash = window.location.hash.substr(1);
@@ -289,7 +299,7 @@ $(document).ready(function(){
 
 // Advertisements
 var ad_data = [img = null, vid = null]; 
-ad_data.img = "../shokugeki.png"; 
+ad_data.img = "img/social-payment.jpg"; 
 ad_data.vid = "../yns.mp4"; 
 
 function fn_ads(ad, type) {
@@ -402,6 +412,7 @@ var loadSection = function(section, method){
 			datausedorig.station = 0; 
 			dataused.station = 0; 
 			$(maindiv).html(template.station); 
+			flag = false; 
 			fn_station(station.direction, station.station);
 			window.location.hash = "#station&brnch:" + station.direction + "&stat:" + station.station;
 			if (autoupdate) {
@@ -566,6 +577,7 @@ var stationParser = function(data, type) {
 			// Belgrano Sur
 			case "Bsas": return "Buenos Aires";
 			case "Gonzales catan": return "Gonzalez Catán";
+			case "C. catán": return "Gonzalez Catán";
 			case "M.c.g. belgrano": return "M. C. General Belgrano";
 			case "P.alsina": return "Puente Alsina";
 			case "A. bonzi": return "Aldo Bonzi";
@@ -696,6 +708,31 @@ var dataConverter = function(branch){
 			lineinfo.desc = true; 
 		}; 
 	} 
+	// Belgrano Sur 
+	else if ((branch === 21) || (branch === 22)) {
+		lineinfo.id = 6; 
+		lineinfo.branch = 0;
+		lineinfo.limit = 18; 
+		if (branch === 22) {
+			lineinfo.desc = true; 
+		}; 
+	} 
+	else if ((branch === 23) || (branch === 24)) {
+		lineinfo.id = 6; 
+		lineinfo.branch = 2;
+		lineinfo.limit = 8; 
+		if (branch === 24) {
+			lineinfo.desc = true; 
+		}; 
+	} 
+	else if ((branch === 25) || (branch === 26)) {
+		lineinfo.id = 6; 
+		lineinfo.branch = 1;
+		lineinfo.limit = 17; 
+		if (branch === 26) {
+			lineinfo.desc = true; 
+		}; 
+	} 
 	// Urquiza
 	else if ((branch === 71) || (branch === 72)) {
 		lineinfo.id = 4; 
@@ -721,10 +758,16 @@ var linebrands = function(linebrands){
 	config.linebrands = localStorage.getItem("linebrands"); 
 };
 var font = function(font){
-    $('body').removeClass('dinpro').removeClass('gotham').addClass(font);
+	$('body').removeClass('dinpro').removeClass('gotham').addClass(font);
 	$('#fonts label').removeClass('active'); 
 	$('#fonts label#'+font).addClass('active'); 
 	localStorage.setItem("font", font); 
+};
+var viewdataused = function(display){
+	$('#viewdataused label').removeClass('active'); 
+	$('#viewdataused label#'+display).addClass('active'); 
+	localStorage.setItem("viewdataused", display); 
+	config.viewdataused = localStorage.getItem("viewdataused"); 
 }
 
 var updatefreq = function(option){
@@ -742,6 +785,13 @@ var updatefreq = function(option){
 var addfavourite = function (type, param1, param2, firstline, secondline) {
 	config.favourite.push({type, param1, param2, firstline, secondline}); 
 	localStorage.setItem("favourite", JSON.stringify(config.favourite)); 
+	$("#nav-fav").hide();
+}
+
+var removefavourite = function(item) {
+	config.favourite.splice(item, 1); 
+	localStorage.setItem("favourite", JSON.stringify(config.favourite)); 
+	listfavourite(); 
 }
 
 var listfavourite = function(){
@@ -764,9 +814,16 @@ var listfavourite = function(){
 					console.log(i + " plat"); 
 					break; 
 			}
-			html += '<a class="list-group-item" onClick="' + fntemplate + '; '+ fntrigger +'">\
-						<h4 class="list-group-item-heading">' + config.favourite[i].firstline + '</h4>\
-						<p class="list-group-item-text">' + config.favourite[i].secondline + '</p>\
+			html += '<a class="list-group-item">\
+						<div class="row">\
+							<div class="col-xs-11 col-md-10" onClick="' + fntemplate + '; '+ fntrigger +'">\
+								<h4 class="list-group-item-heading">' + config.favourite[i].firstline + '</h4>\
+								<p class="list-group-item-text">' + config.favourite[i].secondline + '</p>\
+							</div>\
+							<div class="col-xs-1 col-md-2 danger" onClick="removefavourite('+i+')">\
+								<p>x</p>\
+							</div>\
+						</div>\
 					</a>'; 
 		}
 		$("#sec-selector").addClass("col-md-8"); 
@@ -849,26 +906,30 @@ var stationData = function(method, section){
 			case "station": 
 				$("#station-data #data_line").addClass("col-md-3"); 
 				$("#station-data #data_station").show(); 
+				$("#station-data #data_direction").hide(); 
 				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 			case "platform": 
 				$("#station-data #data_line").addClass("col-md-3"); 
 				$("#station-data #data_station").show(); 
+				$("#station-data #data_direction").hide(); 
 				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 			case "terminal": 
 				$("#station-data #data_line").addClass("col-md-3"); 
 				$("#station-data #data_station").show(); 
+				$("#station-data #data_direction").hide(); 
 				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 			case "tracking": 
 				$("#station-data #data_line").removeClass("col-md-3"); 
 				$("#station-data #data_station").hide(); 
-				$("#station-data #data_time").addClass("col-sm-6").removeClass("col-md-3"); 
+				$("#station-data #data_direction").show(); 
+				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 		};
 	} else {
-		$("#station-data").hide()
+		$("#station-data").hide();
 	}
 }
 

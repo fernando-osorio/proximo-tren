@@ -9,6 +9,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+		<link rel="manifest" href="manifest.json">
 		<!-- Chrome for Android theme color -->
 		<meta name="theme-color" content="rgb(20, 20, 20)">
 		<!-- Tile color for Win8 -->
@@ -125,14 +126,14 @@
 							<div class="tab-pane fade in active" id="opt-data" role="tabpanel">
 								<br/>
 								<h4>Ver datos consumidos</h4>
-								<p>Dentro de poco podrás ver (u ocultar) la información de los datos que consumiste por consulta. </p>
-								<p>Por ahora sólo está en pruebas al consultar una estación. </p>
+								<p>Podés ver (u ocultar) la información de los datos que consumiste por consulta. </p>
+								<p>Por el momento está en pruebas al consultar una estación. </p>
 								<div class="btn-group" id="viewdataused" data-toggle="buttons">
-									<label class="btn btn-primary disabled" id="show">
-										<input type="radio" name="dataused" id="show" autocomplete="off">Mostrar
+									<label class="btn btn-primary" id="true">
+										<input type="radio" name="viewdataused" id="show" autocomplete="off">Mostrar
 									</label>
-									<label class="btn btn-primary disabled" id="hide">
-										<input type="radio" name="dataused" id="hide" autocomplete="off">Ocultar
+									<label class="btn btn-primary" id="false">
+										<input type="radio" name="viewdataused" id="hide" autocomplete="off">Ocultar
 									</label>
 								</div>
 								<hr>
@@ -442,6 +443,24 @@
 			</div>
 		</div>
 		<!-- End No apache modal -->
+		<!-- Error modal -->
+		<div class="modal fade" id="md-error" tabindex="-1" role="dialog" data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5)">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content bg-inverse">
+					<div class="modal-header">
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body">
+						<p></p>
+					</div>
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-primary" data-dismiss="modal">Reintentar</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="loadSection('selector')">Volver al selector</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Error modal -->
 		<!-- Station data -->
 		<section id="station-data" style="display: hidden">
 			<div class="fluid-container">
@@ -453,7 +472,7 @@
 						<h1></h1>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6 media-middle text-xs-center hidden" id="data_direction">
-						<h1>Sentido a Once/Plaza Miserere</h1>
+						<h1></h1>
 					</div>
 					<div class="col-xs-12 col-md-3 media-middle text-xs-center text-md-right" id="data_time">
 						<h1></h1>
@@ -507,8 +526,10 @@
 					</div>
 					<div class="col-xs-12 col-md-4" id="sec-favs">
 						<section>
-							<h2>Acceso rápido</h2>
-							<p>Por el momento son sólo estaciones.</p>
+							<h2>¡Bienvenido de nuevo!</h2>
+							<p>Podés elegir una de las estaciones que seleccionaste como frecuentes o podés:</p>
+							<div class="btn btn-primary btn-block">Seleccionar otra estación</div>
+							<h3>Estaciones frecuentes</h3>
 							<div class="list-group" id="fav-stations">
 								<a href="#" class="list-group-item disabled">
 									<h4 class="list-group-item-heading">Acá aparecerán las estaciones que marques para accederlas rápidamente desde la página de inicio.</h4>
