@@ -67,6 +67,9 @@ var dataused = [station = 0, terminal = 0, platform = 0, tracking = 0];
 var terminal = [station = undefined, defaultstation = undefined, direction = undefined, namestation = undefined]; 
 var platform = [station = undefined, platform = undefined]; 
 var station = [direction = undefined, station = undefined]; 
+var tracker = [data = undefined, back = undefined]; 
+	tracker.data = [dir = undefined, st = undefined, service = undefined, train = undefined]; 
+	tracker.back = [dir = undefined, st = undefined, service = undefined, train = undefined]; 
 var lineinfo = [id = undefined, branch = undefined, limit = undefined, desc = undefined]; 
 var config = [brand = undefined, linebrands = undefined, font = undefined, viewdataused = undefined,  frequency = undefined, favourite = undefined]; 
 var interval = undefined; 
@@ -758,7 +761,7 @@ var linebrands = function(linebrands){
 	config.linebrands = localStorage.getItem("linebrands"); 
 };
 var font = function(font){
-	$('body').removeClass('dinpro').removeClass('gotham').addClass(font);
+	$('body').removeClass('dinpro').removeClass('gotham').removeClass('Gidole').addClass(font);
 	$('#fonts label').removeClass('active'); 
 	$('#fonts label#'+font).addClass('active'); 
 	localStorage.setItem("font", font); 
@@ -904,28 +907,20 @@ var stationData = function(method, section){
 		$("#station-data").show(); 
 		switch(section) {
 			case "station": 
-				$("#station-data #data_line").addClass("col-md-3"); 
 				$("#station-data #data_station").show(); 
 				$("#station-data #data_direction").hide(); 
-				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 			case "platform": 
-				$("#station-data #data_line").addClass("col-md-3"); 
 				$("#station-data #data_station").show(); 
 				$("#station-data #data_direction").hide(); 
-				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 			case "terminal": 
-				$("#station-data #data_line").addClass("col-md-3"); 
 				$("#station-data #data_station").show(); 
 				$("#station-data #data_direction").hide(); 
-				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 			case "tracking": 
-				$("#station-data #data_line").removeClass("col-md-3"); 
 				$("#station-data #data_station").hide(); 
 				$("#station-data #data_direction").show(); 
-				$("#station-data #data_time").removeClass("col-sm-6").addClass("col-md-3"); 
 				break; 
 		};
 	} else {

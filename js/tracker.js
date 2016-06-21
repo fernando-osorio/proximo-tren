@@ -20,7 +20,6 @@ var fn_tracking = function(branch, station, method) {
 		else {return undefined;} 
 	}
 	console.info('Tracking: Active flag. ');
-	branch = branchnormalizer(parseInt(branch));
 	console.log(branch); 
 	if (branch === undefined) {
 		$('#loading-section').modal('hide');
@@ -63,7 +62,7 @@ Supported branches: \n\
 		};
 	}; 
 	$("#station-data #data_direction h1").text("Sentido a "+tr_dir); 
-	$.get("php/tracker.php?branch="+branch, function(json, status, xhr){
+	$.get("php/tracker.php?branch="+branchnormalizer(parseInt(branch)), function(json, status, xhr){
 	}).error(function() {
 		$('#status-online').show()
 						   .removeClass('alert-success').removeClass('alert-warning') 
@@ -102,61 +101,199 @@ Supported branches: \n\
 			//console.log(data_tracker.salidas[1].estado); 
 		} else {console.info("Tracker: Terminal doesn't have any data.")}
 		//console.log(data_tracker.intermedias); 
-		var stationPosition;
+		$(".main-tracker #no-services").addClass("hidden"); 
+		$(".main-tracker #now").removeClass("hidden"); 
 		if (inverse) {
-			stationPosition = data_tracker.intermedias[station].min_1; 
+			console.log(station); 
+			if (station < JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length) {
+				if (station >= 2) {
+					if (data_tracker.intermedias[station-2].min_4 >= 0) {
+						$('#tr-start').addClass('hidden');
+						$('#tr-stop').removeClass('hidden');
+						$('#tr-finish').addClass('hidden'); 
+						tracker.data.train = data_tracker.intermedias[station-2].chapa_4; 
+						if ((tracker.back.train !== tracker.data.train)) {
+							console.log("Different train"); 
+							tracker.back.train = tracker.data.train; 
+							if (flag) {
+								if (inverse) {
+									clearInterval(interval); 
+									interval = setInterval(function() {fn_tracking(branch, station-1)}, parseInt(config.frequency)); 
+									return false; 
+								} else {
+									interval = setInterval(function() {fn_tracking(branch, station+1)}, parseInt(config.frequency)); 
+									return false; 
+								}
+							}
+						} else {
+							console.log("Same train"); 
+						}; 
+
+						if (data_tracker.intermedias[station-2].tren_4 === "-1") {
+							service = "Servicio desconocido";
+						} else {
+							service = "Servicio N°" + data_tracker.intermedias[station-2].tren_4; 
+						}; 
+						if (data_tracker.intermedias[station-2].chapa_4 === "-1") {
+							if (branch === 32) {
+								formation = "Locomotora no especificada"; 
+							} else {formation = "Formación no especificada"}
+						} else {
+							if (branch === 32) {
+								formation = "Locomotora B" + data_tracker.intermedias[station-2].chapa_4; 
+							} else if ((branch === 52) || (branch === 54)) {
+								formation = "Locomotora " + data_tracker.intermedias[station-2].chapa_4; 
+							} else {formation = "Formación " + data_tracker.intermedias[station-2].chapa_4}
+						}; 
+
+						if (data_tracker.intermedias[station-2].min_4 > 0) {
+							mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+							if (data_tracker.intermedias[station-2].min_4 == 60) {
+								secondline = "Llegando en 1 hora."; 
+							} else if (data_tracker.intermedias[station-2].min_4 > 1) {
+								secondline = "Llegando en " + data_tracker.intermedias[station-2].min_4 + " minutos."; 
+							} else if (data_tracker.intermedias[station-2].min_4 == 1) {
+								secondline = "Llegando en 1 minuto."; 
+							}; 
+						}
+						else if (data_tracker.intermedias[station-2].min_4 == 0) {
+							mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+							if (data_tracker.intermedias[station-2].min_2 < 0) {
+								secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 2].nombre + " | Probablemente este tren sea el último del día. "; 
+							} else {
+								secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 2].nombre + " | El tren de atrás vendrá en " + data_tracker.intermedias[station-2].min_5 + " minutos."; 
+							}; 
+						}; 
+					}
+					dataTrain = service + " | " + formation; 	
+					$("#now p.destiny").text(dataTrain); 
+					$("#now p.now").text(mainline); 
+					$("#now p.remaining").text(secondline); 
+					flag = true;
+				} else if (station === 1) {
+					mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+					$("#now p.now").text(mainline); 
+					$("#now p.remaining").text("Final del recorrido."); 
+					return false; 
+				};
+			} else if (station === JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length) {
+				$('#tr-start').removeClass('hidden');
+				$('#tr-stop').addClass('hidden');
+				$('#tr-finish').addClass('hidden'); 
+				mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre;
+				$("#now p.now").text(mainline); 
+				$("#now p.remaining").text("Inicio del recorrido."); 
+				var nextst = station - 1; 
+				var commands = "window.location.hash = '#tracking&brnch:" + parseInt(branch) + "&stat:" + parseInt(nextst) +"';\
+								fn_tracking("+parseInt(branch)+", " + parseInt(nextst) + ");\
+								interval = setInterval(function() {fn_tracking("+parseInt(branch)+", " + parseInt(nextst) + ")}, parseInt("+config.frequency+"));";
+				$("#tr-start").attr("onClick", commands); 
+				clearInterval(interval); 
+			} else {
+				clearInterval(interval); 
+				fn_tracking(branch, JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length);
+				window.location.hash = "#tracking&brnch:" + branch + "&stat:" + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length;
+			}
 		} else {
-			stationPosition = data_tracker.intermedias[station-2].min_1; 
-		};
-		if (data_tracker.intermedias[station-2].min_1 >= 0) {
-			$(".main-tracker #no-services").addClass("hidden"); 
-			$(".main-tracker #now").removeClass("hidden"); 
-			if (data_tracker.intermedias[station-2].tren_1 === "-1") {
-				service = "Servicio desconocido";
-			} else {
-				service = "Servicio N°" + data_tracker.intermedias[station-2].tren_1; 
-			}; 
-			if (data_tracker.intermedias[station-2].chapa_1 === "-1") {
-				if (branch === 31) {
-					formation = "Locomotora no especificada"; 
-				} else {formation = "Formación no especificada"}
-			} else {
-				if (branch === 31) {
-					formation = "Locomotora B" + data_tracker.intermedias[station-2].chapa_1; 
-				} else {formation = "Formación " + data_tracker.intermedias[station-2].chapa_1}
-			}
-			if (branch === 31) {
-				//dataTrain = "Finaliza en [destino]  | Servicio N°" + data_tracker.intermedias[station-2].tren_1 + " | Locomotora B" + data_tracker.intermedias[station-2].chapa_1; 
-				dataTrain = service + " | " + formation; 
-			} else {
-				//dataTrain = "Finaliza en [destino] | Formación " + data_tracker.intermedias[station-2].chapa_1; 
-				dataTrain = service + " | " + formation; 
-			}; 
-			if (data_tracker.intermedias[station-2].min_1 > 0) {
-				mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
-				if (data_tracker.intermedias[station-2].min_1 == 60) {
-					secondline = "Llegando en 1 hora."; 
-				} else if (data_tracker.intermedias[station-2].min_1 > 1) {
-					secondline = "Llegando en " + data_tracker.intermedias[station-2].min_1 + " minutos."; 
-				} else if (data_tracker.intermedias[station-2].min_1 == 1) {
-					secondline = "Llegando en 1 minuto."; 
-				}
-			}
-			else if (data_tracker.intermedias[station-2].min_1 == 0) {
-				mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
-				if (data_tracker.intermedias[station-2].min_2 < 0) {
-					secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | Probablemente este tren sea el último del día. "; 
+			if (station < JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length) {
+				if (station >= 2) {
+					if (data_tracker.intermedias[station-2].min_1 >= 0) {
+						tracker.data.train = data_tracker.intermedias[station-2].chapa_1; 
+						if (tracker.back.train !== tracker.data.train) {
+							console.log("Different train"); 
+							tracker.back.train = tracker.data.train; 
+							if (flag) {
+								clearInterval(interval); 
+								if (inverse) {
+									interval = setInterval(function() {fn_tracking(branch, station-1)}, parseInt(config.frequency)); 
+									return false; 
+								} else {
+									interval = setInterval(function() {fn_tracking(branch, station+1)}, parseInt(config.frequency)); 
+									return false; 
+								}
+							}
+						} else {
+							console.log("Same train"); 
+						}; 
+
+						if (data_tracker.intermedias[station-2].tren_1 === "-1") {
+							service = "Servicio desconocido";
+						} else {
+							service = "Servicio N°" + data_tracker.intermedias[station-2].tren_1; 
+						}; 
+						if (data_tracker.intermedias[station-2].chapa_1 === "-1") {
+							if (branch === 31) {
+								formation = "Locomotora no especificada"; 
+							} else {formation = "Formación no especificada"}
+						} else {
+							if (branch === 31) {
+								formation = "Locomotora B" + data_tracker.intermedias[station-2].chapa_1; 
+							} else if ((branch === 51) || (branch === 53)) {
+								formation = "Locomotora " + data_tracker.intermedias[station-2].chapa_1; 
+							} else {formation = "Formación " + data_tracker.intermedias[station-2].chapa_1}
+						}; 
+						if (station >= 2) {
+							if (data_tracker.intermedias[station-2].min_1 > 0) {
+								mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+								if (data_tracker.intermedias[station-2].min_1 == 60) {
+									secondline = "Llegando en 1 hora."; 
+								} else if (data_tracker.intermedias[station-2].min_1 > 1) {
+									secondline = "Llegando en " + data_tracker.intermedias[station-2].min_1 + " minutos."; 
+								} else if (data_tracker.intermedias[station-2].min_1 == 1) {
+									secondline = "Llegando en 1 minuto."; 
+								}; 
+							}
+							else if (data_tracker.intermedias[station-2].min_1 == 0) {
+								mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+								if (data_tracker.intermedias[station-2].min_2 < 0) {
+									secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | Probablemente este tren sea el último del día. "; 
+								} else {
+									secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | El tren de atrás vendrá en " + data_tracker.intermedias[station-2].min_2 + " minutos."; 
+								}; 
+							}; 
+						} else if (station === 1) {
+							mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+							secondline = "Inicio del recorrido | Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre; 
+							return false; 
+						} else if (station === JSONstations[lineinfo.id].ramales[lineinfo.branch].length) {
+							mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+							secondline = "Final del recorrido."; 
+						};
+						dataTrain = service + " | " + formation; 	
+						$("#now p.destiny").text(dataTrain); 
+						$("#now p.now").text(mainline); 
+						$("#now p.remaining").text(secondline); 
+						flag = true;
+					} else if (station === 1) {
+						mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+						secondline = "Inicio del recorrido | Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station + 1].nombre; 
+						$("#now p.now").text(mainline); 
+						$("#now p.remaining").text(secondline); 
+						return false; 
+					};
+				} else if (station === JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length) {
+					$('#tr-start').removeClass('hidden');
+					$('#tr-stop').addClass('hidden');
+					$('#tr-finish').addClass('hidden'); 
+					mainline = "Estás en " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre;
+					$("#now p.now").text(mainline); 
+					$("#now p.remaining").text("Inicio del recorrido."); 
+					var nextst = station - 1; 
+					var commands = "window.location.hash = '#tracking&brnch:" + parseInt(branch) + "&stat:" + parseInt(nextst) +"';\
+									fn_tracking("+parseInt(branch)+", " + parseInt(nextst) + ");\
+									interval = setInterval(function() {fn_tracking("+parseInt(branch)+", " + parseInt(nextst) + ")}, parseInt("+config.frequency+"));";
+					$("#tr-start").attr("onClick", commands); 
+					clearInterval(interval); 
 				} else {
-					secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre + " | El tren de atrás vendrá en " + data_tracker.intermedias[station-2].min_2 + " minutos."; 
+					clearInterval(interval); 
+					fn_tracking(branch, JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length);
+					window.location.hash = "#tracking&brnch:" + branch + "&stat:" + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length;
 				}
-			}; 
-			$("#now p.destiny").text(dataTrain); 
-			$("#now p.now").text(mainline); 
-			$("#now p.remaining").text(secondline); 
-		} else {
-			$(".main-tracker #no-services").removeClass("hidden"); 
-			$(".main-tracker #now").addClass("hidden"); 
-			console.error("fn_tracking: No trains available. "); 
+			} else {
+				$(".main-tracker #no-services").removeClass("hidden"); 
+				$(".main-tracker #now").addClass("hidden"); 
+				console.error("fn_tracking: No trains available. "); 
+			}
 		};
 	});
 }

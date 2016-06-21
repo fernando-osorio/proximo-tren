@@ -62,6 +62,11 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 | El tren es tuyo, cuidalo. | No hay información de los próximos servicios. Consultá la cartelera de horarios para más información. |
 
 # Changelog 
+## v1.7 
+* Tracker funcionando (aún sigue en beta). 
+* Agregada fuente Gidole como personalización. 
+* Retoques varios en scripts. 
+
 ## v1.6.1
 * Mejoras en los handlers de errores de conexión sólo en estaciones. 
 * Algunas modificaciones en el tracker pero sigue sin funcionar el pase automático. 

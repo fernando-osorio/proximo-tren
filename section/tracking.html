@@ -34,10 +34,6 @@
 		</div>
 	</div>
 	<div class="col-xs-12 hidden" id="now">
-		<div class="alert alert-warning">
-			<strong>Atención</strong>
-			<p>Este módulo aún está en pruebas y el tracker no pasa automáticamente a la siguiente estación. </p>
-		</div>
 		<div class="card service">
 			<div class="card-header">
 				<p class="destiny" style="font-size: 24px; margin-bottom: 0px;">Cargando datos... </p>
@@ -45,6 +41,11 @@
 			<div class="card-block row" style="padding-top: 0; padding-bottom: 1.75rem; padding-left: 2rem; padding-right: 2rem;">
 				<p class="now" style="font-size: 36px; margin: 0;">Cargando estado actual...</p>
 				<p class="remaining" style="margin: 0;">Cargando tiempo...</p>
+				<div class="col-xs-12" id="trip-options">
+					<div class="btn btn-danger btn-lg btn-block hidden-md-up hidden" id="tr-stop">Me bajo acá</div>
+					<div class="btn btn-success btn-lg btn-block hidden-md-up hidden" id="tr-start">Comenzar viaje</div>
+					<div class="btn btn-success btn-lg btn-block hidden-md-up hidden" id="tr-finish">Volver al selector</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -19,18 +19,55 @@
 		<meta name="twitter:card" content="photo" />
 		<meta name="twitter:site" content="@Fermoto5HD" />
 		<meta name="twitter:creator" content="@Fermoto5HD" />
-
-		<script src="jquery/jquery.min.js"></script>
-		<script src="fm5strap/js/fm5strap.min.js"></script>
-		<link rel="stylesheet" href="fm5strap/css/fm5strap.min.css">
+		<script src="http://Fermoto5HD.16mb.com/vendor/jquery/js/jquery.min.js"></script>
+		<script src="http://Fermoto5HD.16mb.com/vendor/fm5strap/js/fm5strap.min.js"></script>
+		<link rel="stylesheet" href="http://Fermoto5HD.16mb.com/vendor/fm5strap/css/fm5strap.min.css" />
+		<link rel="stylesheet" href="maintenance/style.css" />
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="style.css" />
+		<style type="text/css">
+			/* Button styles */
+			.btn.btn-primary{
+				background-color: rgba(0, 0, 0, 0.75); 
+				border: 1px solid #FFF;
+				opacity: 0.75;
+				transition: 0.5s; 
+				color: #FFF 
+			}
+			.btn.btn-primary:hover{opacity: 1;}
+			.btn.btn-secondary{
+				background-color: rgba(0, 0, 0, 0.5); 
+				border: 1px solid rgb(175, 175, 175);
+				opacity: 0.5;
+				transition: 0.5s; 
+				color: #FFF 
+			}
+			.btn.btn-secondary:hover{opacity: 1}
+
+		/* Main */
+			main{
+				position: fixed;
+				width: 100%; 
+				height: 100%; 
+				background-image: url(maintenance.jpg);
+				background-position: center; 
+				background-attachment: fixed; 
+				background-size: cover; 
+				background-repeat: no-repeat;
+			}
+			main .shadow{
+				position: fixed;
+				width: 100%; 
+				height: 100%; 
+				padding-top: 110px; 
+				background-color: rgba(0, 0, 0, 0.5); 
+			}
+		</style>
 	</head>
 	<body>
 		<header>
 			<nav class="navbar navbar-fixed-top">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="index.html" title="Próximo Tren"></a>
+					<a class="navbar-brand" onClick="window.location.reload()" title="Próximo Tren"></a>
 					<ul class="nav navbar-nav pull-xs-right">
 						<li class="nav-item">
 							<a class="nav-link" href="http://github.com/Fermoto5HD/proximo-tren" target="_blank">GitHub</a>
@@ -39,18 +76,13 @@
 				</div>
 			</nav>
 		</header>
-		<!--<center>
-			<h1>Actualizando versión...</h1>
-			<h2>Reintentá de nuevo en un par de minutos. </h2>
-		</center>-->
 		<main class="content-w-fixed-navbar">
 			<div class="shadow text-xs-center">
 				<div class="container-fluid">
-					<h1 class="cover-heading">Estoy ajustando y actualizando la aplicación.</h1>
-					<p class="lead">Reintentá de nuevo en un par de minutos.</p>
-					<p class="lead">¡Gracias!</p>
+					<h1 class="cover-heading">Error 500 - Se cayó el servidor. </h1>
+					<p class="lead">Vas a tener que esperar un momento para volver a usar la webapp.</p>
 					<p class="lead">
-						<a href="index.html" class="btn btn-primary btn-lg">Reintentar</a>
+						<a href="#" class="btn btn-primary btn-lg" onClick="window.location.reload()">Reintentar</a>
 					</p>
 				</div>
 			</div>
