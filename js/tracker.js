@@ -164,17 +164,29 @@ Supported branches: \n\
 								secondline = "Próxima: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 2].nombre + " | El tren de atrás vendrá en " + data_tracker.intermedias[station-2].min_5 + " minutos."; 
 							}; 
 						}; 
+						dataTrain = service + " | " + formation; 	
+						$("#now p.destiny").text(dataTrain); 
+						$("#now p.now").text(mainline); 
+						$("#now p.remaining").text(secondline); 
+						flag = true;
+					} else {
+						icon = "&#xE2C1;"; 
+						titleerror = "No hay servicios disponibles. "; 
+						stringerror = "Probablemente haya pasado el último del día."; 
+						if (flag) {
+							$(".main-tracker #no-services").removeClass("hidden"); 
+							$(".main-tracker #now").addClass("hidden"); 
+						} else {
+							$("#md-error").show(); 
+							$("#md-error .modal-header h4.modal-title").html(titleerror); 
+							$("#md-error .modal-body p").html(stringerror); 
+							$("#md-error .modal-footer").html('<button type=button class="btn btn-secondary" data-dismiss="modal" onClick="loadSection(\'selector\')">Volver al selector</button>');
+							return false; 
+						};
+						console.error("fn_tracking: No trains available. "); 
 					}
-					dataTrain = service + " | " + formation; 	
-					$("#now p.destiny").text(dataTrain); 
-					$("#now p.now").text(mainline); 
-					$("#now p.remaining").text(secondline); 
-					flag = true;
-				} else if (station === 1) {
-					mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
-					$("#now p.now").text(mainline); 
-					$("#now p.remaining").text("Final del recorrido."); 
-					return false; 
+				} else {
+					console.error("Error");
 				};
 			} else if (station === JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length) {
 				$('#tr-start').removeClass('hidden');
@@ -189,6 +201,16 @@ Supported branches: \n\
 								interval = setInterval(function() {fn_tracking("+parseInt(branch)+", " + parseInt(nextst) + ")}, parseInt("+config.frequency+"));";
 				$("#tr-start").attr("onClick", commands); 
 				clearInterval(interval); 
+			} else if (station === 1) {
+				mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station - 1].nombre; 
+				$("#now p.now").text(mainline); 
+				$("#now p.remaining").text("Final del recorrido."); 
+				return false; 
+			} else if (station === 0) {
+				mainline = "Próxima estación: " + JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion[station].nombre; 
+				$("#now p.now").text(mainline); 
+				$("#now p.remaining").text("Final del recorrido."); 
+				return false; 
 			} else {
 				clearInterval(interval); 
 				fn_tracking(branch, JSONstations[lineinfo.id].ramales[lineinfo.branch].estacion.length);
