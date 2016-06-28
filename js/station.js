@@ -124,11 +124,13 @@ var fn_station = function(branch, station) {
 				//				   .html('<strong><i class="material-icons">&#xE2C1;</i></strong>  ').addClass('alert-danger'); 
 				//return false; 
 			}
-			if (data === "incorrect key") {
-				$('#status-online').show()
-								   .removeClass('alert-success').removeClass('alert-warning')
-								   .html('<strong><i class="material-icons">&#xE2C1;</i></strong> Estación incorrecta. Esto es un error de programación. Mala mía. :(').addClass('alert-danger'); 
-			} else if (data === "wait") {
+			// if (data === "incorrect key") {
+				//$('#status-online').show()
+				//				   .removeClass('alert-success').removeClass('alert-warning')
+				//				   .html('<strong><i class="material-icons">&#xE2C1;</i></strong> Estación incorrecta. Esto es un error de programación. Mala mía. :(').addClass('alert-danger'); 
+			//} 
+			//else 
+			if (data === "wait") {
 				$('#status-online').show()
 								   .removeClass('alert-success').removeClass('alert-danger')
 								   .html('<strong><i class="material-icons">&#xE2C1;</i></strong> Pausa desde el servidor de SOFSE. ').addClass('alert-warning'); 
