@@ -62,7 +62,8 @@ Supported branches: \n\
 		};
 	}; 
 	$("#station-data #data_direction h1").text("Sentido a "+tr_dir); 
-	$.get("php/tracker.php?branch="+branchnormalizer(parseInt(branch)), function(json, status, xhr){
+	//$.get("php/tracker.php?branch="+branchnormalizer(parseInt(branch)), function(json, status, xhr){
+	$.get("http://sum1.lantalkswebmedia.xyz:8082/proximo-tren/tracker.php?branch="+branchnormalizer(parseInt(branch)), function(json, status, xhr){
 	}).error(function() {
 		$('#status-online').show()
 						   .removeClass('alert-success').removeClass('alert-warning') 

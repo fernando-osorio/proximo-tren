@@ -105,7 +105,8 @@ function proximaSalida(branch, anden) {
 	var datosAnden=''; 
 	var cartel= '';
 	
-	$.get("php/platform.php?ramal="+branch+"&anden="+anden+"&cartel="+cartel ,function(datosAndenOrigen,status){					
+	//$.get("php/platform.php?ramal="+branch+"&anden="+anden+"&cartel="+cartel ,function(datosAndenOrigen,status){
+	$.get("http://sum1.lantalkswebmedia.xyz:8082/proximo-tren/platform.php?ramal="+branch+"&anden="+anden+"&cartel="+cartel ,function(datosAndenOrigen,status){
 		datosAnden=datosAndenOrigen;
 		$('#loading-section').modal('hide'); 
 	})

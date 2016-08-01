@@ -44,7 +44,8 @@ var fn_station = function(branch, station) {
 		} else if (config.viewdataused === "hide") {
 			$('#status-data').addClass('hidden'); 
 		};
-		$.get("php/station.php?branch="+branch+"&station="+station, function(json, status, xhr){
+		//$.get("php/station.php?branch="+branch+"&station="+station, function(json, status, xhr){
+		$.get("http://sum1.lantalkswebmedia.xyz:8082/proximo-tren/station.php?branch="+branch+"&station="+station, function(json, status, xhr){
 
 		}).error(function() {
 			st_attempts++; 

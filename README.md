@@ -62,6 +62,15 @@ Al contrario de la app oficial, acá se despliegan todos los datos de todos los 
 | El tren es tuyo, cuidalo. | No hay información de los próximos servicios. Consultá la cartelera de horarios para más información. |
 
 # Changelog 
+## v1.7.3
+* Brand agregado: Trenes Argentinos Operaciones. 
+* Parser corregido, lo levanta externamente. 
+**Aviso:** Parece que Sofse quiere cortarme la interacción con la API. Por esto no voy a publicar más los parsers de datos. El que lo necesite que me lo pida por privado y se lo facilito sin problemas. Es una lástima que tenga que hacer esto, pero para mantener la funcionalidad total tendré que hacerlo de esta forma. Ojalá Modernización Argentina tome el control de la API y la libere, total son estos pocos datos los que están accesibles (y otra parte muy grande está en la Intranet, como la velocidad, posición, velocidad de entrada a terminal, entre otros).  
+**Aviso 2:** Voy a intentar portearlo a Angular ya que va a dar más estabilidad a la webapp, como pasó con mi sitio personal y el de Flota Ferroviaria. Por lo tanto, comenzaré a dejar progresivamente el soporte a esta versión. 
+
+## v1.7.1/v1.7.2
+* Correcciones en tracker y keys en estacion. 
+
 ## v1.7 
 * Tracker funcionando (aún sigue en beta). 
 * Agregada fuente Gidole como personalización. 

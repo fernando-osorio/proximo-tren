@@ -91,7 +91,7 @@ var st_alert_check = "";
 // Loads config 
 config.brand = localStorage.getItem("brand"); 
 if (config.brand === null) {
-	localStorage.setItem("brand", "OFSE"); 
+	localStorage.setItem("brand", "TAOP"); 
 	config.brand = localStorage.getItem("brand"); 
 };
 config.linebrands = localStorage.getItem("linebrands"); 

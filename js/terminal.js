@@ -103,9 +103,11 @@ function proximasSalidas(idramal, sentido, estdefault) {
 	if ((selector) && (verifTerminal)) {
 		var datosTerminal='';
 		if (estdefault == "mitre") {
-			var urlget = "php/terminal-mitre.php?";
+			//var urlget = "php/terminal-mitre.php?";
+			var urlget = "http://sum1.lantalkswebmedia.xyz:8082/proximo-tren/terminal-mitre.php?";
 		} else {
-			var urlget = "php/terminal.php?ramal="+idramal+"&sentido="+sentido+'&'; 
+			//var urlget = "php/terminal.php?ramal="+idramal+"&sentido="+sentido+'&'; 
+			var urlget = "http://sum1.lantalkswebmedia.xyz:8082/proximo-tren/terminal.php?ramal="+idramal+"&sentido="+sentido+'&'; 
 		}
 
 		estacionPorDefecto = estdefault; 

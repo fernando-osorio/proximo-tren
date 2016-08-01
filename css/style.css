@@ -344,6 +344,14 @@
 		text-align: left; 
 		vertical-align: middle;
 	}
+	.brand#TAOP{
+		background-image: url(../img/brand-TAOP.svg); 
+		width: 120px; 
+		height: 35px; 
+		margin-right: 0px; 
+		text-align: left; 
+		vertical-align: middle;
+	}
 	@media (min-width: 48em){
 		.brand#NFA{
 			width: 225px; 
@@ -351,6 +359,10 @@
 		}
 		.brand#OFSE{
 			width: 230px; 
+			height: 75px; 
+		}
+		.brand#TAOP{
+			width: 249px; 
 			height: 75px; 
 		}
 	}
