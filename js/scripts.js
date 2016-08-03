@@ -862,7 +862,7 @@ var appstart = function(){
 		}
 	}
 	// Stations
-	$.get("section/station.html", function(jsonEstacion,status){
+	$.get("views/station.html", function(jsonEstacion,status){
 	}).error(function(status) {
 		console.error('Error loading station.'); 
 		checkLoad("station", false); 
@@ -872,7 +872,7 @@ var appstart = function(){
 	});
 
 	// Terminal
-	$.get("section/terminal.html", function(jsonEstacion,status){
+	$.get("views/terminal.html", function(jsonEstacion,status){
 	}).error(function(status) {
 		console.error('Error loading terminal.'); 
 		checkLoad("terminal", false); 
@@ -882,7 +882,7 @@ var appstart = function(){
 	});
 
 	// Platform
-	$.get("section/platform.html", function(jsonEstacion,status){
+	$.get("views/platform.html", function(jsonEstacion,status){
 	}).error(function(status) {
 		console.error('Error loading platform.'); 
 		checkLoad("platform", false); 
@@ -892,7 +892,7 @@ var appstart = function(){
 	});
 
 	// Tracking
-	$.get("section/tracking.html", function(jsonEstacion,status){
+	$.get("views/tracking.html", function(jsonEstacion,status){
 	}).error(function(status) {
 		console.error('Error loading tracker.'); 
 		checkLoad("platform", false); 

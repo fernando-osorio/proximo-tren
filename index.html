@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="proximo-tren" ng-init="loadStations()">
 	<!-- 
 		Programmed by Fernando Osorio (Fermoto5HD). 
 		WebApp's repo: http://github.com/Fermoto5HD/proximo-tren 
 	-->
-	<head>
+	<head ng-controller="railways" name="other" ng-init="railways()">
 		<title>Próximo tren</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -39,10 +39,14 @@
 		<meta name="twitter:site" content="@Fermoto5HD" />
 		<meta name="twitter:creator" content="@Fermoto5HD" />
 
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/tether/tether.js"></script>
-		<script src="vendor/bootstrap/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+		<script src="vendor/angular/js/angular.min.js"></script>
+		<script src="vendor/angular-route/js/angular-route.min.js"></script>
+		<script src="vendor/angular-sanitize/js/angular-sanitize.min.js"></script>
+		<script src="vendor/angular-moment/js/angular-moment.min.js"></script>
+		<script src="vendor/jquery/js/jquery.min.js"></script>
+		<script src="vendor/tether/js/tether.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/gidole-regular" type="text/css"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css" />
@@ -56,6 +60,7 @@
 		<script src="js/terminal.js"></script>
 		<script src="js/platform.js"></script>
 		<script src="js/tracker.js"></script>
+		<script src="js/scripts-angular.js"></script>
 	</head>
 	<body class="dinpro">
 		<div id="app-bg"></div>
@@ -487,67 +492,15 @@
 				</div>
 			</div>
 		</section>
+
+
+
 		<!-- Sections will appear here -->
-		<main id="main" style="display: hidden"></main>
-		<main id="selector" style="display: hidden">
-			<!-- No connection -->
-			<div id="no-connection" class="fluid-container" hidden>
-				<div class="alert alert-danger"><strong><i class="material-icons">&#xE2C1;</i></strong> No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.</div>
-			</div>
-			<div class="selector">
-				<!--<div class="fluid-container">
-					<div class="alert alert-info">
-						<strong>Nueva versión v1.6 (beta): </strong>
-						<p>Se agregaron funciones nuevas y se optimizaron otras más. </p>
-						<p>En caso de encontrar fallas por favor <a href="http://github.com/Fermoto5HD/proximo-tren/issues" target="_blank">abrí un issue acá</a>. ¡Gracias! </p>
-					</div>
-				</div>-->
-				<div class="fluid-container text-xs-center">
-					<div class="col-xs-12 col-md-8" id="sec-selector">
-						<section id="selector-linea" style="border-top: none;">
-							<h1>Seleccioná la línea</h1>
-							<div class="btn-group" data-toggle="buttons" id="listaLineas">
-								Cargando...
-							</div>
-						</section>
-						<section id="selector-ramal" style="display: none;">
-							<h1>Seleccioná el ramal</h1>
-							<div class="btn-group" data-toggle="buttons" id="listaRamales">
-								Seleccioná una línea para ver los ramales disponibles. 
-							</div>
-						</section>
-						<section id="selector-estacion" style="display: none;">
-							<h1>Seleccioná la estación</h1>
-							<div id="contenedorEstacionesLinea">
-								<div id="estacionesLinea"></div>
-							</div>
-						</section>
-						<section id="selector-sentido" style="display: none;">
-							<div id="acceso-terminal"></div>
-							<h1 id="titulo"></h1>
-							<div class="btn-group" data-toggle="buttons" id="sentidos"></div>
-						</section>
-						<section id="botonera-acceso" style="display: none;">
-							<button id="acceso">Ver los próximos trenes</button>
-						</section>
-					</div>
-					<div class="col-xs-12 col-md-4" id="sec-favs">
-						<section>
-							<h2>¡Bienvenido de nuevo!</h2>
-							<p>Podés elegir una de las estaciones que seleccionaste como frecuentes o podés:</p>
-							<div class="btn btn-primary btn-block">Seleccionar otra estación</div>
-							<h3>Estaciones frecuentes</h3>
-							<div class="list-group" id="fav-stations">
-								<a href="#" class="list-group-item disabled">
-									<h4 class="list-group-item-heading">Acá aparecerán las estaciones que marques para accederlas rápidamente desde la página de inicio.</h4>
-									<p class="list-group-item-text"></p>
-								</a>
-							</div>
-						</section>
-					</div>
-				</div>
-			</div>
-		</main>
+		<main ng-view></main>
+
+
+
+
 		<script type="text/javascript">
 			var app_clock = function(){
 				var horaactual = moment().format("hh:mma"); 

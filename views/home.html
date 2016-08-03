@@ -1,0 +1,65 @@
+<!-- No connection -->
+<div id="no-connection" class="fluid-container" hidden>
+	<div class="alert alert-danger"><strong><i class="material-icons">&#xE2C1;</i></strong> No tenés conexión a Internet. Por favor reintentá de nuevo cuando encuentres mejor señal o conexión WiFi.</div>
+</div>
+<div class="selector">
+	<div class="fluid-container">
+		<div class="alert alert-info">
+			<strong>Nueva versión v2.0 (alpha): </strong>
+			<p>Esta versión es un rewrite entero de la webapp. No está funcionando ya que es una maqueta y apenas se implementaron funciones básicas. </p>
+			<p>En caso de encontrar fallas por favor <a href="http://github.com/Fermoto5HD/proximo-tren/issues" target="_blank">abrí un issue acá</a>. </p>
+			<p>Para usar la versión estable <a href="http://plataforma5.16mb.com/proximo-tren">tocá acá</a>. ¡Gracias! </p>
+		</div>
+	</div>
+	<div class="fluid-container text-xs-center">
+		<div class="col-xs-12 col-lg-4" ng-class="{'hidden-sm-down' : toggledLine == true, 'col-md-6' : toggledLine == true, 'hidden-md-down' : selectedBranch == true}">
+			<div class="list-group">
+				<a class="list-group-item" ng-repeat="data in JSONdata" ng-click="selectLine(data.id)" ng-class="{active: $index == selectedLine}">{{data.line}}</a>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-4 visible-md-up" ng-class="{'hidden' : toggledLine == false, 'hidden-md-down' : selectedBranch == true}">
+			<span class="hidden-md-up">
+				<a class="btn btn-primary" ng-click="unselectLine()">Volver</a>
+				<br/>
+			</span>
+			<!--<a href="btn btn-primary">Ver todos los servicios desde Retiro</a>-->
+			<div class="list-group">
+				<a class="list-group-item" ng-repeat="data in JSONbranches" ng-click="selectBranch(data.id)" ng-class="{active: $index == selectedBranch}">{{data.name}}</a>
+			</div>
+		</div>
+		<div class="col-xs-12 col-lg-4" ng-show="selectedBranch">
+			<span class="hidden-lg-up">
+				<a class="btn btn-primary" ng-click="unselectBranch()">Volver</a>
+				<br/>
+			</span>
+			<div class="list-group">
+				<a class="list-group-item" ng-repeat="data in JSONstations" ng-click="selectStation(data.id)">{{data.name}}</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="md-station">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Estación</h4>
+			</div>
+			<div class="modal-body">
+				{{JSONstationdata}}
+				<p>Seleccioná el sentido hacia donde vas. </p>
+				<a href="#" class="btn btn-primary">Sentido 1</a>
+				<a href="#" class="btn btn-primary">Sentido 2</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	.hidden {
+		display: none; 
+	}
+</style>
