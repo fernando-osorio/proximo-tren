@@ -130,35 +130,6 @@ app
 		}
 	}])
 
-	.controller('station', ['$http', '$scope', '$routeParams', function ($http, $scope, $routeParams) {
-		console.log($routeParams.branch); 
-		console.log($routeParams.station); 
-		$http({
-	        method : "GET",
-	        url : "http://sum1.lantalkswebmedia.xyz:8082/proximo-tren/station.php?branch="+$routeParams.branch+"&station="+$routeParams.station
-	    }).then(function mySucces(response) {
-	        $scope.myWelcome = response.data;
-	        if(parseInt(response.data.items.demora_formacion_1) === 0){
-	        	$scope.train01_destiny = "La formación está en andén. Finaliza en:"; 
-	        	$scope.train01_time = stationParser(response.data.items.estacion_hasta_1, "station"); 
-	        } else if(parseInt(response.data.items.demora_formacion_1) === 1){
-	        	$scope.train01_destiny = "El próximo hacia " + stationParser(response.data.items.estacion_hasta_1, "station") + " llega en"; 
-	        	$scope.train01_time = "1 minuto"; 
-	        } else if (parseInt(response.data.items.demora_formacion_1) < 0) {
-	        	$scope.train01_destiny = ""; 
-	        	$scope.train01_time = "No hay próximo servicio"; 
-	        } else if (parseInt(response.data.items.demora_formacion_1) > 1) {
-	        	$scope.train01_destiny = "El próximo hacia " + stationParser(response.data.items.estacion_hasta_1, "station") + " llega en"; 
-	        	$scope.train01_time = response.data.items.demora_formacion_1 + " minutos"; 
-	        }
-	        console.log(response.data.items.demora_formacion_1); 
-	        console.log(response.data); 
-	    }, function myError(response) {
-	        $scope.myWelcome = response.statusText;
-	        console.log(response.statusText); 
-	    });
-	}])
-
 
 	.factory('fact_railways', ['$http', function($http) {
 		return {
