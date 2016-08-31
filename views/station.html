@@ -9,8 +9,8 @@
 	</div>
 </div>
 <!-- Containers -->
-<div class="main-stations main-container fluid-container text-xs-center hidden" id="scr-station">
-	<div class="col-xs-12" id="no-services">
+<div class="main-stations main-container fluid-container text-xs-center" id="scr-station">
+	<div class="col-xs-12" id="no-services" style="display: none">
 		<div class="card">
 			<div class="card-block">
 				<div class="row">
@@ -41,11 +41,11 @@
 		</div>
 	</div>
 	<div class="col-xs-12" id="main-services">
-		<div class="col-xs-12" id="first" style="display: none;">
+		<div class="col-xs-12" id="first">
 			<div class="card service">
 				<div class="card-block row">
-					<p class="destiny"></p>
-					<p class="remaining"></p>
+					<p class="destiny">{{train01_destiny}}</p>
+					<p class="remaining">{{train01_time}}</p>
 				</div>
 				<div class="card-footer" style="display: none;">
 					<div class="row">
