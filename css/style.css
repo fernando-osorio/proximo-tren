@@ -16,22 +16,7 @@
 	*{
 		padding: 0; margin: 0;
 		font-family: "fuente", Arial, Serif;
-<<<<<<< HEAD
-		-webkit-user-select: none; 
-		-moz-user-select: none;
-		user-select: none; 
 	} 
-	section{margin: 10px; border-top: 1px solid rgba(200, 200, 200, 0.5);}
-	button{
-		margin: 10px; 
-		padding: 10px; 
-		background-color: rgba(0, 0, 0, 0.75); 
-		border: 1px solid rgba(200, 200, 200, 0.5); 
-		color: #FFF; 
-	}
-=======
-	} 
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 
 /* Contenedor */
 	.grid-container{
@@ -41,11 +26,7 @@
 
 /* Fondo */
 	#fondo{
-<<<<<<< HEAD
-		color: #000; 
-=======
 		background-image: url(../img/background/4.jpg); 
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 		background-size: cover; 
 		background-position: center;
 		background-repeat: no-repeat;
@@ -62,43 +43,6 @@
 
 /* Barra superior */
 	header{background-image: linear-gradient(to bottom, rgb(20, 20, 20) 0%, transparent 100%);}
-<<<<<<< HEAD
-	.brand{
-		margin: 10px;
-		background-size: cover; 
-		background-position: center;
-		display: inline-block; 
-	}
-	.brand#NFA{
-		background-image: url(../img/brand-NFA.png); 
-		width: 225px; 
-		height: 75px; 
-		text-align: left; 
-		vertical-align: middle;
-	}
-	.brand#min-transporte{
-		background-image: url(../img/brand-FM5HD.png); 
-		width: 340px; 
-		height: 60px; 
-		right: 0;
-		float: right;
-	}
-	#volver {display: inline-block; width: 80px; vertical-align: middle; transition: 0.5s; cursor: pointer;}
-	#volver i.material-icons{font-size: 70px; color: #FFF;}
-	#volver.ocultarVolver {width: 0px;}
-	#volver.ocultarVolver.oculto {display: none;}
-	@media (max-width: 767px) {
-		.brand#NFA{
-			width: 135px; 
-			height: 45px; 
-		}
-		#volver {width: 50px;}
-		#volver i.material-icons{font-size: 40px;}
-	}
-
-/* Barra de alerta inferior */
-=======
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 	#barra-mensaje-alerta{position: fixed; bottom: 0; background-color: rgb(200, 0, 0); color: #FFF; display: none; }
 	.brand{
 		margin: 10px;
@@ -133,16 +77,6 @@
 	.servicios-finalizados i.material-icons{font-size: 175px; padding-bottom: 0;}
 	.servicios-finalizados h1{font-size: 90px;}
 	.servicios-finalizados h2{font-size: 42px; margin-top: 15px;}
-<<<<<<< HEAD
-	@media (max-width: 767px) {
-		.servicios-finalizados i.material-icons{font-size: 90px;}
-		.servicios-finalizados h1{font-size: 27px;}
-		.servicios-finalizados h2{font-size: 17px;}
-	}
-
-/* Cuadros de próximo tren */
-=======
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 	.proximo-tren .cuadro-tren, .siguiente-tren .cuadro-tren, .subsiguiente-tren .cuadro-tren{
 		background-color: rgba(0, 0, 0, 0.75); 
 		border: 1px solid rgba(255, 255, 255, 0.5);
@@ -163,70 +97,6 @@
 	.proximo-tren p 							{font-size: 55px;}
 	.siguiente-tren p							{font-size: 40px;}
 	.subsiguiente-tren p						{font-size: 40px;}
-<<<<<<< HEAD
-
-	.proximo-tren p.num-tiempo					{font-size: 180px; line-height: 190px;}
-	.siguiente-tren p.num-tiempo				{font-size: 70px;}
-	.subsiguiente-tren p.num-tiempo				{font-size: 70px;}
-	@media (max-width: 767px) {
-		.proximo-tren p 							{font-size: 30px;}
-		.siguiente-tren p							{font-size: 30px;}
-		.subsiguiente-tren p						{font-size: 30px;}
-
-		.proximo-tren p.num-tiempo					{font-size: 60px; line-height: inherit;}
-		.siguiente-tren p.num-tiempo				{font-size: 60px;}
-		.subsiguiente-tren p.num-tiempo				{font-size: 60px;}
-	}
-
-/* Andén de terminal */
-	.anden .cuadro{
-		background-color: rgba(0, 0, 0, 0.75); 
-		border: 1px solid rgba(255, 255, 255, 0.5);
-		color: #FFF; 
-		margin: 5px; 
-	}
-	.anden p{font-size: 64px;}
-	.anden p.salida#hora{font-size: 180px;}
-	.anden p.anden#texto{display: block;}
-	.anden p.anden#numero{font-size: 180px;}
-	.anden p.anden#mobile{font-size: 40px; display: none;}
-	.anden .servicio-atrasado{font-size: 56px;}
-	.anden .servicio-especial .cuadro-serv-especiales#tipo-serv-est{background-color: rgba(0, 0, 0, 0.5); text-transform: capitalize;}
-	.anden .servicio-especial .cuadro-serv-especiales{overflow: hidden;}
-	@media (max-width: 767px) {
-		.anden p {font-size: 30px;}
-		.anden p.salida#hora{font-size: 60px;}
-		.anden p.anden#texto{display: none;}
-		.anden p.anden#numero{font-size: 60px; display: none;}
-		.anden p.anden#mobile{display: block;}
-		.anden .servicio-atrasado{font-size: 28px;}
-	}
-
-/* Terminal */
-	h1#tituloMismoDestino{background-color: rgba(255, 255, 255, 0.75); color: rgb(20, 20, 20); display: none;}
-	.terminal .proximo-servicio.sin-servicio{display: none;}
-	.terminal .proximo-servicio{background-color: rgba(0, 0, 0, 0.75); margin: 5px; color: #FFF; opacity: 0.5;}
-	.terminal .proximo-servicio.confirmado, .terminal .proximo-servicio.enanden{opacity: 1;}
-	.terminal .destino-hora{font-size: 50px; display: inline-block;}
-	.terminal .estado-anden{font-size: 50px; display: inline-block;}
-	.terminal .destino-mobile{display: none; font-size: 20px;}
-	.terminal .hora-mobile{display: none; font-size: 30px;}
-	.terminal .estado-mobile{display: none; font-size: 20px;}
-	.terminal .anden-mobile{display: none; font-size: 30px;}
-	.terminal .servicios-especiales, .terminal .tipo-servicio{border-top: 1px solid rgba(200, 200, 200, 0.5); font-size: 35px; padding: 0px; overflow: hidden; }
-	.terminal .servicios-especiales .estaciones{overflow: hidden;}
-	.terminal .servicios-especiales.oculto, .terminal .tipo-servicio.oculto{display: none;}
-	@media (max-width: 767px) {
-		.terminal .destino-hora{display: none;}
-		.terminal .estado-anden{display: none;}
-		.terminal .destino-mobile{display: block;}
-		.terminal .hora-mobile{display: block;}
-		.terminal .estado-mobile{display: block;}
-		.terminal .anden-mobile{display: block;}
-		.terminal .servicios-especiales, .terminal .tipo-servicio{font-size: 25px;}
-	}
-
-=======
 
 	.proximo-tren p.num-tiempo					{font-size: 180px;}
 	.siguiente-tren p.num-tiempo				{font-size: 70px;}
@@ -241,7 +111,6 @@
 		.subsiguiente-tren p.num-tiempo				{font-size: 60px;}
 	}
 
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 /* Muestra los servicios rápidos */
 	.cuadro-serv-especiales p{font-size: 34px;}
 	@media (max-width: 767px) {.cuadro-serv-especiales p{font-size: 25px;}}
@@ -250,16 +119,9 @@
 	p#estaciones-serv-especial, .js-marquee-wrapper, .js-marquee{text-transform: capitalize;}
 	p#estaciones-serv-especial:first-letter, .js-marquee-wrapper:first-letter, .js-marquee:first-letter{text-transform: uppercase !important;}
 
-<<<<<<< HEAD
-/* Flags de servicios */
-	.especial{background-color: rgba(200, 150, 0, 0.75);}
-	.rapido{background-color: rgba(0, 150, 255, 0.75);}
-	.semi-rapido{background-color: rgba(225, 225, 0, 0.75); color: #000;}
-=======
 	.especial{background-color: rgba(200, 150, 0, 0.75);}
 	.rapido{background-color: rgba(0, 150, 255, 0.75);}
 	.semi-rapido{background-color: rgba(200, 200, 200, 0.75); color: #000;}
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 
 
 /* Footer/Header mobile */
@@ -269,31 +131,6 @@
 	background-color: rgba(0, 0, 0, 0.75); 
 	color:#FFF;
 }
-<<<<<<< HEAD
-.datos-estacion.terminal{position: static;}
-.datos-estacion img#linea{padding: 3px 0;}
-.datos-estacion i.material-icons{font-size: 40px; vertical-align: top;}
-@media (max-width: 1060px) {
-	.datos-estacion{position: static;}
-	.datos-estacion img#linea{max-width: 250px;}
-	.datos-estacion h1{font-size: 22px;}
-	.datos-estacion i.material-icons{font-size: 30px;}
-}
-
-@media (max-height: 720px) {
-	.datos-estacion{position: static;}
-	.datos-estacion img#linea{max-width: 250px;}
-	.datos-estacion h1{font-size: 22px;}
-	.datos-estacion i.material-icons{font-size: 30px;}
-}
-
-/* Modificaciones a Bootstrap */
-.btn-default {
-  color: #FFF;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.5);
-=======
 @media (max-width: 767px) {
 	.datos-estacion{position: static;}
->>>>>>> b2afb38... [v1.x.x] Primera versión.
 }
