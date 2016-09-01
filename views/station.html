@@ -42,7 +42,7 @@
 	</div>
 	<div class="col-xs-12" id="main-services" ng-show="train01">
 		<div class="col-xs-12" id="first">
-			<div class="card service">
+			<div class="card service" ng-class="train01_status">
 				<div class="card-block row">
 					<p class="destiny">{{train01_destiny}}</p>
 					<p class="remaining">{{train01_time}}</p>
@@ -50,10 +50,10 @@
 				<div class="card-footer" ng-show="train01_hasstations">
 					<div class="row">
 						<div class="col-xs-12 col-md-4 type">
-							<p><span class="intro">Servicio </span><span class="string">{{train02_type}}</span></p>
+							<p><span class="intro">Servicio </span><span class="string">{{train01_type}}</span></p>
 						</div>
 						<div class="col-xs-12 col-md-8 stations">
-							<p>{{train01_stations}}</p>
+							<p angular-marquee scroll="true" duration="5000">{{train01_stations}}</p>
 						</div>
 					</div>
 				</div>
