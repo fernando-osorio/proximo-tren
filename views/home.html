@@ -27,7 +27,7 @@
 				<a class="list-group-item" ng-repeat="data in JSONbranches" ng-click="selectBranch(data.id)" ng-class="{active: $index == selectedBranch}">{{data.name}}</a>
 			</div>
 		</div>
-		<div class="col-xs-12 col-lg-4" ng-show="selectedBranch">
+		<div class="col-xs-12 col-lg-4" ng-show="definedBranch">
 			<span class="hidden-lg-up">
 				<a class="btn btn-primary" ng-click="unselectBranch()">Volver</a>
 				<br/>
@@ -46,13 +46,22 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">Estación</h4>
+				<h4 class="modal-title">Estación {{station.name}} <span class="text-muted">{{station.id}}</span></h4>
 			</div>
 			<div class="modal-body">
 				{{JSONstationdata}}
-				<p>Seleccioná el sentido hacia donde vas. </p>
-				<a href="#" class="btn btn-primary">Sentido 1</a>
-				<a href="#" class="btn btn-primary">Sentido 2</a>
+				<span ng-show="isstation">
+					<p>Seleccioná el sentido hacia donde vas. </p>
+					<a href="#/station/{{directionDes.id}}/{{station.id}}" class="btn btn-primary" onclick="$('.modal-backdrop.fade.in').remove();">{{directionDes.name}}</a>
+					<a href="#/station/{{directionAsc.id}}/{{station.id}}" class="btn btn-primary" onclick="$('.modal-backdrop.fade.in').remove();">{{directionAsc.name}}</a>
+				</span>
+				<span ng-show="isterminal">
+					<a href="#/terminal/{{JSONstationdata[0].terminalId}}/{{JSONstationdata[0].direction}}" class="btn btn-primary" onclick="$('.modal-backdrop.fade.in').remove();">Ver próximos servicios desde {{station.name}}</a>
+					<span ng-show="JSONstationdata !== null">
+						<p>O seleccioná la plataforma de partida: </p>
+						<a ng-repeat="platform in JSONstationdata" href="#/platform/{{platform.terminalId}}/{{platform.id}}" class="btn btn-primary" onclick="$('.modal-backdrop.fade.in').remove();">{{platform.name}}</a>
+					</span>
+				</span>
 			</div>
 		</div>
 	</div>

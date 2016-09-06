@@ -38,8 +38,8 @@
 												]
 											, "terminalId": 1, "direction": 2}
 				], 
-				"direction": [	{"id": 	2, 	"station": "Once"},
-											{"id": 	1, 	"station": "Moreno"}]
+				"direction": [	{"id": 	2, 	"name": "Once"},
+											{"id": 	1, 	"name": "Moreno"}]
 			}, 
 			{"id": 1, "name": "Merlo-Lobos", 
 				"station": [
@@ -202,24 +202,24 @@
 												]
 											, "terminalId": 9, "direction": 2}
 				], 
-				"direction": [	{"id": 	10, 	"station": "Retiro"},
-											{"id": 	9, 	"station": "José Leon Suárez","shortname": "J. L. Suárez"}]
+				"direction": [	{"id": 	10, 	"name": "Retiro"},
+											{"id": 	9, 	"name": "José Leon Suárez","shortname": "J. L. Suárez"}]
 			}, 
 			{"id": 3, "name": "Victoria-Capilla del Señor", 
 				"station": [
 											{"id": 1, 	"name": "Victoria", "platform": [{"id": 0}], "terminalId": 33, "direction": 1}, 
 											{"id": 2, 	"name": "Capilla del Señor", "platform": [{"id": 0}], "terminalId": 34, "direction": 1}
 				], 
-				"direction": [	{"id": 	34, 	"station": "Victoria"},
-											{"id": 	33, 	"station": "Capilla del Señor"}]
+				"direction": [	{"id": 	34, 	"name": "Victoria"},
+											{"id": 	33, 	"name": "Capilla del Señor"}]
 			}, 
 			{"id": 4, "name": "Villa Ballester-Zárate", 
 				"station": [
 											{"id": 1, 	"name": "Villa Ballester", "platform": [{"id": 0}], "terminalId": 35, "direction": 1}, 
 											{"id": 2, 	"name": "Zárate", "platform": [{"id": 0}], "terminalId": 36, "direction": 1}
 				], 
-				"direction": [	{"id": 	36, 	"station": "Villa Ballester"},
-											{"id": 	35, 	"station": "Zárate"}]
+				"direction": [	{"id": 	36, 	"name": "Villa Ballester"},
+											{"id": 	35, 	"name": "Zárate"}]
 			}
 		]
 	},

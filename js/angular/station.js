@@ -1,4 +1,6 @@
 angular.module('proximo-tren').controller('station', ['$http', '$scope', '$routeParams', function ($http, $scope, $routeParams) {
+	$(".modal-backdrop.fade.in").remove(); 
+	$("#md-station").modal("hide"); 
 	console.log($routeParams.branch); 
 	console.log($routeParams.station); 
 	$http({
