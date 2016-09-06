@@ -61,7 +61,7 @@ angular.module('proximo-tren').controller('station', ['$http', '$scope', '$route
 				}
 			} else {
 				$scope.train01 = false; 
-			}
+			};
 			
 			if (response.data.items.demora_formacion_2 !== undefined) {
 				if(parseInt(response.data.items.demora_formacion_2) === 0){
@@ -84,6 +84,8 @@ angular.module('proximo-tren').controller('station', ['$http', '$scope', '$route
 			}
 
 			if (response.data.items.demora_formacion_3 !== undefined) {
+				$scope.train02_show = "col-md-6"; 
+				$scope.train03_show = true; 
 				if(parseInt(response.data.items.demora_formacion_3) === 0){
 					$scope.train03_destiny = "La formación está en andén."; 
 					$scope.train03_time = "En andén"; 
@@ -93,6 +95,7 @@ angular.module('proximo-tren').controller('station', ['$http', '$scope', '$route
 				} else if (parseInt(response.data.items.demora_formacion_3) < 0) {
 					$scope.train03_destiny = ""; 
 					$scope.train03_time = "No hay próximo servicio"; 
+					$scope.train02_show = "col-md-12"; 
 					$scope.train03 = false; 
 				} else if (parseInt(response.data.items.demora_formacion_3) > 1) {
 					$scope.train03_destiny = "El sub-siguiente llega en"; 
